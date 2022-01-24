@@ -1,0 +1,55 @@
+<script setup lang="ts">
+import { useResponsiveProp } from '@/hooks';
+import { ResponsiveProp } from '@/utils';
+import { computed } from 'vue';
+
+interface Props {
+  isAttached?: ResponsiveProp<boolean>;
+  isRounded?: ResponsiveProp<boolean>;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  isAttached: false,
+  isRounded: false
+});
+const get = useResponsiveProp();
+
+const classes = computed(() => [
+  get<boolean>(props.isRounded, { isBoolean: true }) &&
+    'd-button-group--is-rounded',
+  get<boolean>(props.isAttached, { isBoolean: true }) &&
+    'd-button-group--is-attached'
+]);
+
+const _isAttached = computed(() =>
+  get<boolean>(props.isAttached, { isBoolean: true })
+);
+</script>
+<template>
+  <d-flex :gap="_isAttached ? 0 : 2" class="d-button-group" :class="classes">
+    <slot />
+  </d-flex>
+</template>
+
+<style lang="postcss" scoped>
+.d-button-group {
+  &.d-button-group--is-rounded {
+    &:deep(.d-button:first-child) {
+      border-top-left-radius: 999px;
+      border-bottom-left-radius: 999px;
+    }
+    &:deep(.d-button:last-child) {
+      border-top-right-radius: 999px;
+      border-bottom-right-radius: 999px;
+    }
+    &:deep(.d-button:not(:first-child):not(:last-child)) {
+      border-radius: 0;
+    }
+  }
+  &.d-button-group--is-attached {
+    &:deep(.d-button:not(:first-child)) {
+      margin-left: -1px;
+    }
+  }
+}
+</style>

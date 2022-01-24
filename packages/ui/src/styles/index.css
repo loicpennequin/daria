@@ -1,0 +1,59 @@
+@import './reset.css';
+
+body {
+  font-family: var(--d-font-body), Helvetica, Arial, sans-serif;
+  font-weight: var(--d-font-weight-normal);
+  font-size: var(--d-font-size-4);
+  background-color: var(--d-color-grey-1);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--d-font-heading), Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  font-size: var(--d-font-size-8);
+  margin-top: var(--d-spacing-1);
+  margin-bottom: var(--d-spacing-1);
+}
+
+h2 {
+  font-size: var(--d-font-size-6);
+  margin-top: var(--d-spacing-1);
+  margin-bottom: var(--d-spacing-1);
+}
+
+h3 {
+  font-size: var(--d-font-size-5);
+  margin-top: var(--d-spacing-1);
+  margin-bottom: var(--d-spacing-1);
+}
+
+h4 {
+  font-size: var(--d-font-size-4);
+  margin-top: var(--d-spacing-1);
+  margin-bottom: var(--d-spacing-1);
+}
+
+h5 {
+  font-size: var(--d-font-size-3);
+  margin-top: var(--d-spacing-1);
+  margin-bottom: var(--d-spacing-1);
+}
+
+h6 {
+  font-size: var(--d-font-size-2);
+  margin-top: var(--d-spacing-1);
+  margin-bottom: var(--d-spacing-1);
+}
+
+:root {
+  --d-breakpoint-mobile: 540px;
+  --d-breakpoint-tablet: 992px;
+  --d-breakpoint-laptop: 1200px;
+}
