@@ -57,3 +57,7 @@ h6 {
   --d-breakpoint-tablet: 992px;
   --d-breakpoint-laptop: 1200px;
 }
+
+[data-readable-color] {
+  color: var(--readable-color) !important;
+}

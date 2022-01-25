@@ -49,7 +49,7 @@ const styleProps = useStyleProps(props);
   grid-template-columns: v-bind('gridTemplate.columns');
   grid-template-rows: v-bind('gridTemplate.rows');
   grid-gap: v-bind('styleProps.gap');
-  justify-content: v-bind(justify);
+  justify-items: v-bind(justify);
   align-items: v-bind(align);
 }
 </style>

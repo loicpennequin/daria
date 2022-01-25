@@ -6,41 +6,53 @@ const observers = new WeakMap<HTMLElement, MutationObserver>();
 
 export const vReadableColor: Directive = {
   mounted(el: HTMLElement, { value }) {
-    const setColor = throttle(() => {
+    const setColor = (checkedElement: HTMLElement = el) => {
+      console.log('setColor');
       if (!value) {
         el.style.removeProperty('color');
+        el.dataset.readableColor = undefined;
         return;
       }
 
       let backgroundColor;
-      let element: Maybe<HTMLElement> = el;
 
-      while (!backgroundColor) {
-        if (!element) break;
-        const computedStyle = window.getComputedStyle(element);
-        backgroundColor = computedStyle.backgroundColor;
-        element = el.parentElement;
-      }
+      const computedStyle = window.getComputedStyle(checkedElement);
+      backgroundColor = computedStyle.backgroundColor;
 
       if (backgroundColor) {
-        el.style.color = getReadableColor(backgroundColor);
+        checkedElement.style.setProperty(
+          '--readable-color',
+          getReadableColor(backgroundColor)
+        );
+        checkedElement.dataset.readableColor = 'true';
+        el.dataset.readableColor = 'true';
+      } else if (checkedElement.parentElement) {
+        setColor(checkedElement.parentElement);
       }
-    }, 50);
+    };
 
     setColor();
 
-    const observer = new window.MutationObserver(setColor);
+    const throttledSetColor = throttle(() => setColor(), 50);
+    const observer = new window.MutationObserver(mutationList => {
+      const shouldIgnore = mutationList.some(
+        value => value.attributeName === 'data-readable-color'
+      );
+      if (shouldIgnore) return;
+
+      throttledSetColor();
+    });
     observer.observe(el, {
       attributes: true,
       childList: false,
       subtree: false
     });
     observers.set(el, observer);
-    el.addEventListener('mouseenter', setColor);
-    el.addEventListener('mouseleave', setColor);
-    el.addEventListener('focus', setColor);
-    el.addEventListener('blur', setColor);
-    el.addEventListener('transitionend', setColor);
+    el.addEventListener('mouseenter', throttledSetColor);
+    el.addEventListener('mouseleave', throttledSetColor);
+    el.addEventListener('focus', throttledSetColor);
+    el.addEventListener('blur', throttledSetColor);
+    el.addEventListener('transitionend', throttledSetColor);
   },
 
   unmounted(el: HTMLElement) {

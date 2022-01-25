@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { checkFlexGap } from '@/utils';
-import { useStyleProps } from '@/hooks';
+import { checkFlexGap, ResponsiveProp } from '@/utils';
+import { useResponsiveProp, useStyleProps } from '@/hooks';
 
 interface Props {
   direction?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
@@ -14,6 +14,7 @@ interface Props {
     | 'space-evenly';
   align?: 'flex-start' | 'flex-end' | 'center' | 'stretch';
   wrap?: 'wrap' | 'nowrap';
+  isInline: ResponsiveProp<boolean>;
   gap?: string | number;
 }
 
@@ -27,7 +28,15 @@ const props = withDefaults(defineProps<Props>(), {
 
 const isFlexboxGapSupported = checkFlexGap();
 
+const get = useResponsiveProp();
 const styleProps = useStyleProps(props);
+const flexProps = computed(() => ({
+  justify: get(props.justify, { isBoolean: true }),
+  direction: get(props.direction, { isBoolean: true }),
+  align: get(props.align, { isBoolean: true }),
+  wrap: get(props.wrap, { isBoolean: true }),
+  display: get(props.isInline, { isBoolean: true }) ? 'inline-flex' : 'flex'
+}));
 const classes = computed(() =>
   isFlexboxGapSupported
     ? []
@@ -49,11 +58,11 @@ const classes = computed(() =>
 
 <style lang="scss" scoped>
 .d-flex {
-  display: flex;
-  flex-direction: v-bind('props.direction');
-  justify-content: v-bind('props.justify');
-  align-items: v-bind('props.align');
-  flex-wrap: v-bind('props.wrap');
+  display: v-bind('flexProps.display');
+  flex-direction: v-bind('flexProps.direction');
+  justify-content: v-bind('flexProps.justify');
+  align-items: v-bind('flexProps.align');
+  flex-wrap: v-bind('flexProps.wrap');
   gap: v-bind('styleProps.gap');
 }
 
