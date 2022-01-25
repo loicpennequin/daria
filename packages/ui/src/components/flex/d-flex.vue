@@ -14,7 +14,7 @@ interface Props {
     | 'space-evenly';
   align?: 'flex-start' | 'flex-end' | 'center' | 'stretch';
   wrap?: 'wrap' | 'nowrap';
-  isInline: ResponsiveProp<boolean>;
+  isInline?: ResponsiveProp<boolean>;
   gap?: string | number;
 }
 
@@ -23,7 +23,8 @@ const props = withDefaults(defineProps<Props>(), {
   justify: 'flex-start',
   align: 'stretch',
   wrap: 'wrap',
-  gap: 0
+  gap: 0,
+  isInline: false
 });
 
 const isFlexboxGapSupported = checkFlexGap();

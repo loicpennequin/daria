@@ -69,4 +69,7 @@ export type Theme = {
   radius: {
     [key: string | number]: string;
   };
+  transition: {
+    [key: string | number]: string;
+  };
 };

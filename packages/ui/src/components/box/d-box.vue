@@ -43,6 +43,7 @@ interface Props {
   color?: StyleProp;
   borderColor?: StyleProp;
   borderRadius?: StyleProp;
+  transition?: StyleProp;
 }
 const props = withDefaults(defineProps<Props>(), {
   is: 'div',
@@ -54,11 +55,8 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const styleProps = useStyleProps(props);
-const textColor = computed(
-  () =>
-    styleProps.value.color ||
-    getReadableColor(styleProps.value.bg || TRANSPARENT)
-);
+const textColor = computed(() => styleProps.value.color || 'inherit');
+const bgColor = computed(() => styleProps.value.bg || 'transparent');
 </script>
 
 <template>
@@ -72,10 +70,11 @@ const textColor = computed(
   font-size: v-bind('styleProps.fontSize');
   margin: v-bind('styleProps.margin');
   padding: v-bind('styleProps.padding');
-  background-color: v-bind('styleProps.bg');
+  background-color: v-bind('bgColor');
   color: v-bind('textColor');
   box-shadow: v-bind('styleProps.shadow');
   border-color: v-bind('styleProps.borderColor');
   border-radius: v-bind('styleProps.borderRadius');
+  transition: v-bind('styleProps.transition');
 }
 </style>

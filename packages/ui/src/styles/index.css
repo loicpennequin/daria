@@ -1,5 +1,8 @@
 @import './reset.css';
 
+html {
+  font-size: 13.5px;
+}
 body {
   font-family: var(--d-font-body), Helvetica, Arial, sans-serif;
   font-weight: var(--d-font-weight-normal);
@@ -17,7 +20,7 @@ h6 {
 }
 
 h1 {
-  font-size: var(--d-font-size-8);
+  font-size: var(--d-font-size-7);
   margin-top: var(--d-spacing-1);
   margin-bottom: var(--d-spacing-1);
 }

@@ -1,4 +1,5 @@
 import { mapToCssVar } from '@/utils/css';
+import { isObject } from 'lodash-es';
 import { computed } from 'vue';
 import { useResponsiveProp } from './useResponsiveProp';
 
@@ -26,6 +27,24 @@ export const useStyleProps = (props: any) => {
     const rightToken = mapToCssVar('spacing', getPropValue(right || x || all));
 
     return `${topToken} ${rightToken} ${bottomToken} ${leftToken}`;
+  };
+
+  const computeTransitions = (
+    value: string | number | { [key: string]: number | string }
+  ) => {
+    if (!isObject(value)) {
+      return `all ${mapToCssVar('transition', value)}`;
+    }
+
+    return Object.entries(value).reduce(
+      (acc, [property, themeValue], index) => {
+        return `${acc}${index === 0 ? '' : ', '}${property} ${mapToCssVar(
+          'transition',
+          themeValue
+        )}`;
+      },
+      ''
+    );
   };
 
   return computed(() => {
@@ -56,7 +75,8 @@ export const useStyleProps = (props: any) => {
       color: mapToCssVar('color', getPropValue(props.color)),
       borderColor: mapToCssVar('color', getPropValue(props.borderColor)),
       gap: mapToCssVar('spacing', getPropValue(props.gap)),
-      borderRadius: mapToCssVar('radius', getPropValue(props.borderRadius))
+      borderRadius: mapToCssVar('radius', getPropValue(props.borderRadius)),
+      transition: computeTransitions(getPropValue(props.transition))
     };
   });
 };

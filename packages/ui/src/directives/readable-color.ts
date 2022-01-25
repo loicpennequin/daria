@@ -7,17 +7,14 @@ const observers = new WeakMap<HTMLElement, MutationObserver>();
 export const vReadableColor: Directive = {
   mounted(el: HTMLElement, { value }) {
     const setColor = (checkedElement: HTMLElement = el) => {
-      console.log('setColor');
       if (!value) {
         el.style.removeProperty('color');
         el.dataset.readableColor = undefined;
         return;
       }
 
-      let backgroundColor;
-
-      const computedStyle = window.getComputedStyle(checkedElement);
-      backgroundColor = computedStyle.backgroundColor;
+      const backgroundColor =
+        window.getComputedStyle(checkedElement).backgroundColor;
 
       if (backgroundColor) {
         checkedElement.style.setProperty(

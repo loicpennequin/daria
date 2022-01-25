@@ -1,26 +1,50 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { vReadableColor } from '@/directives';
-const log = console.log;
+
+const isSticking = ref(false);
 </script>
 
 <template>
-  <d-grid :columns="10" gap="2" justify="center" align="center">
-    <d-box
-      v-for="i in 1000"
-      :key="i"
-      p="1"
-      font-size="1"
-      :bg="['red-3', 'blue-8']"
-      @click="log(i)"
-    >
-      {{ i }}
-    </d-box>
-  </d-grid>
+  <d-sticky
+    is="header"
+    p="3"
+    :bg="isSticking ? 'blue-7' : 'grey-0'"
+    :shadow="isSticking ? 5 : 0"
+    :transition="{ 'box-shadow': 3 }"
+    v-model:is-sticking="isSticking"
+    v-readable-color="true"
+  >
+    <d-flex justify="space-between" align="center">
+      <h1 font-weight="light">BRAND</h1>
+
+      <nav>
+        <d-flex is="ul" align="center" gap="2">
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a color="grey-0" href="/">About</a>
+          </li>
+          <li>
+            <a color="grey-0" href="/">Contact</a>
+          </li>
+        </d-flex>
+      </nav>
+    </d-flex>
+  </d-sticky>
 </template>
 
 <style lang="postcss">
-.cell {
-  width: min-content;
-  background: var(--bg);
+#app {
+  height: 100%;
+}
+
+body {
+  height: 200vh !important;
+}
+
+nav a {
+  color: inherit;
 }
 </style>

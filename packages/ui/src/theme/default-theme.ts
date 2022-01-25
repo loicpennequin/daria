@@ -140,5 +140,13 @@ export const defaultTheme: Theme = {
     6: '1rem',
     circle: '50%',
     pill: '9999px'
+  },
+  transition: {
+    0: '0',
+    1: '0.2s',
+    2: '0.3s',
+    3: '0.5s',
+    4: '0.8s',
+    5: '1s'
   }
 };
