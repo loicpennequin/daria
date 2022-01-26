@@ -1,21 +1,22 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { checkFlexGap, ResponsiveProp } from '@/utils';
+import {
+  checkFlexGap,
+  FlexAlign,
+  FlexDirection,
+  FlexJustify,
+  FlexWrap,
+  ResponsiveProp
+} from '@/utils';
 import { useResponsiveProp, useStyleProps } from '@/hooks';
 
 interface Props {
-  direction?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
-  justify?:
-    | 'flex-start'
-    | 'flex-end'
-    | 'center'
-    | 'space-around'
-    | 'space-between'
-    | 'space-evenly';
-  align?: 'flex-start' | 'flex-end' | 'center' | 'stretch';
-  wrap?: 'wrap' | 'nowrap';
+  direction?: ResponsiveProp<FlexDirection>;
+  justify?: ResponsiveProp<FlexJustify>;
+  align?: ResponsiveProp<FlexAlign>;
+  wrap?: ResponsiveProp<FlexWrap>;
   isInline?: ResponsiveProp<boolean>;
-  gap?: string | number;
+  gap?: ResponsiveProp<string | number>;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -38,14 +39,15 @@ const flexProps = computed(() => ({
   wrap: get(props.wrap, { isBoolean: true }),
   display: get(props.isInline, { isBoolean: true }) ? 'inline-flex' : 'flex'
 }));
+
 const classes = computed(() =>
   isFlexboxGapSupported
     ? []
     : [
-        ['row', 'row-reverse'].includes(props.direction) &&
+        ['row', 'row-reverse'].includes(get(props.direction)) &&
           'd-flex--safari-gap-fix-horizontal',
 
-        ['column', 'column-reverse'].includes(props.direction) &&
+        ['column', 'column-reverse'].includes(get(props.direction)) &&
           'd-flex--safari-gap-fix-vertical'
       ]
 );

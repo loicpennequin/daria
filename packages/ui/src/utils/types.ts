@@ -73,3 +73,14 @@ export type Theme = {
     [key: string | number]: string;
   };
 };
+
+export type FlexDirection = 'row' | 'column' | 'row-reverse' | 'column-reverse';
+export type FlexJustify =
+  | 'flex-start'
+  | 'flex-end'
+  | 'center'
+  | 'space-around'
+  | 'space-between'
+  | 'space-evenly';
+export type FlexAlign = 'flex-start' | 'flex-end' | 'center' | 'stretch';
+export type FlexWrap = 'wrap' | 'nowrap';

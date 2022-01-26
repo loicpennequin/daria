@@ -12,7 +12,8 @@ export const VARIANT_SCHEMES = Object.freeze({
     active: 9
   },
   ghost: {
-    hover: 5,
+    normal: 5,
+    hover: 1,
     focus: 5,
     active: 6
   }

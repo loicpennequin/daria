@@ -1,7 +1,7 @@
 @import './reset.css';
 
 html {
-  font-size: 13.5px;
+  font-size: 14px;
 }
 body {
   font-family: var(--d-font-body), Helvetica, Arial, sans-serif;

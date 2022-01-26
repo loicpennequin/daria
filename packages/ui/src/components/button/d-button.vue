@@ -12,13 +12,15 @@ interface Props {
   borderRadius?: StyleProp;
   variant?: ResponsiveProp<ButtonVariant>;
   isFullwidth?: ResponsiveProp<boolean>;
+  isUppercase?: ResponsiveProp<boolean>;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   colorScheme: 'grey',
   borderRadius: 3,
   variant: 'full',
-  isFullwidth: false
+  isFullwidth: false,
+  isUppercase: false
 });
 
 const get = useResponsiveProp();
@@ -29,7 +31,9 @@ const scheme = useColorScheme(
 const classes = computed(() => [
   `d-button--${get(props.variant)}`,
   get<boolean>(props.isFullwidth, { isBoolean: true }) &&
-    'd-button--is-fullwidth'
+    'd-button--is-fullwidth',
+  get<boolean>(props.isUppercase, { isBoolean: true }) &&
+    'd-button--is-uppercase'
 ]);
 </script>
 
@@ -39,6 +43,7 @@ const classes = computed(() => [
     :border-radius="borderRadius"
     px="3"
     py="1"
+    font-weight="semibold"
     class="d-button"
     :class="classes"
     v-readable-color="variant === 'full'"
@@ -63,6 +68,10 @@ const classes = computed(() => [
   width: 100%;
 }
 
+.d-button--is-uppercase {
+  text-transform: uppercase;
+}
+
 .d-button--full {
   --d-button-color: v-bind('scheme.normal');
   background-color: var(--d-button-color);
@@ -73,7 +82,7 @@ const classes = computed(() => [
       --d-button-color: v-bind('scheme.hover');
     }
 
-    &:focus {
+    &:focus-visible {
       --d-button-color: v-bind('scheme.focus');
     }
 
@@ -93,8 +102,10 @@ const classes = computed(() => [
       background-color: v-bind('scheme.hover');
     }
 
-    &:focus {
+    &:focus-visible {
       --d-button-color: v-bind('scheme.focus');
+      background-color: v-bind('scheme.hover');
+      outline: none;
     }
 
     &:active {
@@ -105,13 +116,14 @@ const classes = computed(() => [
 
 .d-button--ghost {
   border-color: transparent;
+  color: v-bind('scheme.normal');
 
   &:not([disabled]) {
     &:hover {
-      color: v-bind('scheme.hover');
+      background: v-bind('scheme.hover');
     }
 
-    &:focus {
+    &:focus-visible {
       color: v-bind('scheme.focus');
       outline: solid 2px v-bind('scheme.focus');
     }

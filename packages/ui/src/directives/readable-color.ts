@@ -9,7 +9,7 @@ export const vReadableColor: Directive = {
     const setColor = (checkedElement: HTMLElement = el) => {
       if (!value) {
         el.style.removeProperty('color');
-        el.dataset.readableColor = undefined;
+        delete el.dataset.readableColor;
         return;
       }
 

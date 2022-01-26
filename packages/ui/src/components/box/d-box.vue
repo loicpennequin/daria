@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { TRANSPARENT } from '@/constants';
 import { useStyleProps } from '@/hooks';
-import { getReadableColor, StyleProp } from '@/utils';
+import { StyleProp } from '@/utils';
 import { computed } from 'vue';
 
 interface Props {

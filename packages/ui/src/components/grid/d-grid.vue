@@ -8,6 +8,7 @@ interface Props {
   rows?: ResponsiveProp<number | string>;
   gap?: ResponsiveProp<number | string>;
   justify?:
+    | 'normal'
     | 'flex-start'
     | 'flex-end'
     | 'center'
@@ -18,7 +19,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  justify: 'flex-start',
+  justify: 'normal',
   align: 'stretch',
   gap: 0
 });

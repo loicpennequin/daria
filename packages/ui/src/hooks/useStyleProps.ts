@@ -1,3 +1,4 @@
+import { camelToKebabCase } from '@/utils';
 import { mapToCssVar } from '@/utils/css';
 import { isObject } from 'lodash-es';
 import { computed } from 'vue';
@@ -38,10 +39,9 @@ export const useStyleProps = (props: any) => {
 
     return Object.entries(value).reduce(
       (acc, [property, themeValue], index) => {
-        return `${acc}${index === 0 ? '' : ', '}${property} ${mapToCssVar(
-          'transition',
-          themeValue
-        )}`;
+        return `${acc}${index === 0 ? '' : ', '}${camelToKebabCase(
+          property
+        )} ${mapToCssVar('transition', themeValue)}`;
       },
       ''
     );

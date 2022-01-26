@@ -28,6 +28,9 @@ export const defaultTheme: Theme = {
     }
   },
   color: {
+    transparent: 'transparent',
+    black: 'black',
+    white: 'white',
     red: createColorScale({
       baseColor: 'hsl(0,100%,50%)',
       maxLightness: 0.96,

@@ -6,3 +6,4 @@ export * from './flex';
 export * from './grid';
 export * from './sticky';
 export * from './surface';
+export * from './icon';
