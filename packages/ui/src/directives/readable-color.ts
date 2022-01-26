@@ -13,13 +13,11 @@ export const vReadableColor: Directive = {
         return;
       }
 
-      const backgroundColor =
-        window.getComputedStyle(checkedElement).backgroundColor;
-
-      if (backgroundColor) {
+      const bgColor = window.getComputedStyle(checkedElement).backgroundColor;
+      if (bgColor) {
         checkedElement.style.setProperty(
           '--readable-color',
-          getReadableColor(backgroundColor)
+          getReadableColor(bgColor)
         );
         checkedElement.dataset.readableColor = 'true';
         el.dataset.readableColor = 'true';
@@ -28,7 +26,12 @@ export const vReadableColor: Directive = {
       }
     };
 
-    setColor();
+    // Using requestAnimationFrame because of some bugs encountered
+    // where checking the element computed style would cancel css transitions OUTSIDE the node
+    // wtf is this shit
+    requestAnimationFrame(() => {
+      setColor();
+    });
 
     const throttledSetColor = throttle(() => setColor(), 50);
     const observer = new window.MutationObserver(mutationList => {

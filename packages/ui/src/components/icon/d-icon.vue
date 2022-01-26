@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ICONS } from '@/constants';
+import { ICONS_INJECTION_KEY } from '@/constants';
 import { computed, inject } from 'vue';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-const icons = inject<Record<string, any>>(ICONS);
+const icons = inject<Record<string, any>>(ICONS_INJECTION_KEY);
 
 const iconComponent = computed(() => (props.icon ? icons?.[props.icon] : null));
 </script>

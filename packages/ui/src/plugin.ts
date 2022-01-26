@@ -3,7 +3,7 @@ import 'inert-polyfill';
 import '@/styles/index.css';
 
 import { App, Plugin } from 'vue';
-import { THEME_SERVICE, ICONS } from './constants';
+import { THEME_SERVICE, ICONS_INJECTION_KEY } from './constants';
 import { ThemeService } from './theme';
 import { camelToKebabCase } from './utils';
 import * as components from './components';
@@ -26,7 +26,10 @@ export const createDariaUi = ({
       themeService.init();
 
       app.provide<ThemeService>(THEME_SERVICE, themeService);
-      app.provide<Record<string, any>>(ICONS, { ...dariaIcons, ...icons });
+      app.provide<Record<string, any>>(ICONS_INJECTION_KEY, {
+        ...dariaIcons,
+        ...icons
+      });
       if (!registerComponents) return;
 
       Object.entries(components).map(async ([name, component]) => {
