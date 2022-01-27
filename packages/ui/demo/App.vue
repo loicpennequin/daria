@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useBreakpoints } from '@/hooks';
+import { compose } from '@/utils';
 
 const isSticking = ref(false);
 const isMenuOpened = ref(false);
 const breakpoints = useBreakpoints();
 
-const debug = () => console.log(breakpoints);
+const Card = compose('d-surface', 'd-flex');
 </script>
 
 <template>
@@ -49,7 +50,13 @@ const debug = () => console.log(breakpoints);
             </nav>
 
             <template #footer>
-              <d-button color-scheme="indigo" border-radius="0" is-fullwidth>
+              <d-button
+                color-scheme="indigo"
+                border-radius="0"
+                py="2"
+                font-size="3"
+                is-fullwidth
+              >
                 Login
               </d-button>
             </template>
@@ -57,7 +64,7 @@ const debug = () => console.log(breakpoints);
         </d-drawer>
       </template>
 
-      <h1 @click="debug">BRAND</h1>
+      <h1>BRAND</h1>
 
       <nav v-show="breakpoints.aboveSm">
         <d-flex is="ul" align="center" gap="4">
@@ -84,14 +91,19 @@ const debug = () => console.log(breakpoints);
         v-slot="{ isVisible }"
         v-for="i in 18"
         :key="i"
-        min-height="200px"
+        min-height="100px"
       >
-        <d-scale-transition :is-visible="isVisible" shadow="2" appear>
-          <d-surface shadow="2" p="0">
-            <d-flex is="d-surface" align="center" justify="center" class="card">
-              Card {{ i }}
-            </d-flex>
-          </d-surface>
+        <d-scale-transition :is-visible="isVisible">
+          <Card shadow="2" gap="3" direction="column">
+            <img :src="`https://picsum.photos/seed/${i}/100`" />
+            <p ml="3">Card {{ i }}</p>
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor
+              harum ipsam, velit sapiente nam totam quaerat, aliquam praesentium
+              laudantium a minus soluta quas voluptatibus labore! Facere et
+              repellat nisi enim.
+            </p>
+          </Card>
         </d-scale-transition>
       </d-lazy>
     </d-grid>
@@ -111,9 +123,5 @@ nav {
       text-decoration: none;
     }
   }
-}
-
-.card {
-  height: 200px;
 }
 </style>

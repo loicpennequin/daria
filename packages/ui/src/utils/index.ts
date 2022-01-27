@@ -6,3 +6,4 @@ export * from './css';
 export * from './feature-detection';
 export * from './assertions';
 export * from './create-teleport-host';
+export * from './compose-components';

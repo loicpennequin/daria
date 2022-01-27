@@ -1,7 +1,7 @@
 import { camelToKebabCase, isNil } from '@/utils';
 import { mapToCssVar } from '@/utils/css';
 import { isObject } from 'lodash-es';
-import { computed } from 'vue';
+import { computed, unref } from 'vue';
 import { useResponsiveProp } from './useResponsiveProp';
 
 type SpacingValues = {
@@ -55,35 +55,37 @@ export const useStyleProps = (props: any) => {
   };
 
   return computed(() => {
+    const _props = unref(props);
+
     return {
-      shadow: mapToCssVar('shadow', getPropValue(props.shadow)),
-      fontSize: mapToCssVar('font-size', getPropValue(props.fontSize)),
-      fontWeight: mapToCssVar('font-weight', getPropValue(props.fontWeight)),
-      fontFamily: mapToCssVar('font', getPropValue(props.fontFamily)),
+      shadow: mapToCssVar('shadow', getPropValue(_props.shadow)),
+      fontSize: mapToCssVar('font-size', getPropValue(_props.fontSize)),
+      fontWeight: mapToCssVar('font-weight', getPropValue(_props.fontWeight)),
+      fontFamily: mapToCssVar('font', getPropValue(_props.fontFamily)),
       margin: computeSpacing({
-        all: props.margin ?? props.m,
-        x: props.marginX ?? props.mx,
-        y: props.marginY ?? props.y,
-        top: props.marginTop ?? props.mt,
-        bottom: props.marginBottom ?? props.mb,
-        left: props.marginLeft ?? props.ml,
-        right: props.marginRight ?? props.mr
+        all: _props.margin ?? _props.m,
+        x: _props.marginX ?? _props.mx,
+        y: _props.marginY ?? _props.y,
+        top: _props.marginTop ?? _props.mt,
+        bottom: _props.marginBottom ?? _props.mb,
+        left: _props.marginLeft ?? _props.ml,
+        right: _props.marginRight ?? _props.mr
       }),
       padding: computeSpacing({
-        all: props.padding ?? props.p,
-        x: props.paddingX ?? props.px,
-        y: props.paddingY ?? props.py,
-        top: props.paddingTop ?? props.pt,
-        bottom: props.paddingBottom ?? props.pb,
-        left: props.paddingLeft ?? props.pl,
-        right: props.paddingRight ?? props.pr
+        all: _props.padding ?? _props.p,
+        x: _props.paddingX ?? _props.px,
+        y: _props.paddingY ?? _props.py,
+        top: _props.paddingTop ?? _props.pt,
+        bottom: _props.paddingBottom ?? _props.pb,
+        left: _props.paddingLeft ?? _props.pl,
+        right: _props.paddingRight ?? _props.pr
       }),
-      bg: mapToCssVar('color', getPropValue(props.background || props.bg)),
-      color: mapToCssVar('color', getPropValue(props.color)),
-      borderColor: mapToCssVar('color', getPropValue(props.borderColor)),
-      gap: mapToCssVar('spacing', getPropValue(props.gap)),
-      borderRadius: mapToCssVar('radius', getPropValue(props.borderRadius)),
-      transition: computeTransitions(getPropValue(props.transition))
+      bg: mapToCssVar('color', getPropValue(_props.background || _props.bg)),
+      color: mapToCssVar('color', getPropValue(_props.color)),
+      borderColor: mapToCssVar('color', getPropValue(_props.borderColor)),
+      gap: mapToCssVar('spacing', getPropValue(_props.gap)),
+      borderRadius: mapToCssVar('radius', getPropValue(_props.borderRadius)),
+      transition: computeTransitions(getPropValue(_props.transition))
     };
   });
 };

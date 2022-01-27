@@ -116,6 +116,7 @@ const classes = computed(() => [
 
 .d-button--ghost {
   border-color: transparent;
+  background-color: transparent;
   color: v-bind('scheme.normal');
 
   &:not([disabled]) {

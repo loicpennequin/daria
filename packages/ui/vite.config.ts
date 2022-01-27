@@ -7,7 +7,8 @@ export default defineConfig({
   plugins: [vue(), svgLoader()],
   resolve: {
     alias: {
-      '@': `${__dirname}/src`
+      '@': `${__dirname}/src`,
+      vue: 'vue/dist/vue.esm-bundler.js'
     }
   },
   build: {
