@@ -11,7 +11,7 @@ const close = () => {
 </script>
 
 <template>
-  <d-button variant="ghost" @click="close" p="0">
+  <d-button variant="ghost" @click="close" px="0" py="0">
     <d-icon icon="close" size="5" />
   </d-button>
 </template>

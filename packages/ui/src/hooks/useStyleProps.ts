@@ -19,13 +19,13 @@ export const useStyleProps = (props: any) => {
 
   const computeSpacing = (values: SpacingValues) => {
     const { all, x, y, top, bottom, left, right } = values;
-    const topToken = mapToCssVar('spacing', getPropValue(top || y || all));
+    const topToken = mapToCssVar('spacing', getPropValue(top ?? y ?? all));
     const bottomToken = mapToCssVar(
       'spacing',
-      getPropValue(bottom || y || all)
+      getPropValue(bottom ?? y ?? all)
     );
-    const leftToken = mapToCssVar('spacing', getPropValue(left || x || all));
-    const rightToken = mapToCssVar('spacing', getPropValue(right || x || all));
+    const leftToken = mapToCssVar('spacing', getPropValue(left ?? x ?? all));
+    const rightToken = mapToCssVar('spacing', getPropValue(right ?? x ?? all));
 
     return `${topToken} ${rightToken} ${bottomToken} ${leftToken}`;
   };

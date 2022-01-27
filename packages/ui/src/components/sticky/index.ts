@@ -1,1 +1,1 @@
-export { default as dSticky } from './sticky.vue';
+export { default as DSticky } from './sticky.vue';

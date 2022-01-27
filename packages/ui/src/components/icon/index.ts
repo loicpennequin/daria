@@ -1,1 +1,1 @@
-export { default as dIcon } from './d-icon.vue';
+export { default as DIcon } from './d-icon.vue';

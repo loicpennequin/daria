@@ -1,1 +1,1 @@
-export { default as dContainer } from './d-container.vue';
+export { default as DContainer } from './d-container.vue';

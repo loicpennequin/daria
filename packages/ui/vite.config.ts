@@ -7,11 +7,11 @@ export default defineConfig({
   plugins: [vue(), svgLoader()],
   resolve: {
     alias: {
-      '@': `${__dirname}/src`,
-      vue: 'vue/dist/vue.esm-bundler.js'
+      '@': `${__dirname}/src`
     }
   },
   build: {
+    sourcemap: true
     // lib: {
     //   entry: path.resolve(__dirname, 'src/index.ts'),
     //   name: 'DariaUi',

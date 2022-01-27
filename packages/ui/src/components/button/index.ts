@@ -1,1 +1,1 @@
-export { default as dButton } from './d-button.vue';
+export { default as DButton } from './d-button.vue';

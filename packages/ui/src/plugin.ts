@@ -5,7 +5,7 @@ import '@/styles/index.css';
 import { App, Plugin } from 'vue';
 import { THEME_SERVICE, ICONS_INJECTION_KEY } from './constants';
 import { ThemeService } from './theme';
-import { camelToKebabCase } from './utils';
+import { camelToKebabCase, lowerCaseFirstLetter } from './utils';
 import * as components from './components';
 import * as dariaIcons from './assets/icons';
 
@@ -33,7 +33,7 @@ export const createDariaUi = ({
       if (!registerComponents) return;
 
       Object.entries(components).map(async ([name, component]) => {
-        app.component(camelToKebabCase(name), component);
+        app.component(camelToKebabCase(lowerCaseFirstLetter(name)), component);
       });
     }
   };

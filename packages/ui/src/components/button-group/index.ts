@@ -1,1 +1,1 @@
-export { default as dButtonGroup } from './d-button-group.vue';
+export { default as DButtonGroup } from './d-button-group.vue';

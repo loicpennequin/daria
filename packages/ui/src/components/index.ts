@@ -9,3 +9,4 @@ export * from './icon';
 export * from './sticky';
 export * from './surface';
 export * from './transitions';
+export * from './lazy';

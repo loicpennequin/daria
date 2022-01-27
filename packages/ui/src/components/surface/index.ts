@@ -1,1 +1,1 @@
-export { default as dSurface } from './d-surface.vue';
+export { default as DSurface } from './d-surface.vue';

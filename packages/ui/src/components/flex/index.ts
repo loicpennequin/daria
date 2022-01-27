@@ -1,1 +1,1 @@
-export { default as dFlex } from './d-flex.vue';
+export { default as DFlex } from './d-flex.vue';

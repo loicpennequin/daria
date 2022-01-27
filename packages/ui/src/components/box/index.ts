@@ -1,1 +1,1 @@
-export { default as dBox } from './d-box.vue';
+export { default as DBox } from './d-box.vue';

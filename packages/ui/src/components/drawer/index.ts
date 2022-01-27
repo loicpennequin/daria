@@ -1,4 +1,4 @@
-export { default as dDrawer } from './d-drawer.vue';
-export { default as dDrawerContent } from './d-drawer-content.vue';
-export { default as dDrawerOverlay } from './d-drawer-overlay.vue';
-export { default as dDrawerCloseButton } from './d-drawer-close-button.vue';
+export { default as DDrawer } from './d-drawer.vue';
+export { default as DDrawerContent } from './d-drawer-content.vue';
+export { default as DDrawerOverlay } from './d-drawer-overlay.vue';
+export { default as DDrawerCloseButton } from './d-drawer-close-button.vue';
