@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useStyleProps } from '@/hooks';
-import { StyleProp } from '@/utils';
-import { computed } from 'vue';
+import { StyleProp, isNotNil } from '@/utils';
 
 interface Props {
   is?: any;
@@ -45,35 +44,61 @@ interface Props {
   transition?: StyleProp;
 }
 const props = withDefaults(defineProps<Props>(), {
-  is: 'div',
-  p: 0,
-  m: 0,
-  borderRadius: 0,
-  fontWeight: 'normal',
-  shadow: 0
+  is: 'div'
 });
 
 const styleProps = useStyleProps(props);
-const textColor = computed(() => styleProps.value.color || 'inherit');
-const bgColor = computed(() => styleProps.value.bg || 'transparent');
 </script>
 
 <template>
-  <component :is="is" class="d-box"><slot /></component>
+  <component
+    :is="is"
+    class="d-box"
+    :data-d-bg="isNotNil(styleProps.bg) ? '' : undefined"
+    :data-d-color="isNotNil(props.color) ? '' : undefined"
+    :data-d-padding="isNotNil(styleProps.padding) ? '' : undefined"
+    :data-d-margin="isNotNil(styleProps.margin) ? '' : undefined"
+    :data-d-border-radius="isNotNil(styleProps.borderRadius) ? '' : undefined"
+    :data-d-font-weight="isNotNil(styleProps.fontWeight) ? '' : undefined"
+    :data-d-shadow="isNotNil(styleProps.shadow) ? '' : undefined"
+  >
+    <slot />
+  </component>
 </template>
 
-<style scoped>
+<style lang="postcss" scoped>
 .d-box {
   font-family: v-bind('styleProps.fontFamily');
-  font-weight: v-bind('styleProps.fontWeight');
   font-size: v-bind('styleProps.fontSize');
-  margin: v-bind('styleProps.margin');
-  padding: v-bind('styleProps.padding');
-  background-color: v-bind('bgColor');
-  color: v-bind('textColor');
-  box-shadow: v-bind('styleProps.shadow');
   border-color: v-bind('styleProps.borderColor');
-  border-radius: v-bind('styleProps.borderRadius');
   transition: v-bind('styleProps.transition');
+
+  &[data-d-bg] {
+    background-color: v-bind('styleProps.bg');
+  }
+
+  &[data-d-color] {
+    color: v-bind('styleProps.color');
+  }
+
+  &[data-d-padding] {
+    padding: v-bind('styleProps.padding');
+  }
+
+  &[data-d-margin] {
+    margin: v-bind('styleProps.margin');
+  }
+
+  &[data-d-border-radius] {
+    border-radius: v-bind('styleProps.borderRadius');
+  }
+
+  &[data-d-font-weight] {
+    font-weight: v-bind('styleProps.fontWeight');
+  }
+
+  &[data-d-shadow] {
+    box-shadow: v-bind('styleProps.shadow');
+  }
 }
 </style>

@@ -1,4 +1,4 @@
-import { camelToKebabCase } from '@/utils';
+import { camelToKebabCase, isNil } from '@/utils';
 import { mapToCssVar } from '@/utils/css';
 import { isObject } from 'lodash-es';
 import { computed } from 'vue';
@@ -18,7 +18,10 @@ export const useStyleProps = (props: any) => {
   const getPropValue = useResponsiveProp();
 
   const computeSpacing = (values: SpacingValues) => {
+    if (Object.values(values).every(isNil)) return null;
+
     const { all, x, y, top, bottom, left, right } = values;
+
     const topToken = mapToCssVar('spacing', getPropValue(top ?? y ?? all));
     const bottomToken = mapToCssVar(
       'spacing',
@@ -27,12 +30,16 @@ export const useStyleProps = (props: any) => {
     const leftToken = mapToCssVar('spacing', getPropValue(left ?? x ?? all));
     const rightToken = mapToCssVar('spacing', getPropValue(right ?? x ?? all));
 
-    return `${topToken} ${rightToken} ${bottomToken} ${leftToken}`;
+    return `${topToken ?? 0} ${rightToken ?? 0} ${bottomToken ?? 0} ${
+      leftToken ?? 0
+    }`;
   };
 
   const computeTransitions = (
     value: string | number | { [key: string]: number | string }
   ) => {
+    if (isNil(value)) return null;
+
     if (!isObject(value)) {
       return `all ${mapToCssVar('transition', value)}`;
     }
