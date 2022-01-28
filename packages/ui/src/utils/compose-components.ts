@@ -3,7 +3,6 @@ import { isString } from './assertions';
 
 export const compose = (...components: string[]) => {
   return components.reduceRight<Component>((acc, current, index) => {
-    console.log(current, index);
     return {
       name: `composed-${current}`,
       data: () => ({ child: isString(acc) ? acc : markRaw(acc) }),

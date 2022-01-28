@@ -15,7 +15,7 @@ const Card = compose('d-surface', 'd-flex');
     :p="[0, 3]"
     :bg="isSticking ? 'white' : 'transparent'"
     :shadow="isSticking ? 4 : 0"
-    :transition="{ boxShadow: 3 }"
+    transition="2"
     v-model:is-sticking="isSticking"
     is="header"
   >
@@ -85,17 +85,43 @@ const Card = compose('d-surface', 'd-flex');
     </d-flex>
   </d-sticky>
 
+  <d-grid bg="indigo-3" p="3" :columns="[1, 2]" justify="flex-end">
+    <d-grid-item column="2">
+      <!-- <d-surface mr="6">
+        <d-flex is="form" direction="column" gap="4">
+          <div>
+            <label>E-mail address</label>
+            <input type="text" />
+          </div>
+          <div>
+            <label>Username</label>
+            <input type="text" />
+          </div>
+          <div>
+            <label>Password</label>
+            <input type="password" />
+          </div>
+          <div>
+            <label>Confirm password</label>
+            <input type="password" />
+          </div>
+
+          <d-button py="2" font-size="4">Sign up</d-button>
+        </d-flex> 
+      </d-surface>-->
+    </d-grid-item>
+  </d-grid>
   <d-container is="main">
     <d-grid p="4" gap="5" :columns="[1, 3]">
       <d-lazy
         v-slot="{ isVisible }"
         v-for="i in 18"
         :key="i"
-        min-height="100px"
+        min-height="250px"
       >
         <d-scale-transition :is-visible="isVisible">
           <Card shadow="2" gap="3" direction="column">
-            <img :src="`https://picsum.photos/seed/${i}/100`" />
+            <img :src="`https://picsum.photos/seed/${i}/200`" />
             <p ml="3">Card {{ i }}</p>
             <p>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor
@@ -123,5 +149,18 @@ nav {
       text-decoration: none;
     }
   }
+}
+
+input,
+label {
+  display: block;
+}
+input {
+  padding: var(--d-spacing-2);
+}
+
+label {
+  margin-bottom: var(--d-spacing-1);
+  font-weight: var(--d-font-weight-semibold);
 }
 </style>
