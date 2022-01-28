@@ -2,6 +2,8 @@
 import { vOnIntersect } from '@/directives';
 import { computed, ref } from 'vue';
 
+import { DBox } from '@/components/box';
+
 interface Props {
   top?: number | string;
 }
@@ -30,13 +32,13 @@ const classes = [isSticking.value && 'd-sticky--is-sticking'];
 </script>
 
 <template>
-  <d-box
+  <DBox
     class="d-sticky"
     :classes="classes"
     v-on-intersect:[intersectOptions]="onIntersect"
   >
     <slot />
-  </d-box>
+  </DBox>
 </template>
 
 <style lang="postcss" scoped>

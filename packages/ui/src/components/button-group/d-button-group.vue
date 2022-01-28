@@ -3,6 +3,8 @@ import { useResponsiveProp } from '@/hooks';
 import { ResponsiveProp } from '@/utils';
 import { computed } from 'vue';
 
+import { DFlex } from '@/components/flex';
+
 interface Props {
   isAttached?: ResponsiveProp<boolean>;
   isRounded?: ResponsiveProp<boolean>;
@@ -26,9 +28,9 @@ const _isAttached = computed(() =>
 );
 </script>
 <template>
-  <d-flex :gap="_isAttached ? 0 : 2" class="d-button-group" :class="classes">
+  <DFlex :gap="_isAttached ? 0 : 2" class="d-button-group" :class="classes">
     <slot />
-  </d-flex>
+  </DFlex>
 </template>
 
 <style lang="postcss" scoped>

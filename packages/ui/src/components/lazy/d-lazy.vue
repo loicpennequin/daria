@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { vOnIntersect } from '@/directives';
+import { DBox } from '@/components/box';
 
 interface Props {
   threshold?: number;
@@ -31,9 +32,9 @@ const intersectOptions = {
 </script>
 
 <template>
-  <d-box v-on-intersect:[intersectOptions]="onIntersect" class="d-lazy">
+  <DBox v-on-intersect:[intersectOptions]="onIntersect" class="d-lazy">
     <slot :is-visible="isVisible" />
-  </d-box>
+  </DBox>
 </template>
 
 <style scoped>

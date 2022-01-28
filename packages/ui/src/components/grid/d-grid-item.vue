@@ -3,6 +3,8 @@ import { useResponsiveProp } from '@/hooks';
 import { ResponsiveProp } from '@/utils';
 import { computed } from 'vue';
 
+import { DBox } from '@/components/box';
+
 interface Props {
   column?: ResponsiveProp<number | string>;
   row?: ResponsiveProp<number | string>;
@@ -17,9 +19,9 @@ const style = computed(() => ({
 </script>
 
 <template>
-  <d-box class="d-grid-item">
+  <DBox class="d-grid-item">
     <slot />
-  </d-box>
+  </DBox>
 </template>
 
 <style lang="scss" scoped>

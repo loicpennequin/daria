@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ICONS_INJECTION_KEY } from '@/constants';
 import { computed, inject } from 'vue';
+import { DBox } from '@/components/box';
 
 interface Props {
   icon?: string;
@@ -14,11 +15,11 @@ const iconComponent = computed(() => (props.icon ? icons?.[props.icon] : null));
 </script>
 
 <template>
-  <d-box :font-size="props.size" class="d-icon">
+  <DBox :font-size="props.size" class="d-icon">
     <slot>
       <component :is="iconComponent" />
     </slot>
-  </d-box>
+  </DBox>
 </template>
 
 <style lang="postcss" scoped>

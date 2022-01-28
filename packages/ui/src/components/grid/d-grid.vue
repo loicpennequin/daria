@@ -3,6 +3,8 @@ import { useResponsiveProp, useStyleProps } from '@/hooks';
 import { isNumber, ResponsiveProp } from '@/utils';
 import { computed } from 'vue';
 
+import { DBox } from '@/components/box';
+
 interface Props {
   columns: ResponsiveProp<number | string>;
   rows?: ResponsiveProp<number | string>;
@@ -39,9 +41,9 @@ const styleProps = useStyleProps(props);
 </script>
 
 <template>
-  <d-box class="d-grid">
+  <DBox class="d-grid">
     <slot />
-  </d-box>
+  </DBox>
 </template>
 
 <style lang="postcss" scoped>

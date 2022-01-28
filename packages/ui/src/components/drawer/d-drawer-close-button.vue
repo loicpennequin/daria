@@ -3,6 +3,9 @@ import { inject } from 'vue';
 import { DRAWER_INJECTION_KEY } from '@/constants';
 import { DrawerContext } from './d-drawer.types';
 
+import { DButton } from '@/components/button';
+import { DIcon } from '@/components/icon';
+
 const context = inject<DrawerContext>(DRAWER_INJECTION_KEY);
 
 const close = () => {
@@ -11,9 +14,9 @@ const close = () => {
 </script>
 
 <template>
-  <d-button variant="ghost" @click="close" px="0" py="0">
-    <d-icon icon="close" size="5" />
-  </d-button>
+  <DButton variant="ghost" @click="close" px="0" py="0">
+    <DIcon icon="close" size="5" />
+  </DButton>
 </template>
 
 <style lang="postcss" scoped>

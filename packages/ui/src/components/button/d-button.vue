@@ -3,7 +3,9 @@ import { computed } from 'vue';
 import { useColorScheme, useResponsiveProp } from '@/hooks';
 import { vReadableColor } from '@/directives';
 import { ResponsiveProp, StyleProp } from '@/utils';
-import { VARIANT_SCHEMES } from './d-buttion.constants';
+import { VARIANT_SCHEMES } from './d-button.constants';
+
+import { DBox } from '@/components/box';
 
 type ButtonVariant = 'full' | 'outlined' | 'ghost';
 
@@ -38,7 +40,7 @@ const classes = computed(() => [
 </script>
 
 <template>
-  <d-box
+  <DBox
     is="button"
     :border-radius="borderRadius"
     px="3"
@@ -49,7 +51,7 @@ const classes = computed(() => [
     v-readable-color="variant === 'full'"
   >
     <slot />
-  </d-box>
+  </DBox>
 </template>
 
 <style lang="postcss" scoped>

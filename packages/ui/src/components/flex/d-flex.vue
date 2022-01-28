@@ -10,6 +10,8 @@ import {
 } from '@/utils';
 import { useResponsiveProp, useStyleProps } from '@/hooks';
 
+import { DBox } from '@/components/box';
+
 interface Props {
   direction?: ResponsiveProp<FlexDirection>;
   justify?: ResponsiveProp<FlexJustify>;
@@ -54,9 +56,9 @@ const classes = computed(() =>
 </script>
 
 <template>
-  <d-box class="d-flex" :class="classes">
+  <DBox class="d-flex" :class="classes">
     <slot />
-  </d-box>
+  </DBox>
 </template>
 
 <style lang="scss" scoped>

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+import { DBox } from '@/components/box';
+
 interface Props {
   isSmall?: boolean;
   isLarge?: boolean;
@@ -18,9 +20,9 @@ const classes = computed(() => ({
 </script>
 
 <template>
-  <d-box class="d-container" :class="classes">
+  <DBox class="d-container" :class="classes">
     <slot />
-  </d-box>
+  </DBox>
 </template>
 
 <style lang="scss" scoped>

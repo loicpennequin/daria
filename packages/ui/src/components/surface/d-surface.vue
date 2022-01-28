@@ -1,7 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { DBox } from '@/components/box';
+</script>
 
 <template>
-  <d-box bg="grey-0" p="3" class="d-surface">
+  <DBox bg="grey-0" p="3" class="d-surface">
     <slot />
-  </d-box>
+  </DBox>
 </template>

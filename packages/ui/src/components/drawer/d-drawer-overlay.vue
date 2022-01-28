@@ -2,7 +2,7 @@
 import { inject } from 'vue';
 import { DRAWER_INJECTION_KEY } from '@/constants';
 import { DrawerContext } from './d-drawer.types';
-import { vClickOutside } from '@/directives';
+import { DFadeTransition } from '@/components/transitions';
 
 const context = inject<DrawerContext>(DRAWER_INJECTION_KEY);
 
@@ -12,9 +12,9 @@ const close = () => {
 </script>
 
 <template>
-  <d-fade-transition :is-visible="context?.isOpened" :duration="300" appear>
+  <DFadeTransition :is-visible="!!context?.isOpened" :duration="300" appear>
     <div class="d-drawer-overlay" @click="close" />
-  </d-fade-transition>
+  </DFadeTransition>
 </template>
 
 <style lang="postcss" scoped>

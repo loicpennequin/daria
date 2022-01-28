@@ -4,6 +4,9 @@ import { DRAWER_INJECTION_KEY } from '@/constants';
 import { DrawerContext } from './d-drawer.types';
 import { vClickOutside } from '@/directives';
 
+import { DSlideTransition } from '@/components/transitions';
+import { DBox } from '@/components/box';
+
 const context = inject<DrawerContext>(DRAWER_INJECTION_KEY);
 
 const distance = computed(() =>
@@ -16,27 +19,27 @@ const close = () => {
 </script>
 
 <template>
-  <d-slide-transition
+  <DSlideTransition
     is="d-surface"
-    :is-visible="context?.isOpened"
+    :is-visible="!!context?.isOpened"
     :distance="distance"
     class="d-drawer-content"
     v-click-outside="close"
     p="0"
     appear
   >
-    <d-box is="header" px="3">
+    <DBox is="header" px="3">
       <slot name="header" />
-    </d-box>
+    </DBox>
 
-    <d-box class="d-drawer-content__body" px="3">
+    <DBOX class="d-drawer-content__body" px="3">
       <slot />
-    </d-box>
+    </DBOX>
 
-    <d-box is="footer" px="3">
+    <DBOX is="footer" px="3">
       <slot name="footer" />
-    </d-box>
-  </d-slide-transition>
+    </DBOX>
+  </DSlideTransition>
 </template>
 
 <style lang="postcss" scoped>
