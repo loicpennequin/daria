@@ -13,7 +13,7 @@ const Card = compose('d-surface', 'd-flex');
         v-slot="{ isVisible }"
         v-for="i in 18"
         :key="i"
-        min-height="250px"
+        min-height="270px"
         once
       >
         <d-section>
