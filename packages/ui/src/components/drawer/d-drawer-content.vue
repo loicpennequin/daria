@@ -32,13 +32,13 @@ const close = () => {
       <slot name="header" />
     </DBox>
 
-    <DBOX class="d-drawer-content__body" px="3">
+    <DBox class="d-drawer-content__body" px="3">
       <slot />
-    </DBOX>
+    </DBox>
 
-    <DBOX is="footer" px="3">
+    <DBox is="footer" px="3">
       <slot name="footer" />
-    </DBOX>
+    </DBox>
   </DSlideTransition>
 </template>
 
@@ -47,16 +47,17 @@ const close = () => {
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
   z-index: 20;
-  width: fit-content;
+  min-width: var(--d-breakpoint-xs);
   height: 100vh;
   max-height: 100vh;
   display: flex;
   flex-direction: column;
   gap: var(--d-spacing-2);
   overflow: hidden;
-  @media (--viewport-sm) {
-    width: 100%;
+  @media (--viewport-not-sm) {
+    width: fit-content;
   }
 
   > header {

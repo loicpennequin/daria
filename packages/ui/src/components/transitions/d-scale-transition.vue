@@ -21,7 +21,7 @@ const transition = computed(() => `${props.duration}ms`);
 <template>
   <transition name="d-scale" :appear="props.appear">
     <component :is="is" v-if="props.isVisible" class="d-scale-transition">
-      <slot v-if="props.isVisible" />
+      <slot />
     </component>
   </transition>
 </template>

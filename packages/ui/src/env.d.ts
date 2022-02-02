@@ -7,3 +7,13 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>;
   export default component;
 }
+
+declare namespace CSS {
+  interface PropertyDefinition {
+    name: string;
+    syntax?: string;
+    inherits: boolean;
+    initialValue?: string;
+  }
+  function registerProperty(propertyDefinition: PropertyDefinition): undefined;
+}

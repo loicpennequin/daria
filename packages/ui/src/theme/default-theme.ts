@@ -127,6 +127,7 @@ export const defaultTheme: Theme = {
     5: '0 5px 24px 1px rgba(0, 0, 0, 0.28)'
   },
   breakpoint: {
+    xs: '15em',
     sm: '30em',
     md: '48em',
     lg: '62em',
