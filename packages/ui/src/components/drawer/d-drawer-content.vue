@@ -1,30 +1,25 @@
 <script lang="ts" setup>
-import { inject, computed } from 'vue';
-import { DRAWER_INJECTION_KEY } from '@/constants';
-import { DrawerContext } from './d-drawer.types';
+import { computed } from 'vue';
+import { useDrawer } from './use-drawer';
 import { vClickOutside } from '@/directives';
 
 import { DSlideTransition } from '@/components/transitions';
 import { DBox } from '@/components/box';
 
-const context = inject<DrawerContext>(DRAWER_INJECTION_KEY);
+const drawer = useDrawer();
 
 const distance = computed(() =>
-  context?.value.direction === 'left' ? '100%' : '-100%'
+  drawer?.value.position === 'left' ? '100%' : '-100%'
 );
-
-const close = () => {
-  context?.value.close();
-};
 </script>
 
 <template>
   <DSlideTransition
     is="d-surface"
-    :is-visible="!!context?.isOpened"
+    :is-visible="!!drawer?.isOpened"
     :distance="distance"
     class="d-drawer-content"
-    v-click-outside="close"
+    v-click-outside="drawer.close"
     p="0"
     appear
   >

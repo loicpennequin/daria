@@ -1,9 +1,9 @@
-import { Ref } from 'vue';
+export type DrawerPosition = 'left' | 'right';
 
-export type DrawerDirection = 'left' | 'right';
-
-export type DrawerContext = Ref<{
+export type DrawerContext = {
   close: () => void;
-  direction: DrawerDirection;
+  open: () => void;
+  toggle: () => void;
+  position: DrawerPosition;
   isOpened: boolean;
-}>;
+};

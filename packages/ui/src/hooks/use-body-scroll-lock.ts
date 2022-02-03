@@ -1,5 +1,5 @@
 import { onUnmounted, watchEffect, unref, Ref } from 'vue';
-import { useBreakpoints } from './useBreakpoints';
+import { useBreakpoints } from './use-breakpoints';
 
 export const useBodyScrollLock = (isLocked: boolean | Ref<boolean> = true) => {
   const breakpoints = useBreakpoints();

@@ -1,45 +1,44 @@
 <script lang="ts" setup>
 import { createTeleportHost } from '@/utils';
-import { provide, toRef, computed } from 'vue';
+import { provide, toRef, computed, ComputedRef } from 'vue';
 import { useBodyScrollLock, useEventListener } from '@/hooks';
 import { DRAWER_TELEPORT_HOST } from '@/constants/teleport-hosts';
 import { DRAWER_INJECTION_KEY } from '@/constants';
+import { DrawerContext, DrawerPosition } from './d-drawer.types';
 
 interface Props {
   isOpened: boolean;
-  position?: 'left' | 'right';
+  position?: DrawerPosition;
 }
 
 const props = withDefaults(defineProps<Props>(), { position: 'left' });
 const emit = defineEmits<{
   (e: 'update:isOpened', value: boolean): void;
 }>();
+
 const hostID = DRAWER_TELEPORT_HOST;
 createTeleportHost(hostID);
 
 useBodyScrollLock(toRef(props, 'isOpened'));
 
-const close = () => {
-  // if (state.isOverlayOpened) emit('close');
-  emit('update:isOpened', false);
-};
+const drawer: ComputedRef<DrawerContext> = computed(() => ({
+  isOpened: props.isOpened,
+  position: props.position,
+  close: () => emit('update:isOpened', false),
+  toggle: () => emit('update:isOpened', !props.isOpened),
+  open: () => emit('update:isOpened', true)
+}));
 
 const onKeyUp = (e: KeyboardEvent) => {
-  if (e.key === 'Escape') close();
+  if (e.key === 'Escape') drawer.value.close();
 };
 useEventListener('keyup', onKeyUp);
 
-const context = computed(() => ({
-  isOpened: props.isOpened,
-  position: props.position,
-  close
-}));
-
-provide(DRAWER_INJECTION_KEY, context);
+provide(DRAWER_INJECTION_KEY, drawer);
 </script>
 
 <template>
   <teleport :to="`#${hostID}`">
-    <slot />
+    <slot v-bind="{ drawer }" />
   </teleport>
 </template>

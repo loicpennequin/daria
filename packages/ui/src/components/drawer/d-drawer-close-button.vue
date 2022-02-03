@@ -1,20 +1,11 @@
 <script lang="ts" setup>
-import { inject } from 'vue';
-import { DRAWER_INJECTION_KEY } from '@/constants';
-import { DrawerContext } from './d-drawer.types';
+import { useDrawer } from './use-drawer';
 
-import { DButton } from '@/components/button';
-import { DIcon } from '@/components/icon';
-
-const context = inject<DrawerContext>(DRAWER_INJECTION_KEY);
-
-const close = () => {
-  context?.value.close();
-};
+const drawer = useDrawer();
 </script>
 
 <template>
-  <DButton variant="ghost" @click="close" px="0" py="0">
+  <DButton variant="ghost" @click="drawer.close" px="0" py="0">
     <DIcon icon="close" size="5" />
   </DButton>
 </template>

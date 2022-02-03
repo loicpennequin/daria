@@ -1,6 +1,6 @@
 import { ColorScheme, mapObject, mapToCssVar } from '@/utils';
 import { unref, computed, Ref } from 'vue';
-import { useResponsiveProp } from './useResponsiveProp';
+import { useResponsiveProp } from './use-responsive-prop';
 
 export const useColorScheme = (
   scheme: ColorScheme | Ref<ColorScheme>,

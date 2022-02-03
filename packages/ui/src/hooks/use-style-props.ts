@@ -2,7 +2,7 @@ import { camelToKebabCase, isNil } from '@/utils';
 import { mapToCssVar } from '@/utils/css';
 import { isObject } from 'lodash-es';
 import { computed, unref } from 'vue';
-import { useResponsiveProp } from './useResponsiveProp';
+import { useResponsiveProp } from './use-responsive-prop';
 
 type SpacingValues = {
   all: string | number;

@@ -1,6 +1,6 @@
 import { reactive, toRefs } from 'vue';
 import { debounce } from 'lodash-es';
-import { useTheme } from './useTheme';
+import { useTheme } from './use-theme';
 import { getBreakpoints, upperCaseFirstLetter } from '@/utils';
 
 const state = reactive<{ [key: string]: boolean }>({});

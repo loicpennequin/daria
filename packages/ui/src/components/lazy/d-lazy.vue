@@ -7,22 +7,27 @@ interface Props {
   threshold?: number;
   minHeight?: number | string;
   once?: boolean;
+  initialIsVisible?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   threshold: 0,
   minHeight: 'auto',
+  initialIsVisible: false,
   once: false
 });
 const emit = defineEmits<{
   (e: 'update:is-visible', value: boolean): void;
 }>();
 
-const isVisible = ref(false);
+const isVisible = ref(props.initialIsVisible);
+const hasTriggered = ref(false);
 
 const onIntersect = (entry: IntersectionObserverEntry) => {
-  if (isVisible.value && props.once) return;
+  if (hasTriggered.value && props.once) return;
 
   isVisible.value = entry.isIntersecting;
+  if (isVisible.value) hasTriggered.value = true;
+
   emit('update:is-visible', isVisible.value);
 };
 
