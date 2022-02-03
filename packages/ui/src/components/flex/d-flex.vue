@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
   direction: 'row',
   justify: 'flex-start',
   align: 'stretch',
-  wrap: 'wrap',
+  wrap: 'nowrap',
   gap: 0,
   isInline: false
 });

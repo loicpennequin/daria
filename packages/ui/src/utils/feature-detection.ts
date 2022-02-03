@@ -1,6 +1,6 @@
 import { isBoolean } from './assertions';
 
-let isFlexboxGapSupported: boolean;
+export let isFlexboxGapSupported: boolean;
 
 export const checkFlexGap = () => {
   if (isBoolean(isFlexboxGapSupported)) return isFlexboxGapSupported;
@@ -20,3 +20,5 @@ export const checkFlexGap = () => {
 
   return isFlexboxGapSupported;
 };
+
+export const isAspectRatioSupported = 'aspectRatio' in document.body.style;

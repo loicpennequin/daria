@@ -21,7 +21,13 @@ const CARD_COUNT = 18;
         <d-section>
           <d-scale-transition :is-visible="isVisible">
             <Card shadow="2" gap="3" direction="column" class="card">
-              <img :src="`https://picsum.photos/seed/${i}/200`" height="200" />
+              <d-aspect-ratio>
+                <img
+                  :src="`https://picsum.photos/seed/${i}/200`"
+                  height="200"
+                />
+              </d-aspect-ratio>
+
               <d-section-heading>Product {{ i }}</d-section-heading>
               <p>
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor
@@ -40,10 +46,6 @@ const CARD_COUNT = 18;
 <style lang="postcss" scoped>
 img {
   object-fit: cover;
-
-  @media (--viewport-lg) {
-    max-width: 15em;
-    margin: 0 auto;
-  }
+  margin: 0 auto;
 }
 </style>

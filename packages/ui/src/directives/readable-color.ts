@@ -6,6 +6,8 @@ const observers = new WeakMap<HTMLElement, MutationObserver>();
 
 export const vReadableColor: Directive = {
   mounted(el: HTMLElement, { value }) {
+    if (!el) return;
+
     const setColor = (checkedElement: HTMLElement = el) => {
       if (!value) {
         el.style.removeProperty('color');
