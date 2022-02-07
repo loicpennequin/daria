@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ICONS_INJECTION_KEY } from '@/constants';
 import { computed, inject } from 'vue';
-import { DBox } from '@/components/box';
+import { DBox } from '@/components/core';
 
 interface Props {
   icon?: string;

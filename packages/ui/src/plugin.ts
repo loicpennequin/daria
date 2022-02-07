@@ -6,18 +6,18 @@ import { App, Plugin } from 'vue';
 import { THEME_SERVICE, ICONS_INJECTION_KEY } from './constants';
 import { ThemeService } from './theme';
 import { camelToKebabCase, lowerCaseFirstLetter } from './utils';
-import * as components from './components';
+
 import * as dariaIcons from './assets/icons';
 
 type PluginOptions = {
   theme?: any;
   icons?: Record<string, any>;
-  registerComponents?: boolean;
+  components?: Record<string, any>;
 };
 
 export const createDariaUi = ({
   theme = {},
-  registerComponents = true,
+  components = {},
   icons = {}
 }: PluginOptions = {}): Plugin => {
   return {
@@ -30,7 +30,6 @@ export const createDariaUi = ({
         ...dariaIcons,
         ...icons
       });
-      if (!registerComponents) return;
 
       Object.entries(components).map(async ([name, component]) => {
         app.component(camelToKebabCase(lowerCaseFirstLetter(name)), component);

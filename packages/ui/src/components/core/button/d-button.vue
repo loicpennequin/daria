@@ -5,7 +5,7 @@ import { vReadableColor } from '@/directives';
 import { ResponsiveProp, StyleProp } from '@/utils';
 import { VARIANT_SCHEMES } from './d-button.constants';
 
-import { DBox } from '@/components/box';
+import { DBox } from '@/components/core';
 
 type ButtonVariant = 'full' | 'outlined' | 'ghost';
 

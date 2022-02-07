@@ -1,18 +1,16 @@
 <script lang="ts" setup>
-import { inject } from 'vue';
-import { DRAWER_INJECTION_KEY } from '@/constants';
-import { DrawerContext } from './d-drawer.types';
 import { DFadeTransition } from '@/components/transitions';
+import { useDrawer } from './use-drawer';
 
-const context = inject<DrawerContext>(DRAWER_INJECTION_KEY);
+const drawer = useDrawer();
 
 const close = () => {
-  context?.value.close();
+  drawer.value.close();
 };
 </script>
 
 <template>
-  <DFadeTransition :is-visible="!!context?.isOpened" :duration="300" appear>
+  <DFadeTransition :is-visible="!!drawer?.isOpened" :duration="300" appear>
     <div class="d-drawer-overlay" @click="close" />
   </DFadeTransition>
 </template>

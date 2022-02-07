@@ -1,14 +1,4 @@
-export * from './aspect-ratio';
-export * from './box';
-export * from './button';
-export * from './button-group';
-export * from './container';
-export * from './drawer';
-export * from './flex';
-export * from './grid';
-export * from './icon';
-export * from './sticky';
-export * from './surface';
-export * from './transitions';
-export * from './lazy';
-export * from './section';
+export * as core from './core';
+export * as layout from './layout';
+export * as drawer from './drawer';
+export * as transitions from './transitions';

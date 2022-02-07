@@ -3,7 +3,7 @@ import { useResponsiveProp } from '@/hooks';
 import { ResponsiveProp } from '@/utils';
 import { computed } from 'vue';
 
-import { DFlex } from '@/components/flex';
+import { DFlex } from '@/components/layout';
 
 interface Props {
   isAttached?: ResponsiveProp<boolean>;

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DBox } from '@/components/box';
+import { DBox } from '@/components/core';
 import { isAspectRatioSupported } from '@/utils';
 import { computed } from 'vue';
 

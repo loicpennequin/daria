@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { vOnIntersect } from '@/directives';
-import { DBox } from '@/components/box';
+import { DBox } from '@/components/core';
 
 interface Props {
   threshold?: number;

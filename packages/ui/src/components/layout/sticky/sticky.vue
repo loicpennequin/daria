@@ -2,7 +2,7 @@
 import { vOnIntersect } from '@/directives';
 import { computed, ref } from 'vue';
 
-import { DBox } from '@/components/box';
+import { DBox } from '@/components/core';
 
 interface Props {
   top?: number | string;

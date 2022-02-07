@@ -10,7 +10,7 @@ import {
 } from '@/utils';
 import { useResponsiveProp, useStyleProps } from '@/hooks';
 
-import { DBox } from '@/components/box';
+import { DBox } from '@/components/core';
 
 interface Props {
   direction?: ResponsiveProp<FlexDirection>;

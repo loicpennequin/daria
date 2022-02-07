@@ -3,7 +3,7 @@ import { useResponsiveProp, useStyleProps } from '@/hooks';
 import { isNumber, ResponsiveProp } from '@/utils';
 import { computed } from 'vue';
 
-import { DBox } from '@/components/box';
+import { DBox } from '@/components/core';
 
 interface Props {
   columns: ResponsiveProp<number | string>;

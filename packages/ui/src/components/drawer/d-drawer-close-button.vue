@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { useDrawer } from './use-drawer';
+import { DIcon } from '@/components/core';
 
 const drawer = useDrawer();
 </script>

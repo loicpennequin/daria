@@ -4,7 +4,7 @@ import { useDrawer } from './use-drawer';
 import { vClickOutside } from '@/directives';
 
 import { DSlideTransition } from '@/components/transitions';
-import { DBox } from '@/components/box';
+import { DBox } from '@/components/core';
 
 const drawer = useDrawer();
 
