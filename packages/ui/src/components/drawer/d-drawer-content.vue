@@ -9,7 +9,7 @@ import { DBox } from '@/components/core';
 const drawer = useDrawer();
 
 const distance = computed(() =>
-  drawer?.value.position === 'left' ? '100%' : '-100%'
+  drawer?.value.position === 'left' ? '-100%' : '100%'
 );
 </script>
 
@@ -23,7 +23,7 @@ const distance = computed(() =>
     p="0"
     appear
   >
-    <DBox is="header" px="3">
+    <DBox is="header" px="3" v-if="$slots.header">
       <slot name="header" />
     </DBox>
 
@@ -31,7 +31,7 @@ const distance = computed(() =>
       <slot />
     </DBox>
 
-    <DBox is="footer" px="3">
+    <DBox is="footer" px="3" v-if="$slots.footer">
       <slot name="footer" />
     </DBox>
   </DSlideTransition>

@@ -2,7 +2,13 @@
 import { watch, ref, inject, provide, onMounted, computed, unref } from 'vue';
 import { mergeWith } from 'lodash-es';
 import { useStyleProps } from '@/hooks';
-import { StyleProp, isNotNil, upperCaseFirstLetter, isNil } from '@/utils';
+import {
+  StyleProp,
+  isNotNil,
+  upperCaseFirstLetter,
+  isNil,
+  ResponsiveProp
+} from '@/utils';
 import { checkedProps } from './d-box.contants';
 import { COMPOSER_INJECTION_KEY } from '@/constants';
 
@@ -46,7 +52,8 @@ interface Props {
   color?: StyleProp;
   borderColor?: StyleProp;
   borderRadius?: StyleProp;
-  transition?: StyleProp;
+  transition?: ResponsiveProp<number | { [key: string]: number }>;
+  forwardRef?: (el: any) => void;
 }
 const props = withDefaults(defineProps<Props>(), {
   is: 'div',
@@ -64,13 +71,17 @@ const mergedProps = computed(() =>
 
 provide(COMPOSER_INJECTION_KEY, props.isComposerProvider ? mergedProps : {});
 
-const elementRef = ref<any>(null);
+const element = ref<any>(null);
+const elementRef = (el: any) => {
+  element.value = el;
+  props.forwardRef?.(el);
+};
 
 // We have to manually set the data attributes instead of using attributes in the template
 // to avoid collisions when using the component composer
 const setPropMarkers = () => {
-  if (!elementRef.value) return;
-  const el = elementRef.value.$el ?? elementRef.value;
+  if (!element.value) return;
+  const el = element.value.$el ?? element.value;
   if (!el || !el.dataset) return;
 
   checkedProps.forEach(prop => {
@@ -87,7 +98,7 @@ onMounted(setPropMarkers);
 </script>
 
 <template>
-  <component ref="elementRef" :is="is" class="d-box">
+  <component :ref="elementRef" :is="is" class="d-box">
     <slot />
   </component>
 </template>

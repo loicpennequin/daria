@@ -24,6 +24,7 @@
     "focus-visible": "^5.2.0",
     "inert-polyfill": "^0.2.5",
     "lodash-es": "^4.17.21",
+    "nanoid": "^3.2.0",
     "vue": "^3.2.25"
   },
   "devDependencies": {

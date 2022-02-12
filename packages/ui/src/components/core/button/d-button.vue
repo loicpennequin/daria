@@ -5,7 +5,7 @@ import { vReadableColor } from '@/directives';
 import { ResponsiveProp, StyleProp } from '@/utils';
 import { VARIANT_SCHEMES } from './d-button.constants';
 
-import { DBox } from '@/components/core';
+import { DBox, DIcon } from '@/components/core';
 
 type ButtonVariant = 'full' | 'outlined' | 'ghost';
 
@@ -15,6 +15,8 @@ interface Props {
   variant?: ResponsiveProp<ButtonVariant>;
   isFullwidth?: ResponsiveProp<boolean>;
   isUppercase?: ResponsiveProp<boolean>;
+  leftIcon?: ResponsiveProp<string>;
+  rightIcon?: ResponsiveProp<string>;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -30,6 +32,7 @@ const scheme = useColorScheme(
   computed(() => VARIANT_SCHEMES[get<ButtonVariant>(props.variant)]),
   props
 );
+
 const classes = computed(() => [
   `d-button--${get(props.variant)}`,
   get<boolean>(props.isFullwidth, { isBoolean: true }) &&
@@ -37,6 +40,9 @@ const classes = computed(() => [
   get<boolean>(props.isUppercase, { isBoolean: true }) &&
     'd-button--is-uppercase'
 ]);
+
+const hasLeftIcon = computed(() => !!get(props.leftIcon));
+const hasRightIcon = computed(() => !!get(props.rightIcon));
 </script>
 
 <template>
@@ -50,7 +56,19 @@ const classes = computed(() => [
     :class="classes"
     v-readable-color="variant === 'full'"
   >
+    <slot name="left-icon">
+      <DIcon v-if="hasLeftIcon" class="d-button__icon-left" :icon="leftIcon" />
+    </slot>
+
     <slot />
+
+    <slot name="right-icon">
+      <DIcon
+        v-if="hasRightIcon"
+        class="d-button__icon-right"
+        :icon="rightIcon"
+      />
+    </slot>
   </DBox>
 </template>
 
@@ -58,6 +76,11 @@ const classes = computed(() => [
 .d-button {
   cursor: pointer;
   border: solid 1px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  text-decoration: none;
 
   &[disabled] {
     opacity: 0.5;
@@ -66,8 +89,26 @@ const classes = computed(() => [
   }
 }
 
+.d-button__icon-left {
+  margin-right: var(--d-spacing-2);
+  margin-left: calc(-1 * var(--d-spacing-1));
+}
+
+.d-button__icon-right {
+  margin-left: var(--d-spacing-2);
+  margin-right: calc(-1 * var(--d-spacing-1));
+}
+
 .d-button--is-fullwidth {
   width: 100%;
+
+  .d-button__icon-left {
+    margin-right: auto;
+  }
+
+  .d-button__icon-right {
+    margin-left: auto;
+  }
 }
 
 .d-button--is-uppercase {

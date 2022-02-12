@@ -1,6 +1,13 @@
 import { createApp } from 'vue';
 import App from './app.vue';
-import { createDariaUi, core, layout, drawer, transitions } from '@/index';
+import {
+  createDariaUi,
+  core,
+  layout,
+  drawer,
+  accordion,
+  transitions
+} from '@/index';
 
 const app = createApp(App).use(
   createDariaUi({
@@ -8,6 +15,7 @@ const app = createApp(App).use(
       ...core,
       ...layout,
       ...drawer,
+      ...accordion,
       ...transitions
     }
   })

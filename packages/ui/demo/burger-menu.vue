@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 
 const isOpened = ref(false);
+const openedAccordionIndex = ref([]);
 </script>
 
 <template>
@@ -10,8 +11,8 @@ const isOpened = ref(false);
   </d-button>
 
   <d-drawer v-model:isOpened="isOpened">
+    <d-drawer-overlay />
     <d-section>
-      <d-drawer-overlay />
       <d-drawer-content mr="6">
         <template #header>
           <d-flex align="center" justify="space-between">
@@ -20,19 +21,29 @@ const isOpened = ref(false);
           </d-flex>
         </template>
 
-        <nav>
-          <d-flex direction="column" gap="3" is="ul" font-size="4">
-            <li>
-              <a href="/">Home</a>
-            </li>
-            <li>
-              <a color="grey-0" href="/">About</a>
-            </li>
-            <li>
-              <a color="grey-0" href="/">Contact</a>
-            </li>
-          </d-flex>
-        </nav>
+        <d-accordion v-model:openedIndex="openedAccordionIndex">
+          <d-accordion-item>
+            <template #toggle>Sections</template>
+
+            <nav>
+              <d-flex direction="column" gap="3" is="ul">
+                <li>
+                  <a href="/">Home</a>
+                </li>
+                <li>
+                  <a color="grey-0" href="/">About</a>
+                </li>
+                <li>
+                  <a color="grey-0" href="/">Contact</a>
+                </li>
+              </d-flex>
+            </nav>
+          </d-accordion-item>
+          <d-accordion-item>
+            <template #toggle>Guide</template>
+            Our guide
+          </d-accordion-item>
+        </d-accordion>
 
         <template #footer>
           <d-button
