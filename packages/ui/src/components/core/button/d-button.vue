@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, useSlots } from 'vue';
 import { useColorScheme, useResponsiveProp } from '@/hooks';
 import { vReadableColor } from '@/directives';
 import { ResponsiveProp, StyleProp } from '@/utils';
@@ -41,8 +41,11 @@ const classes = computed(() => [
     'd-button--is-uppercase'
 ]);
 
-const hasLeftIcon = computed(() => !!get(props.leftIcon));
-const hasRightIcon = computed(() => !!get(props.rightIcon));
+const slots = useSlots();
+const hasLeftIcon = computed(() => !!get(props.leftIcon) || slots['left-icon']);
+const hasRightIcon = computed(
+  () => !!get(props.rightIcon) || slots['right-icon']
+);
 </script>
 
 <template>
@@ -56,19 +59,19 @@ const hasRightIcon = computed(() => !!get(props.rightIcon));
     :class="classes"
     v-readable-color="variant === 'full'"
   >
-    <slot name="left-icon">
-      <DIcon v-if="hasLeftIcon" class="d-button__icon-left" :icon="leftIcon" />
-    </slot>
+    <div class="d-button__icon-left" v-if="hasLeftIcon">
+      <slot name="left-icon">
+        <DIcon :icon="leftIcon" />
+      </slot>
+    </div>
 
     <slot />
 
-    <slot name="right-icon">
-      <DIcon
-        v-if="hasRightIcon"
-        class="d-button__icon-right"
-        :icon="rightIcon"
-      />
-    </slot>
+    <div v-if="hasRightIcon" class="d-button__icon-right">
+      <slot name="right-icon">
+        <DIcon :icon="rightIcon" v-if="hasRightIcon" />
+      </slot>
+    </div>
   </DBox>
 </template>
 

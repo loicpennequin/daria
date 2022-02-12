@@ -21,11 +21,11 @@ const openedAccordionIndex = ref([]);
           </d-flex>
         </template>
 
-        <d-accordion v-model:openedIndex="openedAccordionIndex">
-          <d-accordion-item>
-            <template #toggle>Sections</template>
+        <nav>
+          <d-accordion v-model:openedIndex="openedAccordionIndex">
+            <d-accordion-item>
+              <template #toggle>Sections</template>
 
-            <nav>
               <d-flex direction="column" gap="3" is="ul">
                 <li>
                   <a href="/">Home</a>
@@ -37,13 +37,23 @@ const openedAccordionIndex = ref([]);
                   <a color="grey-0" href="/">Contact</a>
                 </li>
               </d-flex>
-            </nav>
-          </d-accordion-item>
-          <d-accordion-item>
-            <template #toggle>Guide</template>
-            Our guide
-          </d-accordion-item>
-        </d-accordion>
+            </d-accordion-item>
+            <d-accordion-item>
+              <template #toggle>Guide</template>
+              <d-flex direction="column" gap="3" is="ul">
+                <li>
+                  <a href="/">How it works</a>
+                </li>
+                <li>
+                  <a color="grey-0" href="/">Frequetly Asked Questions</a>
+                </li>
+                <li>
+                  <a color="grey-0" href="/">Terms and Conditions</a>
+                </li>
+              </d-flex>
+            </d-accordion-item>
+          </d-accordion>
+        </nav>
 
         <template #footer>
           <d-button

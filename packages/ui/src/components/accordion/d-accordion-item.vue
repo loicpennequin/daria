@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useAccordion } from './use-accordion';
-import { DButton, DBox } from '../core';
+import { DButton, DIcon, DBox } from '../core';
 import { computed, nextTick, ref, watch } from 'vue';
 import { isNil, isNumber, Maybe } from '@/utils';
 
@@ -38,13 +38,20 @@ watch(isOpened, isOpened => {
   <div class="d-accordion-item">
     <DButton
       class="d-accordion-item__toggle"
+      :class="isOpened && 'd-accordion-item--is-opened'"
       variant="ghost"
       is-fullwidth
       @click="toggle"
       border-radius="0"
       py="2"
-      right-icon="chevronDown"
     >
+      <template #right-icon>
+        <DIcon
+          icon="chevronDown"
+          :transition="{ transform: 1 }"
+          class="d-accordion-item__icon"
+        />
+      </template>
       <slot name="toggle" v-bind="{ isOpened }" />
     </DButton>
     <DBox
@@ -69,5 +76,11 @@ watch(isOpened, isOpened => {
 .d-accordion-item__content {
   overflow: hidden;
   height: v-bind(contentHeight);
+}
+
+.d-accordion-item--is-opened {
+  .d-accordion-item__icon {
+    transform: rotateZ(-0.5turn);
+  }
 }
 </style>
