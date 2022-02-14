@@ -26,10 +26,8 @@ const openedAccordionIndex = ref([]);
             v-model:openedIndex="openedAccordionIndex"
             color-scheme="indigo"
           >
-            <d-accordion-item>
-              <template #toggle>Sections</template>
-
-              <d-flex direction="column" gap="3" is="ul">
+            <d-accordion-item label="Sections">
+              <d-flex direction="column" gap="3" is="ul" py="2">
                 <li>
                   <a href="/">Home</a>
                 </li>
@@ -41,9 +39,9 @@ const openedAccordionIndex = ref([]);
                 </li>
               </d-flex>
             </d-accordion-item>
-            <d-accordion-item>
-              <template #toggle>Guide</template>
-              <d-flex direction="column" gap="3" is="ul">
+
+            <d-accordion-item label="Guide">
+              <d-flex direction="column" gap="3" is="ul" py="2">
                 <li>
                   <a href="/">How it works</a>
                 </li>

@@ -2,7 +2,7 @@
 import { provide, ref, computed, ComputedRef } from 'vue';
 import { ACCORDION_INJECTION_KEY } from '@/constants';
 import { AccordionContext, AccordionOpenedIndex } from './d-accordion.types';
-import { isNumber, ResponsiveProp } from '@/utils';
+import { isNil, isNumber, ResponsiveProp } from '@/utils';
 import { nanoid } from 'nanoid';
 
 interface Props {
@@ -24,6 +24,14 @@ const items = ref<string[]>([]);
 const accordion: ComputedRef<AccordionContext> = computed(() => ({
   openedIndex: props.openedIndex,
   colorScheme: props.colorScheme,
+
+  isOpened(index: number) {
+    const { openedIndex } = props;
+    if (isNil(openedIndex)) return false;
+    if (isNumber(openedIndex)) return openedIndex === index;
+
+    return openedIndex.includes(index);
+  },
 
   open(index: number) {
     const { openedIndex, allowMultiple } = props;
@@ -51,6 +59,12 @@ const accordion: ComputedRef<AccordionContext> = computed(() => ({
       'update:openedIndex',
       (openedIndex || []).filter(i => i !== index)
     );
+  },
+
+  toggle(index: number) {
+    accordion.value.isOpened(index)
+      ? accordion.value.close(index)
+      : accordion.value.open(index);
   },
 
   register() {

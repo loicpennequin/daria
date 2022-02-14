@@ -2,25 +2,22 @@
 import { useAccordion } from './use-accordion';
 import { DButton, DIcon, DBox } from '../core';
 import { computed, nextTick, ref, watch } from 'vue';
-import { isNil, isNumber, Maybe } from '@/utils';
+import { Maybe } from '@/utils';
+
+interface Props {
+  label?: string;
+}
+
+const props = defineProps<Props>();
 
 const accordion = useAccordion();
 
 const index = accordion.value.register();
-const isOpened = computed(() => {
-  const { openedIndex } = accordion.value;
-  if (isNil(openedIndex)) return false;
-  if (isNumber(openedIndex)) return openedIndex === index;
-
-  return openedIndex.includes(index);
-});
-
-const toggle = () => {
-  isOpened.value ? accordion.value.close(index) : accordion.value.open(index);
-};
+const isOpened = computed(() => accordion.value.isOpened(index));
 
 const contentElement = ref<Maybe<HTMLElement>>(null);
 const contentHeight = ref<number | string>(0);
+
 watch(isOpened, isOpened => {
   if (!isOpened) {
     contentHeight.value = 0;
@@ -29,43 +26,61 @@ watch(isOpened, isOpened => {
 
   nextTick(() => {
     if (!contentElement.value) return;
-
     contentHeight.value = `${contentElement.value.scrollHeight}px`;
   });
 });
+
+const slotProps = computed(() => ({
+  index,
+  isOpened: accordion.value.isOpened(index),
+  toggle: () => {
+    console.log('toggle');
+    accordion.value.toggle(index);
+  },
+  open: () => accordion.value.open(index),
+  close: () => accordion.value.close(index)
+}));
 </script>
 
 <template>
   <div class="d-accordion-item">
-    <DButton
-      class="d-accordion-item__toggle"
-      :class="isOpened && 'd-accordion-item--is-opened'"
-      variant="ghost"
-      is-fullwidth
-      @click="toggle"
-      border-radius="0"
-      py="2"
-      pl="0"
-      :color-scheme="accordion.colorScheme"
-    >
-      <template #right>
-        <DIcon
-          icon="chevronDown"
-          :transition="{ transform: 1 }"
-          class="d-accordion-item__icon"
-        />
-      </template>
-      <span>
-        <slot name="toggle" v-bind="{ isOpened }" />
-      </span>
-    </DButton>
+    <slot name="toggle" v-bind="slotProps">
+      <DButton
+        class="d-accordion-item__toggle"
+        :class="accordion.isOpened(index) && 'd-accordion-item--is-opened'"
+        variant="ghost"
+        is-fullwidth
+        @click="accordion.toggle(index)"
+        border-radius="0"
+        py="2"
+        pl="0"
+        :color-scheme="accordion.colorScheme"
+      >
+        <template #right>
+          <DIcon
+            icon="chevronDown"
+            :transition="{ transform: 1 }"
+            class="d-accordion-item__icon"
+          />
+        </template>
+        <span>
+          {{ props.label }}
+        </span>
+      </DButton>
+    </slot>
+
     <DBox
       :forward-ref="el => (contentElement = el)"
-      :p="isOpened ? 2 : 0"
       class="d-accordion-item__content"
       :transition="{ height: 2 }"
     >
-      <slot v-bind="{ isOpened }" v-if="isOpened" />
+      <d-slide-transition
+        direction="vertical"
+        distance="-100%"
+        :is-visible="isOpened"
+      >
+        <slot v-bind="slotProps" />
+      </d-slide-transition>
     </DBox>
   </div>
 </template>
