@@ -5,6 +5,7 @@ import { computed, nextTick, ref, watch } from 'vue';
 import { isNil, isNumber, Maybe } from '@/utils';
 
 const accordion = useAccordion();
+
 const index = accordion.value.register();
 const isOpened = computed(() => {
   const { openedIndex } = accordion.value;
@@ -44,15 +45,19 @@ watch(isOpened, isOpened => {
       @click="toggle"
       border-radius="0"
       py="2"
+      pl="0"
+      :color-scheme="accordion.colorScheme"
     >
-      <template #right-icon>
+      <template #right>
         <DIcon
           icon="chevronDown"
           :transition="{ transform: 1 }"
           class="d-accordion-item__icon"
         />
       </template>
-      <slot name="toggle" v-bind="{ isOpened }" />
+      <span>
+        <slot name="toggle" v-bind="{ isOpened }" />
+      </span>
     </DButton>
     <DBox
       :forward-ref="el => (contentElement = el)"
@@ -70,6 +75,9 @@ watch(isOpened, isOpened => {
   .d-accordion-item__toggle {
     text-align: left;
     border-bottom: solid 1px var(--d-color-grey-2);
+    > span {
+      color: var(--d-color-black);
+    }
   }
 }
 

@@ -42,10 +42,8 @@ const classes = computed(() => [
 ]);
 
 const slots = useSlots();
-const hasLeftIcon = computed(() => !!get(props.leftIcon) || slots['left-icon']);
-const hasRightIcon = computed(
-  () => !!get(props.rightIcon) || slots['right-icon']
-);
+const hasLeftIcon = computed(() => !!get(props.leftIcon) || slots.left);
+const hasRightIcon = computed(() => !!get(props.rightIcon) || slots.right);
 </script>
 
 <template>
@@ -60,7 +58,7 @@ const hasRightIcon = computed(
     v-readable-color="variant === 'full'"
   >
     <div class="d-button__icon-left" v-if="hasLeftIcon">
-      <slot name="left-icon">
+      <slot name="left">
         <DIcon :icon="leftIcon" />
       </slot>
     </div>
@@ -68,7 +66,7 @@ const hasRightIcon = computed(
     <slot />
 
     <div v-if="hasRightIcon" class="d-button__icon-right">
-      <slot name="right-icon">
+      <slot name="right">
         <DIcon :icon="rightIcon" v-if="hasRightIcon" />
       </slot>
     </div>

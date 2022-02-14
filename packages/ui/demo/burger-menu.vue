@@ -22,7 +22,10 @@ const openedAccordionIndex = ref([]);
         </template>
 
         <nav>
-          <d-accordion v-model:openedIndex="openedAccordionIndex">
+          <d-accordion
+            v-model:openedIndex="openedAccordionIndex"
+            color-scheme="indigo"
+          >
             <d-accordion-item>
               <template #toggle>Sections</template>
 

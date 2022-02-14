@@ -6,6 +6,7 @@ import {
   layout,
   drawer,
   accordion,
+  forms,
   transitions
 } from '@/index';
 
@@ -16,7 +17,8 @@ const app = createApp(App).use(
       ...layout,
       ...drawer,
       ...accordion,
-      ...transitions
+      ...transitions,
+      ...forms
     }
   })
 );

@@ -1,4 +1,4 @@
-import { Maybe } from '@/utils';
+import { Maybe, ResponsiveProp } from '@/utils';
 
 export type AccordionOpenedIndex = Maybe<number | number[]>;
 
@@ -7,4 +7,5 @@ export type AccordionContext = {
   open: (itemId: number) => void;
   close: (itemId: number) => void;
   register: () => number;
+  colorScheme?: ResponsiveProp<string>;
 };

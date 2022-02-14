@@ -5,3 +5,4 @@ export * from './use-color-scheme';
 export * from './use-responsive-prop';
 export * from './use-body-scroll-lock';
 export * from './use-event-listener';
+export * from './use-safe-inject';

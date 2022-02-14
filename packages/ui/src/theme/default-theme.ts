@@ -89,8 +89,9 @@ export const defaultTheme: Theme = {
     }),
     grey: createColorScale({
       baseColor: 'hsl(0,0%,50%)',
-      minLightness: 0,
-      maxLightness: 1
+      maxLightness: 0.96,
+      lightnessAdjust: 0.08,
+      minLightness: 0
     }),
     coldgrey: createColorScale({
       baseColor: 'hsl(210,8%,50%)',
