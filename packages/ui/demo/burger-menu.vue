@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 
 const isOpened = ref(false);
-const openedAccordionIndex = ref([]);
+const openedAccordionIndex = ref(null);
 </script>
 
 <template>
@@ -57,15 +57,17 @@ const openedAccordionIndex = ref([]);
         </nav>
 
         <template #footer>
-          <d-button
-            color-scheme="indigo"
-            border-radius="0"
-            py="2"
-            font-size="3"
-            is-fullwidth
-          >
-            Login
-          </d-button>
+          <d-box px="3">
+            <d-button
+              color-scheme="indigo"
+              border-radius="0"
+              py="2"
+              font-size="3"
+              is-fullwidth
+            >
+              Login
+            </d-button>
+          </d-box>
         </template>
       </d-drawer-content>
     </d-section>

@@ -15,6 +15,7 @@ interface Props {
   rightIcon?: ResponsiveProp<string>;
   colorScheme?: ResponsiveProp<string>;
   id?: string;
+  isInvalid?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), { colorScheme: 'grey' });
@@ -36,7 +37,13 @@ const vModel = computed({
 </script>
 
 <template>
-  <DFlex gap="0" class="d-input" bg="white" align="center">
+  <DFlex
+    gap="0"
+    class="d-input"
+    :border-color="props.isInvalid ? 'red-5' : 'grey-2'"
+    bg="white"
+    align="center"
+  >
     <slot name="left">
       <DBox v-if="props.leftIcon" p="1">
         <DIcon :icon="props.leftIcon" />
@@ -59,8 +66,8 @@ const vModel = computed({
 
 <style lang="postcss" scoped>
 .d-input {
-  border: solid 1px;
-  border-color: var(--d-color-grey-2);
+  border-width: 1px;
+  border-style: solid;
 
   &:focus-within {
     border-color: v-bind('scheme.borderFocus');

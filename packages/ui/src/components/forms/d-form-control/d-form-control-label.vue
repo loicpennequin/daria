@@ -13,17 +13,17 @@ const props = withDefaults(defineProps<Props>(), {
   is: 'label',
   fontWeight: 'semibold'
 });
-const formControl = useFormControl();
+const { required, id, colorScheme } = useFormControl();
 
-const scheme = useColorScheme({ asterisk: 5 }, formControl);
+const scheme = useColorScheme({ asterisk: 5 }, { colorScheme });
 </script>
 
 <template>
   <DBox
     class="d-form-control-label"
-    :class="formControl.required && 'd-form-control-label--is-required'"
+    :class="required && 'd-form-control-label--is-required'"
     :is="props.is"
-    :for="formControl.id"
+    :for="id"
     mb="1"
     :font-weight="props.fontWeight"
   >

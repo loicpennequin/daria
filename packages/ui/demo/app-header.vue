@@ -47,14 +47,4 @@ const breakpoints = useBreakpoints();
 .app-header {
   z-index: 10;
 }
-
-nav {
-  a {
-    color: inherit;
-    outline: none;
-    &:not(:focus):not(:hover) {
-      text-decoration: none;
-    }
-  }
-}
 </style>

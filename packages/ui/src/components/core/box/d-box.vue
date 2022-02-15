@@ -7,14 +7,13 @@ import {
   isNotNil,
   upperCaseFirstLetter,
   isNil,
-  ResponsiveProp
+  ResponsiveProp,
+  camelToKebabCase
 } from '@/utils';
 import { checkedProps } from './d-box.contants';
-import { COMPOSER_INJECTION_KEY } from '@/constants';
 
 interface Props {
   is?: any;
-  isComposerProvider?: boolean;
   shadow?: StyleProp;
   fontFamily?: StyleProp;
   fontSize?: StyleProp;
@@ -56,20 +55,10 @@ interface Props {
   forwardRef?: (el: any) => void;
 }
 const props = withDefaults(defineProps<Props>(), {
-  is: 'div',
-  isComposerProvider: false
+  is: 'div'
 });
 
-const composerProps = inject(COMPOSER_INJECTION_KEY, {});
 const styleProps = useStyleProps(props);
-
-const mergedProps = computed(() =>
-  mergeWith({}, unref(styleProps), unref(composerProps), (newVal, oldVal) =>
-    isNil(newVal) ? oldVal : newVal
-  )
-);
-
-provide(COMPOSER_INJECTION_KEY, props.isComposerProvider ? mergedProps : {});
 
 const element = ref<any>(null);
 const elementRef = (el: any) => {
@@ -77,68 +66,56 @@ const elementRef = (el: any) => {
   props.forwardRef?.(el);
 };
 
-// We have to manually set the data attributes instead of using attributes in the template
-// to avoid collisions when using the component composer
-const setPropMarkers = () => {
-  if (!element.value) return;
-  const el = element.value.$el ?? element.value;
-  if (!el || !el.dataset) return;
+const hasClass = (property: keyof typeof styleProps.value) =>
+  !!styleProps.value[property];
 
-  checkedProps.forEach(prop => {
-    const datasetKey = `d${upperCaseFirstLetter(prop)}`;
-
-    if (isNotNil(mergedProps.value?.[prop])) {
-      el.dataset[datasetKey] = '';
-    }
-  });
-};
-
-watch(mergedProps, setPropMarkers, { deep: true });
-onMounted(setPropMarkers);
+const dBoxAttr = computed(() =>
+  checkedProps.filter(hasClass).map(camelToKebabCase).join(' ')
+);
 </script>
 
 <template>
-  <component :ref="elementRef" :is="is" class="d-box">
+  <component :ref="elementRef" :is="is" class="d-box" :data-d-box="dBoxAttr">
     <slot />
   </component>
 </template>
 
 <style lang="postcss" scoped>
 .d-box {
-  font-family: v-bind('mergedProps.fontFamily');
-  border-color: v-bind('mergedProps.borderColor');
-  transition: v-bind('mergedProps.transition');
+  font-family: v-bind('styleProps.fontFamily');
+  border-color: v-bind('styleProps.borderColor');
+  transition: v-bind('styleProps.transition');
 
-  &:where([data-d-font-size]) {
-    font-size: v-bind('mergedProps.fontSize');
+  &:where([data-d-box*='font-size']) {
+    font-size: v-bind('styleProps.fontSize');
   }
 
-  &:where([data-d-bg]) {
-    background-color: v-bind('mergedProps.bg');
+  &:where([data-d-box*='bg']) {
+    background-color: v-bind('styleProps.bg');
   }
 
-  &:where([data-d-color]) {
-    color: v-bind('mergedProps.color');
+  &:where([data-d-box*='color']) {
+    color: v-bind('styleProps.color');
   }
 
-  &:where([data-d-padding]) {
-    padding: v-bind('mergedProps.padding');
+  &:where([data-d-box*='padding']) {
+    padding: v-bind('styleProps.padding');
   }
 
-  &:where([data-d-margin]) {
-    margin: v-bind('mergedProps.margin');
+  &:where([data-d-box*='margin']) {
+    margin: v-bind('styleProps.margin');
   }
 
-  &:where([data-d-border-radius]) {
-    border-radius: v-bind('mergedProps.borderRadius');
+  &:where([data-d-box*='border-radius']) {
+    border-radius: v-bind('styleProps.borderRadius');
   }
 
-  &:where([data-d-font-weight]) {
-    font-weight: v-bind('mergedProps.fontWeight');
+  &:where([data-d-box*='font-weight']) {
+    font-weight: v-bind('styleProps.fontWeight');
   }
 
-  &:where([data-d-shadow]) {
-    box-shadow: v-bind('mergedProps.shadow');
+  &:where([data-d-box*='shadow']) {
+    box-shadow: v-bind('styleProps.shadow');
   }
 }
 </style>

@@ -23,12 +23,12 @@ const classes = computed(() => [
     'd-button-group--is-attached'
 ]);
 
-const _isAttached = computed(() =>
-  get<boolean>(props.isAttached, { isBoolean: true })
+const gap = computed(() =>
+  get<boolean>(props.isAttached, { isBoolean: true }) ? 0 : 2
 );
 </script>
 <template>
-  <DFlex :gap="_isAttached ? 0 : 2" class="d-button-group" :class="classes">
+  <DFlex :gap="gap" class="d-button-group" :class="classes">
     <slot />
   </DFlex>
 </template>

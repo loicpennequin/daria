@@ -65,7 +65,7 @@ export const useStyleProps = (props: any) => {
       margin: computeSpacing({
         all: _props.margin ?? _props.m,
         x: _props.marginX ?? _props.mx,
-        y: _props.marginY ?? _props.y,
+        y: _props.marginY ?? _props.my,
         top: _props.marginTop ?? _props.mt,
         bottom: _props.marginBottom ?? _props.mb,
         left: _props.marginLeft ?? _props.ml,

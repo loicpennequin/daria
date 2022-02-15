@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { useAccordion } from './use-accordion';
 import { DButton, DIcon, DBox } from '../core';
-import { computed, nextTick, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 import { Maybe } from '@/utils';
+import { useAccordionItem } from './use-accordion-item';
 
 interface Props {
   label?: string;
@@ -10,36 +10,21 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const accordion = useAccordion();
-
-const index = accordion.value.register();
-const isOpened = computed(() => accordion.value.isOpened(index));
-
 const contentElement = ref<Maybe<HTMLElement>>(null);
-const contentHeight = ref<number | string>(0);
+const { index, colorScheme, contentHeight, isOpened, toggle, open, close } =
+  useAccordionItem(contentElement);
 
-watch(isOpened, isOpened => {
-  if (!isOpened) {
-    contentHeight.value = 0;
-    return;
-  }
-
-  nextTick(() => {
-    if (!contentElement.value) return;
-    contentHeight.value = `${contentElement.value.scrollHeight}px`;
-  });
-});
-
-const slotProps = computed(() => ({
+const slotProps = {
   index,
-  isOpened: accordion.value.isOpened(index),
-  toggle: () => {
-    console.log('toggle');
-    accordion.value.toggle(index);
-  },
-  open: () => accordion.value.open(index),
-  close: () => accordion.value.close(index)
-}));
+  isOpened,
+  toggle,
+  open,
+  close
+};
+
+const onToggleClick = () => {
+  toggle();
+};
 </script>
 
 <template>
@@ -47,14 +32,14 @@ const slotProps = computed(() => ({
     <slot name="toggle" v-bind="slotProps">
       <DButton
         class="d-accordion-item__toggle"
-        :class="accordion.isOpened(index) && 'd-accordion-item--is-opened'"
+        :class="isOpened && 'd-accordion-item--is-opened'"
         variant="ghost"
         is-fullwidth
-        @click="accordion.toggle(index)"
+        @click="onToggleClick"
         border-radius="0"
         py="2"
         pl="0"
-        :color-scheme="accordion.colorScheme"
+        :color-scheme="colorScheme"
       >
         <template #right>
           <DIcon
@@ -74,13 +59,7 @@ const slotProps = computed(() => ({
       class="d-accordion-item__content"
       :transition="{ height: 2 }"
     >
-      <d-slide-transition
-        direction="vertical"
-        distance="-100%"
-        :is-visible="isOpened"
-      >
-        <slot v-bind="slotProps" />
-      </d-slide-transition>
+      <slot v-bind="slotProps" v-if="isOpened" />
     </DBox>
   </div>
 </template>
@@ -98,7 +77,7 @@ const slotProps = computed(() => ({
 
 .d-accordion-item__content {
   overflow: hidden;
-  height: v-bind(contentHeight);
+  height: v-bind('contentHeight');
 }
 
 .d-accordion-item--is-opened {

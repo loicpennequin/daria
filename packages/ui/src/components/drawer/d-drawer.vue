@@ -21,16 +21,16 @@ createTeleportHost(hostID);
 
 useBodyScrollLock(toRef(props, 'isOpened'));
 
-const drawer: ComputedRef<DrawerContext> = computed(() => ({
-  isOpened: props.isOpened,
-  position: props.position,
+const drawer: DrawerContext = {
+  isOpened: toRef(props, 'isOpened'),
+  position: toRef(props, 'position'),
   close: () => emit('update:isOpened', false),
   toggle: () => emit('update:isOpened', !props.isOpened),
   open: () => emit('update:isOpened', true)
-}));
+};
 
 const onKeyUp = (e: KeyboardEvent) => {
-  if (e.key === 'Escape') drawer.value.close();
+  if (e.key === 'Escape') drawer.close();
 };
 useEventListener('keyup', onKeyUp);
 

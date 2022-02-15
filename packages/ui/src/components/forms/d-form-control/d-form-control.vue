@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, provide } from 'vue';
+import { computed, provide, toRef } from 'vue';
 import { nanoid } from 'nanoid';
 import { DBox } from '@/components/core';
 import { FORM_CONTROL_INJECTION_KEY } from '@/constants';
@@ -22,16 +22,19 @@ const props = withDefaults(defineProps<Props>(), {
 
 const get = useResponsiveProp();
 
-const formControl = computed(() => ({
-  id: props.id,
-  colorScheme: get(props.colorScheme),
-  required: props.required,
-  isInvalid: props.isInvalid
-}));
+const formControl = {
+  id: toRef(props, 'id'),
+  required: toRef(props, 'required'),
+  isInvalid: toRef(props, 'isInvalid'),
+  colorScheme: get(props.colorScheme)
+};
 provide(FORM_CONTROL_INJECTION_KEY, formControl);
 
 const slotProps = computed(() => ({
-  ...formControl.value
+  id: props.id,
+  required: props.required,
+  isInvalid: props.isInvalid,
+  colorScheme: get(props.colorScheme)
 }));
 </script>
 

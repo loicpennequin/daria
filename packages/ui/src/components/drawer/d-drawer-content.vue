@@ -6,20 +6,18 @@ import { vClickOutside } from '@/directives';
 import { DSlideTransition } from '@/components/transitions';
 import { DBox } from '@/components/core';
 
-const drawer = useDrawer();
+const { isOpened, position, close } = useDrawer();
 
-const distance = computed(() =>
-  drawer?.value.position === 'left' ? '-100%' : '100%'
-);
+const distance = computed(() => (position.value === 'left' ? '-100%' : '100%'));
 </script>
 
 <template>
   <DSlideTransition
     is="d-surface"
-    :is-visible="!!drawer?.isOpened"
+    :is-visible="!!isOpened"
     :distance="distance"
     class="d-drawer-content"
-    v-click-outside="drawer.close"
+    v-click-outside="close"
     p="0"
     appear
   >
@@ -31,7 +29,7 @@ const distance = computed(() =>
       <slot />
     </DBox>
 
-    <DBox is="footer" px="3" v-if="$slots.footer">
+    <DBox is="footer" v-if="$slots.footer">
       <slot name="footer" />
     </DBox>
   </DSlideTransition>

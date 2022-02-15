@@ -3,6 +3,7 @@ import { ref } from 'vue';
 
 import AppHeader from './app-header.vue';
 import ProductGrid from './product-grid.vue';
+import SignupForm from './signup-form.vue';
 
 const form = ref({ email: '', password: '' });
 </script>
@@ -10,38 +11,31 @@ const form = ref({ email: '', password: '' });
 <template>
   <AppHeader />
 
-  <d-container is="main">
-    <d-surface mb="4">
-      <d-section>
-        <d-section-heading mb="3">Join us today !</d-section-heading>
-        <d-flex direction="column" gap="3" is="form" @submit.prevent>
-          <d-form-control required v-slot="formControlProps">
-            <d-form-control-label>E-mail</d-form-control-label>
-            <d-input
-              v-model="form.email"
-              type="email"
-              v-bind="formControlProps"
-            />
-          </d-form-control>
+  <main>
+    <d-box bg="indigo-1" p="5">
+      <d-container>
+        <d-grid :columns="[1, 2]">
+          <d-grid-item :column="[1, 2]">
+            <SignupForm />
+          </d-grid-item>
+        </d-grid>
+      </d-container>
+    </d-box>
 
-          <d-form-control v-slot="formControlProps">
-            <d-form-control-label>Password</d-form-control-label>
-            <d-input
-              v-model="form.password"
-              type="password"
-              v-bind="formControlProps"
-            />
-          </d-form-control>
-
-          <d-flex justify="flex-end">
-            <d-button color-scheme="indigo">Sign up</d-button>
-          </d-flex>
-        </d-flex>
-      </d-section>
-    </d-surface>
-
-    <ProductGrid />
-  </d-container>
+    <d-container>
+      <ProductGrid />
+    </d-container>
+  </main>
 </template>
 
-<style lang="postcss" scoped></style>
+<style lang="postcss">
+nav {
+  a {
+    color: inherit;
+    outline: none;
+    &:not(:focus):not(:hover) {
+      text-decoration: none;
+    }
+  }
+}
+</style>

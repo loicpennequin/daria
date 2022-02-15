@@ -1,7 +1,7 @@
-import { ComputedRef, inject } from 'vue';
+import { inject } from 'vue';
 
-export const useSafeInject = <T>(injectionKey: Symbol): ComputedRef<T> => {
-  const context = inject<ComputedRef<T>>(injectionKey);
+export const useSafeInject = <T>(injectionKey: Symbol): T => {
+  const context = inject<T>(injectionKey);
 
   if (context === undefined) {
     throw new Error(

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { provide, ref, computed, ComputedRef } from 'vue';
+import { provide, ref, computed, ComputedRef, toRef } from 'vue';
 import { ACCORDION_INJECTION_KEY } from '@/constants';
 import { AccordionContext, AccordionOpenedIndex } from './d-accordion.types';
 import { isNil, isNumber, ResponsiveProp } from '@/utils';
@@ -21,18 +21,19 @@ const emit = defineEmits<{
 }>();
 const items = ref<string[]>([]);
 
-const accordion: ComputedRef<AccordionContext> = computed(() => ({
-  openedIndex: props.openedIndex,
-  colorScheme: props.colorScheme,
+const accordion: AccordionContext = {
+  openedIndex: toRef(props, 'openedIndex'),
+  colorScheme: toRef(props, 'colorScheme'),
 
   isOpened(index: number) {
     const { openedIndex } = props;
     if (isNil(openedIndex)) return false;
-    if (isNumber(openedIndex)) return openedIndex === index;
+    if (isNumber(openedIndex)) {
+      return openedIndex === index;
+    }
 
     return openedIndex.includes(index);
   },
-
   open(index: number) {
     const { openedIndex, allowMultiple } = props;
 
@@ -62,9 +63,7 @@ const accordion: ComputedRef<AccordionContext> = computed(() => ({
   },
 
   toggle(index: number) {
-    accordion.value.isOpened(index)
-      ? accordion.value.close(index)
-      : accordion.value.open(index);
+    accordion.isOpened(index) ? accordion.close(index) : accordion.open(index);
   },
 
   register() {
@@ -73,7 +72,7 @@ const accordion: ComputedRef<AccordionContext> = computed(() => ({
 
     return items.value.indexOf(id);
   }
-}));
+};
 
 provide(ACCORDION_INJECTION_KEY, accordion);
 </script>

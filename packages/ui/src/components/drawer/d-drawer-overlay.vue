@@ -2,15 +2,11 @@
 import { DFadeTransition } from '@/components/transitions';
 import { useDrawer } from './use-drawer';
 
-const drawer = useDrawer();
-
-const close = () => {
-  drawer.value.close();
-};
+const { isOpened, close } = useDrawer();
 </script>
 
 <template>
-  <DFadeTransition :is-visible="!!drawer?.isOpened" :duration="300" appear>
+  <DFadeTransition :is-visible="isOpened" :duration="300" appear>
     <div class="d-drawer-overlay" @click="close" />
   </DFadeTransition>
 </template>
