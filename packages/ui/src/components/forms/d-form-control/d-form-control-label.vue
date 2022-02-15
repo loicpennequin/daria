@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 const { required, disabled, id, colorScheme } = useFormControl();
 
-const scheme = useColorScheme({ asterisk: 5 }, { colorScheme });
+const scheme = useColorScheme({ asterisk: 5 }, colorScheme);
 </script>
 
 <template>

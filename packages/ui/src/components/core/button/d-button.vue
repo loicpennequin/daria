@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useSlots } from 'vue';
+import { computed, toRef, useSlots } from 'vue';
 import { useColorScheme, useResponsiveProp } from '@/hooks';
 import { vReadableColor } from '@/directives';
 import { ResponsiveProp, StyleProp } from '@/utils';
@@ -10,7 +10,7 @@ import { DBox, DIcon } from '@/components/core';
 type ButtonVariant = 'full' | 'outlined' | 'ghost';
 
 interface Props {
-  colorScheme?: ResponsiveProp<string>;
+  colorScheme?: string;
   borderRadius?: StyleProp;
   variant?: ResponsiveProp<ButtonVariant>;
   isFullwidth?: ResponsiveProp<boolean>;
@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<Props>(), {
 const get = useResponsiveProp();
 const scheme = useColorScheme(
   computed(() => VARIANT_SCHEMES[get<ButtonVariant>(props.variant)]),
-  props
+  toRef(props, 'colorScheme')
 );
 
 const classes = computed(() => [

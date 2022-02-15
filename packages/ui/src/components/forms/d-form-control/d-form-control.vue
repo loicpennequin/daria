@@ -3,13 +3,12 @@ import { computed, provide, toRef } from 'vue';
 import { nanoid } from 'nanoid';
 import { DBox } from '@/components/core';
 import { FORM_CONTROL_INJECTION_KEY } from '@/constants';
-import { ResponsiveProp } from '@/utils';
 import { useResponsiveProp } from '@/hooks';
 import { FormControlContext } from './d-form-control.types';
 
 interface Props {
   id?: string;
-  colorScheme?: ResponsiveProp<string>;
+  colorScheme?: string;
   required?: boolean;
   disabled?: boolean;
   isInvalid?: boolean;

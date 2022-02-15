@@ -2,18 +2,18 @@
 export default { inheritAttrs: false };
 </script>
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, ref, toRef } from 'vue';
 import { DIcon, DBox } from '@/components/core';
 import { DFlex } from '@/components/layout';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import { Maybe, ResponsiveProp } from '@/utils';
+import { ResponsiveProp } from '@/utils';
 import { vReadableColor } from '@/directives';
 
 interface Props {
   modelValue: string;
   leftIcon?: ResponsiveProp<string>;
   rightIcon?: ResponsiveProp<string>;
-  colorScheme?: ResponsiveProp<string>;
+  colorScheme?: string;
   id?: string;
   isInvalid?: boolean;
   disabled?: boolean;
@@ -29,7 +29,7 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void;
 }>();
 
-const scheme = useColorScheme({ borderFocus: 3 }, props);
+const scheme = useColorScheme({ borderFocus: 3 }, toRef(props, 'colorScheme'));
 
 const vModel = computed({
   get() {

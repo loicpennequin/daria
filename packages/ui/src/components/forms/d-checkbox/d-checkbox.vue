@@ -1,14 +1,13 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, toRef } from 'vue';
 import { nanoid } from 'nanoid';
-import { ResponsiveProp } from '@/utils';
 
 import { DFlex } from '@/components/layout';
 import { useColorScheme } from '@/hooks';
 
 interface Props {
   modelValue: boolean | string | string[];
-  colorScheme?: ResponsiveProp<string>;
+  colorScheme?: string;
   id?: string;
   isInvalid?: boolean;
   disabled?: boolean;
@@ -25,8 +24,7 @@ const emit = defineEmits<{
 }>();
 
 const classes = computed(() => [props.disabled && 'd-checkbox--disabled']);
-
-const scheme = useColorScheme({ focus: 5 }, props);
+const scheme = useColorScheme({ focus: 5 }, toRef(props, 'colorScheme'));
 
 const vModel = computed({
   get() {

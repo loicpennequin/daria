@@ -4,13 +4,13 @@ import { useResponsiveProp } from './use-responsive-prop';
 
 export const useColorScheme = (
   scheme: ColorScheme | Ref<ColorScheme>,
-  props: any
+  key: string | Ref<string | undefined>
 ) => {
   const get = useResponsiveProp();
 
   return computed(() =>
     mapObject(unref(scheme), value =>
-      mapToCssVar('color', `${get(unref(unref(props).colorScheme))}-${value}`)
+      mapToCssVar('color', `${get(unref(unref(key)))}-${value}`)
     )
   );
 };
