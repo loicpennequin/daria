@@ -83,7 +83,6 @@ const dBoxAttr = computed(() =>
 <style lang="postcss" scoped>
 .d-box {
   font-family: v-bind('styleProps.fontFamily');
-  border-color: v-bind('styleProps.borderColor');
   transition: v-bind('styleProps.transition');
 
   &:where([data-d-box*='font-size']) {
@@ -96,6 +95,10 @@ const dBoxAttr = computed(() =>
 
   &:where([data-d-box*='color']) {
     color: v-bind('styleProps.color');
+  }
+
+  &:where([data-d-box*='border-color']) {
+    border-color: v-bind('styleProps.borderColor');
   }
 
   &:where([data-d-box*='padding']) {

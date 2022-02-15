@@ -6,6 +6,7 @@ export const checkedProps = [
   'bg',
   'fontSize',
   'color',
+  'borderColor',
   'padding',
   'margin',
   'borderRadius',

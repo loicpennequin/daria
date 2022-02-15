@@ -37,12 +37,12 @@ const gap = computed(() =>
 .d-button-group {
   &.d-button-group--is-rounded {
     &:deep(.d-button:first-child) {
-      border-top-left-radius: 999px;
-      border-bottom-left-radius: 999px;
+      border-top-left-radius: var(--d-radius-pill);
+      border-bottom-left-radius: var(--d-radius-pill);
     }
     &:deep(.d-button:last-child) {
-      border-top-right-radius: 999px;
-      border-bottom-right-radius: 999px;
+      border-top-right-radius: var(--d-radius-pill);
+      border-bottom-right-radius: var(--d-radius-pill);
     }
     &:deep(.d-button:not(:first-child):not(:last-child)) {
       border-radius: 0;

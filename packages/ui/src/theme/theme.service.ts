@@ -3,6 +3,12 @@ import { camelToKebabCase, DeepPartial, Theme } from '@/utils';
 import { merge } from 'lodash-es';
 import { defaultTheme } from './default-theme';
 
+type FontDefinition = {
+  name: string;
+  url: string;
+  weight: string;
+};
+
 export class ThemeService {
   theme: Theme;
 
@@ -10,7 +16,7 @@ export class ThemeService {
     this.theme = merge({}, defaultTheme, theme);
   }
 
-  init(): void {
+  init() {
     this.setupFonts();
     const { font, ...theme } = this.theme;
     this.createCustomProperties(theme);
@@ -26,15 +32,7 @@ export class ThemeService {
     );
   }
 
-  private async loadFont({
-    name,
-    url,
-    weight
-  }: {
-    name: string;
-    url: string;
-    weight: string;
-  }) {
+  private async loadFont({ name, url, weight }: FontDefinition) {
     const fontName = `Daria ${name}`;
     document.documentElement.style.setProperty(
       `${CSS_VAR_PREFIX}font-${camelToKebabCase(name)}`,

@@ -1,6 +1,10 @@
+import { Ref } from 'vue';
+
 export type Nil = null | undefined;
 
 export type Maybe<T> = T | null;
+
+export type MaybeRef<T> = Ref<T> | T;
 
 export type DeepPartial<T> = T extends object
   ? {

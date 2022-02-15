@@ -5,7 +5,8 @@ const form = reactive({
   username: '',
   email: '',
   password: '',
-  passwordConfirm: ''
+  passwordConfirm: '',
+  newsLetterOptin: true
 });
 
 const isUsernameInvalid = computed(() => form.username.length > 12);
@@ -57,6 +58,15 @@ const isUsernameInvalid = computed(() => form.username.length > 12);
             type="password"
             v-bind="formControlProps"
           />
+        </d-form-control>
+
+        <d-form-control>
+          <d-checkbox v-model="form.newsLetterOptin">
+            Subscribe to our newsletter.
+          </d-checkbox>
+          <d-form-control-hint>
+            You wil receive relevant informations about our products by e-mail.
+          </d-form-control-hint>
         </d-form-control>
 
         <d-flex justify="flex-end">

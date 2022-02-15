@@ -16,9 +16,14 @@ interface Props {
   colorScheme?: ResponsiveProp<string>;
   id?: string;
   isInvalid?: boolean;
+  disabled?: boolean;
 }
 
-const props = withDefaults(defineProps<Props>(), { colorScheme: 'grey' });
+const props = withDefaults(defineProps<Props>(), {
+  // @ts-ignore
+  id: () => nanoid(),
+  colorScheme: 'grey'
+});
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void;
@@ -41,7 +46,7 @@ const vModel = computed({
     gap="0"
     class="d-input"
     :border-color="props.isInvalid ? 'red-5' : 'grey-2'"
-    bg="white"
+    :bg="disabled ? 'grey-1' : 'white'"
     align="center"
   >
     <slot name="left">
@@ -54,6 +59,7 @@ const vModel = computed({
       v-readable-color="true"
       :id="props.id"
       v-bind="$attrs"
+      :disabled="disabled"
     />
 
     <slot name="right">
