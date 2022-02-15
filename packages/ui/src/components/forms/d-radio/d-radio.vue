@@ -27,7 +27,10 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: any): void;
 }>();
 
-const classes = computed(() => [props.disabled && 'd-radio--disabled']);
+const classes = computed(() => [
+  props.disabled && 'd-radio--disabled',
+  props.isInvalid && 'd-radio--is-invalid'
+]);
 const scheme = useColorScheme({ normal: 5 }, toRef(props, 'colorScheme'));
 
 const vModel = computed({
@@ -71,6 +74,13 @@ const vModel = computed({
   color: var(--d-color-grey-5);
   .d-input {
     cursor: default;
+  }
+}
+
+.d-radio--is-invalid {
+  .d-input,
+  .d-input__inner--checked {
+    color: var(--d-color-red-5);
   }
 }
 

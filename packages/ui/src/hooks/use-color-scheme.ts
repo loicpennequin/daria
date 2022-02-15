@@ -10,7 +10,7 @@ export const useColorScheme = (
 
   return computed(() =>
     mapObject(unref(scheme), value =>
-      mapToCssVar('color', `${get(unref(unref(key)))}-${value}`)
+      mapToCssVar('color', `${get(unref(key))}-${value}`)
     )
   );
 };

@@ -22,10 +22,10 @@ const app = createApp(App).use(
     },
     config: {
       DButton: {
-        colorScheme: 'lime'
+        colorScheme: 'indigo'
       },
       DFormControl: {
-        colorScheme: 'lime'
+        colorScheme: 'indigo'
       }
     }
   })

@@ -56,6 +56,7 @@ const direction = computed(() => (props.isRow ? 'row' : 'column'));
         class="d-radio__radio"
         :colorScheme="props.colorScheme"
         :disabled="option.disabled ?? props.disabled"
+        :is-invalid="props.isInvalid && props.modelValue === option.value"
       >
         {{ option.label }}
       </DRadio>
