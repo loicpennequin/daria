@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 
 import AppHeader from './app-header.vue';
+import AppFooter from './app-footer.vue';
 import ProductGrid from './product-grid.vue';
 import SignupForm from './signup-form.vue';
 
@@ -26,6 +27,8 @@ const form = ref({ email: '', password: '' });
       <ProductGrid />
     </d-container>
   </main>
+
+  <AppFooter />
 </template>
 
 <style lang="postcss">

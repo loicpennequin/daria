@@ -25,11 +25,12 @@ const genders = [
       <d-section-heading mb="3">Join us today !</d-section-heading>
       <d-flex direction="column" gap="3" is="form" @submit.prevent>
         <d-form-control
+          is="fieldset"
           required
           v-slot="formControlProps"
           :is-invalid="form.gender === 'NB'"
         >
-          <d-form-control-label>Gender</d-form-control-label>
+          <d-form-control-label is="legend">Gender</d-form-control-label>
           <d-radio-group
             v-model="form.gender"
             v-bind="formControlProps"
@@ -63,7 +64,7 @@ const genders = [
           />
         </d-form-control>
 
-        <d-form-control v-slot="formControlProps">
+        <d-form-control v-slot="formControlProps" required>
           <d-form-control-label>Password</d-form-control-label>
           <d-input
             v-model="form.password"
@@ -76,7 +77,7 @@ const genders = [
           </d-form-control-hint>
         </d-form-control>
 
-        <d-form-control v-slot="formControlProps">
+        <d-form-control v-slot="formControlProps" required>
           <d-form-control-label>Confirm your password</d-form-control-label>
           <d-input
             v-model="form.passwordConfirm"

@@ -46,10 +46,10 @@ const openedAccordionIndex = ref(null);
                   <a href="/">How it works</a>
                 </li>
                 <li>
-                  <a color="grey-0" href="/">Frequetly Asked Questions</a>
+                  <a href="/">Frequetly Asked Questions</a>
                 </li>
                 <li>
-                  <a color="grey-0" href="/">Terms and Conditions</a>
+                  <a href="/">Terms and Conditions</a>
                 </li>
               </d-flex>
             </d-accordion-item>

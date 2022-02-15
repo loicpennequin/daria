@@ -52,3 +52,15 @@ ul,
 ol {
   list-style: none;
 }
+
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+legend {
+  padding: 0;
+  display: block;
+}
