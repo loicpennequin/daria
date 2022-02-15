@@ -40,7 +40,7 @@ const formControl: FormControlContext = {
   required: toRef(props, 'required'),
   isInvalid: toRef(props, 'isInvalid'),
   disabled: toRef(props, 'disabled'),
-  colorScheme: get(props.colorScheme)
+  colorScheme: toRef(props, 'colorScheme')
 };
 provide(FORM_CONTROL_INJECTION_KEY, formControl);
 

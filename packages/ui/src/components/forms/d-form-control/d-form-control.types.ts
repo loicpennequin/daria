@@ -3,7 +3,7 @@ import { Ref } from 'vue';
 
 export type FormControlContext = {
   id: Ref<string>;
-  colorScheme: ResponsiveProp<string>;
+  colorScheme: Ref<ResponsiveProp<string>>;
   required: Ref<boolean>;
   disabled: Ref<boolean>;
   isInvalid: Ref<boolean>;

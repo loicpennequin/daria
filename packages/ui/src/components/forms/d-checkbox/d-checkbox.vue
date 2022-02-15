@@ -94,6 +94,10 @@ const vModel = computed({
   border-radius: var(--d-border-radius-1);
   transition: box-shadow var(--d-transition-2);
   background: var(--d-color-white);
+
+  &:focus-within {
+    outline: solid 1px var(--checkbox-color);
+  }
 }
 
 .d-checkbox__label {
