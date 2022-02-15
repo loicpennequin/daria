@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<Props>(), {
   is: 'label',
   fontWeight: 'semibold'
 });
-const { required, id, colorScheme } = useFormControl();
+const { required, disabled, id, colorScheme } = useFormControl();
 
 const scheme = useColorScheme({ asterisk: 5 }, { colorScheme });
 </script>
@@ -26,6 +26,7 @@ const scheme = useColorScheme({ asterisk: 5 }, { colorScheme });
     :for="id"
     mb="1"
     :font-weight="props.fontWeight"
+    :color="disabled ? 'grey-6' : 'black'"
   >
     <slot />
   </DBox>

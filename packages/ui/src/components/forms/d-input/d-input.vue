@@ -47,6 +47,7 @@ const vModel = computed({
     class="d-input"
     :border-color="props.isInvalid ? 'red-5' : 'grey-2'"
     :bg="disabled ? 'grey-1' : 'white'"
+    :color="disabled ? 'grey-5' : 'black'"
     align="center"
   >
     <slot name="left">
@@ -56,7 +57,7 @@ const vModel = computed({
     </slot>
     <input
       v-model="vModel"
-      v-readable-color="true"
+      v-readable-color="!disabled"
       :id="props.id"
       v-bind="$attrs"
       :disabled="disabled"
@@ -84,6 +85,7 @@ const vModel = computed({
     padding: var(--d-spacing-2);
     border: none;
     background: inherit;
+    color: inherit;
     flex-grow: 1;
 
     &::placeholder {

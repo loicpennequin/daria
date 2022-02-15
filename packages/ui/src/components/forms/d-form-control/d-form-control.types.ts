@@ -1,8 +1,10 @@
 import { ResponsiveProp } from '@/utils';
+import { Ref } from 'vue';
 
 export type FormControlContext = {
-  id: string;
+  id: Ref<string>;
   colorScheme: ResponsiveProp<string>;
-  required: boolean;
-  isInvalid: boolean;
+  required: Ref<boolean>;
+  disabled: Ref<boolean>;
+  isInvalid: Ref<boolean>;
 };

@@ -5,27 +5,41 @@ import { DBox } from '@/components/core';
 import { FORM_CONTROL_INJECTION_KEY } from '@/constants';
 import { ResponsiveProp } from '@/utils';
 import { useResponsiveProp } from '@/hooks';
+import { FormControlContext } from './d-form-control.types';
 
 interface Props {
   id?: string;
   colorScheme?: ResponsiveProp<string>;
   required?: boolean;
+  disabled?: boolean;
   isInvalid?: boolean;
 }
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults<
+  Props,
+  {
+    id: string;
+    required: boolean;
+    isInvalid: boolean;
+    colorScheme: string;
+    disabled: boolean;
+  }
+>(defineProps<Props>(), {
   // @ts-ignore
   id: () => nanoid(),
   colorScheme: 'grey',
-  required: false
+  required: false,
+  isInvalid: false,
+  disabled: false
 });
 
 const get = useResponsiveProp();
 
-const formControl = {
+const formControl: FormControlContext = {
   id: toRef(props, 'id'),
   required: toRef(props, 'required'),
   isInvalid: toRef(props, 'isInvalid'),
+  disabled: toRef(props, 'disabled'),
   colorScheme: get(props.colorScheme)
 };
 provide(FORM_CONTROL_INJECTION_KEY, formControl);
@@ -33,6 +47,7 @@ provide(FORM_CONTROL_INJECTION_KEY, formControl);
 const slotProps = computed(() => ({
   id: props.id,
   required: props.required,
+  disabled: props.disabled,
   isInvalid: props.isInvalid,
   colorScheme: get(props.colorScheme)
 }));

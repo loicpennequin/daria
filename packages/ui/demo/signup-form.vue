@@ -2,7 +2,7 @@
 import { computed, reactive, ref } from 'vue';
 
 const form = reactive({
-  username: '',
+  username: 'John',
   email: '',
   password: '',
   passwordConfirm: '',
@@ -19,6 +19,7 @@ const isUsernameInvalid = computed(() => form.username.length > 12);
       <d-flex direction="column" gap="3" is="form" @submit.prevent>
         <d-form-control
           required
+          disabled
           v-slot="formControlProps"
           :is-invalid="isUsernameInvalid"
         >
