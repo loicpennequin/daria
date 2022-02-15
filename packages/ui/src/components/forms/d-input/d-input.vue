@@ -6,7 +6,7 @@ import { computed, ref, toRef } from 'vue';
 import { DIcon, DBox } from '@/components/core';
 import { DFlex } from '@/components/layout';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import { ResponsiveProp } from '@/utils';
+import { getDefaultProp, ResponsiveProp } from '@/utils';
 import { vReadableColor } from '@/directives';
 
 interface Props {
@@ -22,7 +22,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   // @ts-ignore
   id: () => nanoid(),
-  colorScheme: 'grey'
+  // @ts-ignore
+  colorScheme: getDefaultProp('DInput.colorScheme')
 });
 
 const emit = defineEmits<{

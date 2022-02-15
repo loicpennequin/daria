@@ -20,7 +20,6 @@ const isUsernameInvalid = computed(() => form.username.length > 12);
         <d-form-control
           required
           v-slot="formControlProps"
-          color-scheme="indigo"
           :is-invalid="isUsernameInvalid"
         >
           <d-form-control-label>Username</d-form-control-label>
@@ -30,11 +29,7 @@ const isUsernameInvalid = computed(() => form.username.length > 12);
           </d-form-control-error>
         </d-form-control>
 
-        <d-form-control
-          required
-          v-slot="formControlProps"
-          color-scheme="indigo"
-        >
+        <d-form-control required v-slot="formControlProps">
           <d-form-control-label>E-mail</d-form-control-label>
           <d-input
             v-model="form.email"
@@ -43,7 +38,7 @@ const isUsernameInvalid = computed(() => form.username.length > 12);
           />
         </d-form-control>
 
-        <d-form-control v-slot="formControlProps" color-scheme="indigo">
+        <d-form-control v-slot="formControlProps">
           <d-form-control-label>Password</d-form-control-label>
           <d-input
             v-model="form.password"
@@ -56,7 +51,7 @@ const isUsernameInvalid = computed(() => form.username.length > 12);
           </d-form-control-hint>
         </d-form-control>
 
-        <d-form-control v-slot="formControlProps" color-scheme="indigo">
+        <d-form-control v-slot="formControlProps">
           <d-form-control-label>Confirm your password</d-form-control-label>
           <d-input
             v-model="form.passwordConfirm"
@@ -65,7 +60,7 @@ const isUsernameInvalid = computed(() => form.username.length > 12);
           />
         </d-form-control>
 
-        <d-form-control color-scheme="indigo" v-slot="formControlProps">
+        <d-form-control v-slot="formControlProps">
           <d-checkbox v-model="form.newsLetterOptin" v-bind="formControlProps">
             Subscribe to our newsletter.
           </d-checkbox>
@@ -75,7 +70,7 @@ const isUsernameInvalid = computed(() => form.username.length > 12);
         </d-form-control>
 
         <d-flex justify="flex-end">
-          <d-button color-scheme="indigo">Sign up</d-button>
+          <d-button>Sign up</d-button>
         </d-flex>
       </d-flex>
     </d-section>

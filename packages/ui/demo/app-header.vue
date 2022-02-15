@@ -35,7 +35,7 @@ const breakpoints = useBreakpoints();
             <a href="/">Contact</a>
           </li>
           <li>
-            <d-button color-scheme="indigo">Login</d-button>
+            <d-button>Login</d-button>
           </li>
         </d-flex>
       </nav>

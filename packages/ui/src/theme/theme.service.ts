@@ -1,6 +1,7 @@
 import { CSS_VAR_PREFIX } from '@/constants';
 import { camelToKebabCase, DeepPartial, Theme } from '@/utils';
 import { merge } from 'lodash-es';
+import { defaultConfig } from './default-config';
 import { defaultTheme } from './default-theme';
 
 type FontDefinition = {
@@ -11,9 +12,12 @@ type FontDefinition = {
 
 export class ThemeService {
   theme: Theme;
+  config: Record<string, any>;
 
-  constructor(theme: DeepPartial<Theme>) {
+  constructor(theme: DeepPartial<Theme>, config: Record<string, any>) {
     this.theme = merge({}, defaultTheme, theme);
+    this.config = merge({}, defaultConfig, config);
+    console.log(this.config);
   }
 
   init() {

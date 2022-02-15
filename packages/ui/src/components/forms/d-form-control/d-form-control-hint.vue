@@ -12,7 +12,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 const { colorScheme } = useFormControl();
 
-const scheme = useColorScheme({ text: 6 }, { colorScheme });
+const scheme = useColorScheme({ text: 6 }, colorScheme);
 </script>
 
 <template>

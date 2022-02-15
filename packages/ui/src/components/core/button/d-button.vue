@@ -2,7 +2,7 @@
 import { computed, toRef, useSlots } from 'vue';
 import { useColorScheme, useResponsiveProp } from '@/hooks';
 import { vReadableColor } from '@/directives';
-import { ResponsiveProp, StyleProp } from '@/utils';
+import { getDefaultProp, ResponsiveProp, StyleProp } from '@/utils';
 import { VARIANT_SCHEMES } from './d-button.constants';
 
 import { DBox, DIcon } from '@/components/core';
@@ -20,7 +20,8 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  colorScheme: 'grey',
+  // @ts-ignore
+  colorScheme: getDefaultProp('DButton.colorScheme'),
   borderRadius: 3,
   variant: 'full',
   isFullwidth: false,

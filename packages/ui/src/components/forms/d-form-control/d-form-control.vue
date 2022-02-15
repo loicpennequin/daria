@@ -5,6 +5,7 @@ import { DBox } from '@/components/core';
 import { FORM_CONTROL_INJECTION_KEY } from '@/constants';
 import { useResponsiveProp } from '@/hooks';
 import { FormControlContext } from './d-form-control.types';
+import { getDefaultProp } from '@/utils';
 
 interface Props {
   id?: string;
@@ -26,7 +27,8 @@ const props = withDefaults<
 >(defineProps<Props>(), {
   // @ts-ignore
   id: () => nanoid(),
-  colorScheme: 'grey',
+  // @ts-ignore
+  colorScheme: getDefaultProp('DFormControl.colorScheme'),
   required: false,
   isInvalid: false,
   disabled: false
@@ -48,7 +50,7 @@ const slotProps = computed(() => ({
   required: props.required,
   disabled: props.disabled,
   isInvalid: props.isInvalid,
-  colorScheme: get(props.colorScheme)
+  colorScheme: props.colorScheme
 }));
 </script>
 

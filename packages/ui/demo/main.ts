@@ -19,6 +19,14 @@ const app = createApp(App).use(
       ...accordion,
       ...transitions,
       ...forms
+    },
+    config: {
+      DButton: {
+        colorScheme: 'indigo'
+      },
+      DFormControl: {
+        colorScheme: 'indigo'
+      }
     }
   })
 );

@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 
 import { DFlex } from '@/components/layout';
 import { useColorScheme } from '@/hooks';
+import { getDefaultProp } from '@/utils';
 
 interface Props {
   modelValue: boolean | string | string[];
@@ -16,7 +17,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   // @ts-ignore
   id: () => nanoid(),
-  colorScheme: 'grey'
+  // @ts-ignore
+  colorScheme: getDefaultProp('DCheckbox.colorScheme')
 });
 
 const emit = defineEmits<{

@@ -13,16 +13,18 @@ type PluginOptions = {
   theme?: any;
   icons?: Record<string, any>;
   components?: Record<string, any>;
+  config?: Record<string, any>;
 };
 
 export const createDariaUi = ({
   theme = {},
   components = {},
-  icons = {}
+  icons = {},
+  config = {}
 }: PluginOptions = {}): Plugin => {
   return {
     install: (app: App) => {
-      const themeService = new ThemeService(theme);
+      const themeService = new ThemeService(theme, config);
       themeService.init();
 
       app.provide<ThemeService>(THEME_SERVICE, themeService);
