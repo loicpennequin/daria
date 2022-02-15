@@ -14,14 +14,13 @@ const CARD_COUNT = 18;
         min-height="270px"
         once
       >
-        <d-scale-transition :is-visible="isVisible">
+        <d-scale-fade-transition :is-visible="isVisible">
           <d-surface>
             <d-flex gap="3" direction="column">
               <d-section>
                 <d-aspect-ratio>
                   <d-image
-                    :src="`https://picsum.photos/seed/${i}/500`"
-                    :lazy-src="`https://picsum.photos/seed/${i}/10`"
+                    :src="`https://picsum.photos/seed/${i}/400`"
                     :alt="`Product ${i}`"
                     height="400"
                     width="400"
@@ -39,7 +38,7 @@ const CARD_COUNT = 18;
               </d-section>
             </d-flex>
           </d-surface>
-        </d-scale-transition>
+        </d-scale-fade-transition>
       </d-lazy>
     </d-grid>
   </d-section>
