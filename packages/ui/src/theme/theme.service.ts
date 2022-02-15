@@ -17,7 +17,6 @@ export class ThemeService {
   constructor(theme: DeepPartial<Theme>, config: Record<string, any>) {
     this.theme = merge({}, defaultTheme, theme);
     this.config = merge({}, defaultConfig, config);
-    console.log(this.config);
   }
 
   init() {

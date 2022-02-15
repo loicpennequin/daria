@@ -26,7 +26,10 @@ const emit = defineEmits<{
 }>();
 
 const classes = computed(() => [props.disabled && 'd-checkbox--disabled']);
-const scheme = useColorScheme({ focus: 5 }, toRef(props, 'colorScheme'));
+const scheme = useColorScheme(
+  { normal: 5, focus: 7 },
+  toRef(props, 'colorScheme')
+);
 
 const vModel = computed({
   get() {
@@ -61,7 +64,7 @@ const vModel = computed({
 .d-checkbox {
   display: flex;
   flex-wrap: nowrap;
-  --checkbox-color: var(--d-color-black);
+  --checkbox-color: v-bind('scheme.normal');
 
   &:focus-within {
     --checkbox-color: v-bind('scheme.focus');
