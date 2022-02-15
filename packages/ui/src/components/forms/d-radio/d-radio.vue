@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useColorScheme } from '@/hooks';
-import { getDefaultProp } from '@/utils';
+import { getDefaultProp, randomIdProp } from '@/utils';
 import { nanoid } from 'nanoid';
 import { computed, toRef } from 'vue';
 import { DFlex } from '@/components/layout';
@@ -15,10 +15,8 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  // @ts-ignore
-  id: () => nanoid(),
-  // @ts-ignore
-  colorScheme: getDefaultProp('DRadio.colorScheme'),
+  id: randomIdProp(),
+  colorScheme: getDefaultProp<string>('DRadio.colorScheme'),
   isInvalid: false,
   disabled: false
 });

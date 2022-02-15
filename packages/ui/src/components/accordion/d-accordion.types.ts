@@ -5,7 +5,7 @@ export type AccordionOpenedIndex = Maybe<number | number[]>;
 
 export type AccordionContext = {
   openedIndex: Ref<AccordionOpenedIndex>;
-  colorScheme?: Ref<ResponsiveProp<string>>;
+  colorScheme?: Ref<string>;
   open: (index: number) => void;
   close: (index: number) => void;
   toggle: (index: number) => void;

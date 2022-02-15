@@ -5,7 +5,7 @@ import { DBox } from '@/components/core';
 import { FORM_CONTROL_INJECTION_KEY } from '@/constants';
 import { useResponsiveProp } from '@/hooks';
 import { FormControlContext } from './d-form-control.types';
-import { getDefaultProp } from '@/utils';
+import { getDefaultProp, randomIdProp } from '@/utils';
 
 interface Props {
   id?: string;
@@ -25,10 +25,8 @@ const props = withDefaults<
     disabled: boolean;
   }
 >(defineProps<Props>(), {
-  // @ts-ignore
-  id: () => nanoid(),
-  // @ts-ignore
-  colorScheme: getDefaultProp('DFormControl.colorScheme'),
+  id: randomIdProp(),
+  colorScheme: getDefaultProp<string>('DFormControl.colorScheme'),
   required: false,
   isInvalid: false,
   disabled: false

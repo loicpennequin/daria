@@ -1,10 +1,9 @@
 <script lang="ts" setup>
 import { computed, toRef } from 'vue';
-import { nanoid } from 'nanoid';
+import { useColorScheme } from '@/hooks';
+import { getDefaultProp, randomIdProp } from '@/utils';
 
 import { DFlex } from '@/components/layout';
-import { useColorScheme } from '@/hooks';
-import { getDefaultProp } from '@/utils';
 
 interface Props {
   modelValue: boolean | string | string[];
@@ -15,10 +14,8 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  // @ts-ignore
-  id: () => nanoid(),
-  // @ts-ignore
-  colorScheme: getDefaultProp('DCheckbox.colorScheme')
+  id: randomIdProp(),
+  colorScheme: getDefaultProp<string>('DCheckbox.colorScheme')
 });
 
 const emit = defineEmits<{

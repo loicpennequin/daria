@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { nanoid } from 'nanoid';
-import { getDefaultProp } from '@/utils';
+import { getDefaultProp, randomIdProp } from '@/utils';
 import { DFlex } from '@/components/layout';
 import DRadio from './d-radio.vue';
 
@@ -20,11 +20,9 @@ interface Props {
   disabled?: boolean;
 }
 
-const props = withDefaults<Props, { id: string }>(defineProps<Props>(), {
-  // @ts-ignore
-  id: () => nanoid(),
-  // @ts-ignore
-  colorScheme: getDefaultProp('DRadio.colorScheme'),
+const props = withDefaults(defineProps<Props>(), {
+  id: randomIdProp(),
+  colorScheme: getDefaultProp<string>('DRadio.colorScheme'),
   isRow: false,
   isInvalid: false,
   disabled: false

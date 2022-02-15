@@ -20,8 +20,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  // @ts-ignore
-  colorScheme: getDefaultProp('DButton.colorScheme'),
+  colorScheme: getDefaultProp<string>('DButton.colorScheme'),
   borderRadius: 3,
   variant: 'full',
   isFullwidth: false,

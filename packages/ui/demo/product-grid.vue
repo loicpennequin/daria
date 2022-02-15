@@ -5,7 +5,7 @@ const CARD_COUNT = 18;
 <template>
   <d-section>
     <d-section-heading>Our products</d-section-heading>
-    <d-grid gap="5" :columns="[1, 2, 3]" role="feed" is="ul">
+    <d-grid gap="5" :columns="[1, 2, 3]" is="ul">
       <d-lazy
         is="li"
         v-slot="{ isVisible }"
@@ -22,6 +22,7 @@ const CARD_COUNT = 18;
                   <d-image
                     :src="`https://picsum.photos/seed/${i}/500`"
                     :lazy-src="`https://picsum.photos/seed/${i}/10`"
+                    :alt="`Product ${i}`"
                     height="400"
                     width="400"
                     loading="lazy"

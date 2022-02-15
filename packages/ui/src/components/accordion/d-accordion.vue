@@ -8,7 +8,7 @@ import { nanoid } from 'nanoid';
 interface Props {
   allowMultiple?: boolean;
   openedIndex?: AccordionOpenedIndex;
-  colorScheme?: ResponsiveProp<string>;
+  colorScheme?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {

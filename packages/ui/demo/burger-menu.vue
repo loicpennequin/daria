@@ -6,7 +6,7 @@ const openedAccordionIndex = ref(null);
 </script>
 
 <template>
-  <d-button variant="ghost" @click="isOpened = true">
+  <d-button variant="ghost" @click="isOpened = true" aria-label="menu">
     <d-icon icon="bars" size="5" />
   </d-button>
 

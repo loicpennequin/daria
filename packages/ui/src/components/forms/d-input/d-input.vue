@@ -6,8 +6,9 @@ import { computed, ref, toRef } from 'vue';
 import { DIcon, DBox } from '@/components/core';
 import { DFlex } from '@/components/layout';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import { getDefaultProp, ResponsiveProp } from '@/utils';
+import { getDefaultProp, randomIdProp, ResponsiveProp } from '@/utils';
 import { vReadableColor } from '@/directives';
+import { nanoid } from 'nanoid';
 
 interface Props {
   modelValue: string;
@@ -17,13 +18,12 @@ interface Props {
   id?: string;
   isInvalid?: boolean;
   disabled?: boolean;
+  foo?: string[];
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  // @ts-ignore
-  id: () => nanoid(),
-  // @ts-ignore
-  colorScheme: getDefaultProp('DInput.colorScheme')
+  id: randomIdProp(),
+  colorScheme: getDefaultProp<string>('DInput.colorScheme')
 });
 
 const emit = defineEmits<{
