@@ -6,10 +6,17 @@ const form = reactive({
   email: '',
   password: '',
   passwordConfirm: '',
-  newsLetterOptin: true
+  newsLetterOptin: true,
+  gender: 'M'
 });
 
 const isUsernameInvalid = computed(() => form.username.length > 12);
+
+const genders = [
+  { label: 'Male', value: 'M' },
+  { label: 'Female', value: 'F' },
+  { label: 'Other', value: 'NB', disabled: true }
+];
 </script>
 
 <template>
@@ -17,6 +24,18 @@ const isUsernameInvalid = computed(() => form.username.length > 12);
     <d-section>
       <d-section-heading mb="3">Join us today !</d-section-heading>
       <d-flex direction="column" gap="3" is="form" @submit.prevent>
+        <d-form-control required v-slot="formControlProps">
+          <d-form-control-label>Gender</d-form-control-label>
+          <d-radio-group
+            v-model="form.gender"
+            v-bind="formControlProps"
+            :values="genders"
+            is-row
+          />
+
+          <d-form-control-hint>There are only two genders.</d-form-control-hint>
+        </d-form-control>
+
         <d-form-control
           required
           v-slot="formControlProps"

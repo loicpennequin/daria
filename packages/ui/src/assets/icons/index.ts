@@ -5,6 +5,8 @@ import chevronUp from './chevron-up.svg?component';
 import chevronDown from './chevron-down.svg?component';
 import chevronLeft from './chevron-left.svg?component';
 import chevronRight from './chevron-right.svg?component';
+import radioChecked from './radio-checked.svg?component';
+import radioUnchecked from './radio-unchecked.svg?component';
 
 export {
   bars,
@@ -13,5 +15,7 @@ export {
   chevronDown,
   chevronLeft,
   chevronRight,
-  close
+  close,
+  radioChecked,
+  radioUnchecked
 };

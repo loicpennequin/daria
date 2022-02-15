@@ -13,5 +13,9 @@ export const defaultConfig = {
 
   DCheckbox: {
     colorScheme: 'grey'
+  },
+
+  DRadio: {
+    colorScheme: 'grey'
   }
 };
