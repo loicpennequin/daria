@@ -1,10 +1,11 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import vueTypeImports from 'vite-plugin-vue-type-imports';
 import svgLoader from 'vite-svg-loader';
 import path from 'path';
 
 export default defineConfig({
-  plugins: [vue(), svgLoader()],
+  plugins: [vue(), svgLoader(), vueTypeImports()],
   resolve: {
     alias: {
       '@': `${__dirname}/src`,

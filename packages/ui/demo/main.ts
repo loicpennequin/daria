@@ -7,7 +7,8 @@ import {
   drawer,
   accordion,
   forms,
-  transitions
+  transitions,
+  modal
 } from '@/index';
 
 const app = createApp(App).use(
@@ -18,7 +19,8 @@ const app = createApp(App).use(
       ...drawer,
       ...accordion,
       ...transitions,
-      ...forms
+      ...forms,
+      ...modal
     },
     config: {
       DButton: {

@@ -3,9 +3,12 @@ import { ref } from 'vue';
 import { useBreakpoints } from '@/hooks';
 
 import BurgerMenu from './burger-menu.vue';
+import LoginModal from './login-modal.vue';
+
+const breakpoints = useBreakpoints();
 
 const isSticking = ref(false);
-const breakpoints = useBreakpoints();
+const isLoginModalOpened = ref(false);
 </script>
 
 <template>
@@ -13,7 +16,7 @@ const breakpoints = useBreakpoints();
     :p="[0, 3]"
     :bg="isSticking ? 'white' : 'transparent'"
     :shadow="isSticking ? 3 : 0"
-    transition="2"
+    :transition="{ backgroundColor: 2, boxShadow: 2 }"
     v-model:is-sticking="isSticking"
     is="header"
     class="app-header"
@@ -35,12 +38,13 @@ const breakpoints = useBreakpoints();
             <a href="/">Contact</a>
           </li>
           <li>
-            <d-button>Login</d-button>
+            <d-button @click="isLoginModalOpened = true">Login</d-button>
           </li>
         </d-flex>
       </nav>
     </d-flex>
   </d-sticky>
+  <LoginModal v-model:is-opened="isLoginModalOpened" />
 </template>
 
 <style lang="postcss" scoped>

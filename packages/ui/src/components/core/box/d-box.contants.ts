@@ -1,8 +1,9 @@
 import { useStyleProps } from '@/hooks';
+import { upperCaseFirstLetter } from '@/utils';
 
 type StyleProps = ReturnType<typeof useStyleProps>;
 
-export const checkedProps = [
+const baseCheckedProps: string[] = [
   'bg',
   'fontSize',
   'color',
@@ -11,5 +12,16 @@ export const checkedProps = [
   'margin',
   'borderRadius',
   'fontWeight',
-  'shadow'
-] as (keyof StyleProps['value'])[];
+  'shadow',
+  'transition'
+];
+
+const getPrefixedProps = (prefix: string) =>
+  baseCheckedProps.map(p => `${prefix}${upperCaseFirstLetter(p)}`);
+
+export const checkedProps = [
+  ...baseCheckedProps,
+  ...getPrefixedProps('h'),
+  ...getPrefixedProps('f'),
+  ...getPrefixedProps('fv')
+];

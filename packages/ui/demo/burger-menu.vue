@@ -46,7 +46,7 @@ const openedAccordionIndex = ref(null);
                   <a href="/">How it works</a>
                 </li>
                 <li>
-                  <a href="/">Frequetly Asked Questions</a>
+                  <a href="/">Frequently Asked Questions</a>
                 </li>
                 <li>
                   <a href="/">Terms and Conditions</a>

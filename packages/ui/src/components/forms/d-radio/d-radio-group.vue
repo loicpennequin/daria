@@ -44,7 +44,7 @@ const direction = computed(() => (props.isRow ? 'row' : 'column'));
 
 <template>
   <div class="d-radio-group">
-    <DFlex :direction="direction" gap="1">
+    <DFlex :direction="direction" gap="2">
       <DRadio
         v-for="(option, index) in props.values"
         :id="props.id + index"

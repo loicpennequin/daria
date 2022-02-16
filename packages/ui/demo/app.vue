@@ -11,9 +11,8 @@ const form = ref({ email: '', password: '' });
 
 <template>
   <AppHeader />
-
   <main>
-    <d-box bg="indigo-1" p="5">
+    <d-box bg="indigo-1" :px="[2, 5]" py="5">
       <d-container>
         <d-grid :columns="[1, 2]">
           <d-grid-item :column="[1, 2]">

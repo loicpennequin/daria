@@ -55,7 +55,7 @@ const transitionName = computed(() => `d-slide-fade-${props.direction}`);
 }
 
 .d-slide-fade-vertical-enter-from,
-.d-slide-fade-vertica-leave-to {
+.d-slide-fade-vertical-leave-to {
   transform: translateY(v-bind('style.distance'));
   opacity: 0;
 }

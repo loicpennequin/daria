@@ -1463,6 +1463,11 @@ util-deprecate@^1.0.2:
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
 
+vite-plugin-vue-type-imports@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/vite-plugin-vue-type-imports/-/vite-plugin-vue-type-imports-0.1.3.tgz#06edf2da7abdd3367217842e69b6ed7f506a3919"
+  integrity sha512-iF5NgeQc2MZ6wDUS1tnN7rglkWmm+WhK9rCQb3FudsrMTqLazbtN6shyrEcsGBdqYAqH9c5HhiwU3gOIrFcVHA==
+
 vite-svg-loader@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/vite-svg-loader/-/vite-svg-loader-3.1.2.tgz#e701d6f5d42969eac2b3c40fea9d4159bfa27be3"

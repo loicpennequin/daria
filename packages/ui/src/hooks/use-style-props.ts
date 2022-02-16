@@ -1,38 +1,36 @@
-import { camelToKebabCase, isNil } from '@/utils';
+import { camelToKebabCase, isNil, upperCaseFirstLetter } from '@/utils';
 import { mapToCssVar } from '@/utils/css';
-import { isObject } from 'lodash-es';
+import { initial, isObject } from 'lodash-es';
 import { computed, unref } from 'vue';
 import { useResponsiveProp } from './use-responsive-prop';
-
-type SpacingValues = {
-  all: string | number;
-  x: string | number;
-  y: string | number;
-  top: string | number;
-  bottom: string | number;
-  left: string | number;
-  right: string | number;
-};
 
 export const useStyleProps = (props: any) => {
   const getPropValue = useResponsiveProp();
 
-  const computeSpacing = (values: SpacingValues) => {
+  const computeSpacing = (prefix: string, shorthandPrefix: string) => {
+    const _props = unref(props);
+    const values = {
+      all: _props[prefix] ?? _props[shorthandPrefix],
+      x: _props[`${prefix}X`] ?? _props[`${shorthandPrefix}x`],
+      y: _props[`${prefix}Y`] ?? _props[`${shorthandPrefix}y`],
+      top: _props[`${prefix}Top`] ?? _props[`${shorthandPrefix}t`],
+      bottom: _props[`${prefix}Bottom`] ?? _props[`${shorthandPrefix}b`],
+      left: _props[`${prefix}Left`] ?? _props[`${shorthandPrefix}l`],
+      right: _props[`${prefix}Right`] ?? _props[`${shorthandPrefix}r`]
+    };
     if (Object.values(values).every(isNil)) return null;
 
     const { all, x, y, top, bottom, left, right } = values;
 
-    const topToken = mapToCssVar('spacing', getPropValue(top ?? y ?? all));
-    const bottomToken = mapToCssVar(
-      'spacing',
-      getPropValue(bottom ?? y ?? all)
-    );
-    const leftToken = mapToCssVar('spacing', getPropValue(left ?? x ?? all));
-    const rightToken = mapToCssVar('spacing', getPropValue(right ?? x ?? all));
+    const topToken = mapToCssVar('spacing', getPropValue(top ?? y ?? all)) ?? 0;
+    const bottomToken =
+      mapToCssVar('spacing', getPropValue(bottom ?? y ?? all)) ?? 0;
+    const leftToken =
+      mapToCssVar('spacing', getPropValue(left ?? x ?? all)) ?? 0;
+    const rightToken =
+      mapToCssVar('spacing', getPropValue(right ?? x ?? all)) ?? 0;
 
-    return `${topToken ?? 0} ${rightToken ?? 0} ${bottomToken ?? 0} ${
-      leftToken ?? 0
-    }`;
+    return `${topToken} ${rightToken} ${bottomToken} ${leftToken}`;
   };
 
   const computeTransitions = (
@@ -54,38 +52,106 @@ export const useStyleProps = (props: any) => {
     );
   };
 
-  return computed(() => {
+  const getStyleProp = (
+    cssVarName: string,
+    stylePropName: string,
+    propName: string = stylePropName,
+    shorthandPropName: string = propName
+  ) => {
+    const _props = unref(props);
+    const uStylePropName = upperCaseFirstLetter(stylePropName);
+    const uPropName = upperCaseFirstLetter(propName);
+    const uShorthandPropName = upperCaseFirstLetter(shorthandPropName);
+
+    return {
+      [stylePropName]: mapToCssVar(
+        cssVarName,
+        getPropValue(_props[propName] ?? _props[shorthandPropName])
+      ),
+      [`h${uStylePropName}`]: mapToCssVar(
+        cssVarName,
+        getPropValue(
+          _props[`hover${uPropName}`] ??
+            props[`h${uPropName}`] ??
+            _props[`hover${uShorthandPropName}`] ??
+            props[`h${uShorthandPropName}`]
+        )
+      ),
+      [`f${uStylePropName}`]: mapToCssVar(
+        cssVarName,
+        getPropValue(
+          _props[`focus${uPropName}`] ??
+            props[`f${uPropName}`] ??
+            _props[`focus${uShorthandPropName}`] ??
+            props[`f${uShorthandPropName}`]
+        )
+      ),
+      [`fv${uStylePropName}`]: mapToCssVar(
+        cssVarName,
+        getPropValue(
+          _props[`focusVisible${uPropName}`] ??
+            props[`fv${uPropName}`] ??
+            _props[`focusVisible${uShorthandPropName}`] ??
+            props[`fv${uShorthandPropName}`]
+        )
+      )
+    };
+  };
+
+  const getSpacingStyleProp = (
+    stylePropName: string,
+    prefix: string,
+    shorthandPrefix: string
+  ) => {
+    const uStylePropName = upperCaseFirstLetter(stylePropName);
+    const uPrefix = upperCaseFirstLetter(prefix);
+    const uShorthandPrefix = upperCaseFirstLetter(shorthandPrefix);
+
+    return {
+      [stylePropName]: computeSpacing(prefix, shorthandPrefix),
+
+      [`h${uStylePropName}`]: computeSpacing(
+        `hover${uPrefix}`,
+        `h${uShorthandPrefix}`
+      ),
+      [`f${uStylePropName}`]: computeSpacing(
+        `focus${uPrefix}`,
+        `f${uShorthandPrefix}`
+      ),
+      [`fv${uStylePropName}`]: computeSpacing(
+        `focusVisible${uPrefix}`,
+        `fv${uShorthandPrefix}`
+      )
+    };
+  };
+
+  const getStyleProps = () => {
     const _props = unref(props);
 
     return {
-      shadow: mapToCssVar('shadow', getPropValue(_props.shadow)),
-      fontSize: mapToCssVar('font-size', getPropValue(_props.fontSize)),
-      fontWeight: mapToCssVar('font-weight', getPropValue(_props.fontWeight)),
-      fontFamily: mapToCssVar('font', getPropValue(_props.fontFamily)),
-      margin: computeSpacing({
-        all: _props.margin ?? _props.m,
-        x: _props.marginX ?? _props.mx,
-        y: _props.marginY ?? _props.my,
-        top: _props.marginTop ?? _props.mt,
-        bottom: _props.marginBottom ?? _props.mb,
-        left: _props.marginLeft ?? _props.ml,
-        right: _props.marginRight ?? _props.mr
-      }),
-      padding: computeSpacing({
-        all: _props.padding ?? _props.p,
-        x: _props.paddingX ?? _props.px,
-        y: _props.paddingY ?? _props.py,
-        top: _props.paddingTop ?? _props.pt,
-        bottom: _props.paddingBottom ?? _props.pb,
-        left: _props.paddingLeft ?? _props.pl,
-        right: _props.paddingRight ?? _props.pr
-      }),
-      bg: mapToCssVar('color', getPropValue(_props.background || _props.bg)),
-      color: mapToCssVar('color', getPropValue(_props.color)),
-      borderColor: mapToCssVar('color', getPropValue(_props.borderColor)),
-      gap: mapToCssVar('spacing', getPropValue(_props.gap)),
-      borderRadius: mapToCssVar('radius', getPropValue(_props.borderRadius)),
-      transition: computeTransitions(getPropValue(_props.transition))
+      ...getStyleProp('shadow', 'shadow', 'shadow'),
+      ...getStyleProp('font-size', 'fontSize'),
+      ...getStyleProp('font-weight', 'fontWeight'),
+      ...getStyleProp('font', 'fontFamily'),
+      ...getStyleProp('color', 'bg', 'background', 'bg'),
+      ...getStyleProp('color', 'color'),
+      ...getStyleProp('color', 'borderColor'),
+      ...getStyleProp('spacing', 'gap'),
+      ...getStyleProp('radius', 'borderRadius'),
+      ...getSpacingStyleProp('margin', 'margin', 'm'),
+      ...getSpacingStyleProp('padding', 'padding', 'p'),
+      transition: computeTransitions(getPropValue(_props.transition)),
+      hTransition: computeTransitions(
+        getPropValue(_props.hoverTransition ?? _props.hTransition)
+      ),
+      fTransition: computeTransitions(
+        getPropValue(_props.focusTransition ?? _props.fTransition)
+      ),
+      fvTransition: computeTransitions(
+        getPropValue(_props.focusVisibleTransition ?? _props.fvTransition)
+      )
     };
-  });
+  };
+
+  return computed<any>(getStyleProps);
 };

@@ -53,7 +53,7 @@ const transitionName = computed(() => `d-slide-${props.direction}`);
 }
 
 .d-slide-vertical-enter-from,
-.d-slide-vertica-leave-to {
+.d-slide-vertical-leave-to {
   transform: translateY(v-bind('style.distance'));
 }
 </style>
