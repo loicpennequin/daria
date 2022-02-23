@@ -59,7 +59,7 @@ export class ThemeService {
   private normalizeTheme(obj: object, prefix = '') {
     Object.entries(obj).forEach(([key, value]) => {
       if (typeof value === 'object') {
-        this.normalizeTheme(value, `${prefix}${key}.`);
+        this.normalizeTheme(value, camelToKebabCase(`${prefix}${key}.`));
         return;
       }
 

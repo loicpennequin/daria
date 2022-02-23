@@ -132,7 +132,8 @@ export const stylePropKeys: string[] = [
   'left',
   'right',
   'textShadow',
-  'boxShadow'
+  'boxShadow',
+  'shadow'
 ];
 
 export const STYLE_PROP_TYPES = Object.freeze(

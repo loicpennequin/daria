@@ -17,5 +17,7 @@ const className = computed(() => css(styles.value));
 </script>
 
 <template>
-  <component :is="props.is" :class="className"><slot /></component>
+  <component :is="props.is" :class="className">
+    <slot />
+  </component>
 </template>

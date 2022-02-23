@@ -23,7 +23,8 @@ const customAliases = {
   minH: 'minHeight',
   maxH: 'maxHeight',
   minW: 'minWidth',
-  maxW: 'maxWidth'
+  maxW: 'maxWidth',
+  shadow: 'boxShadow'
 };
 
 const gap = system({
@@ -34,20 +35,33 @@ const gap = system({
   }
 });
 
-export const useStyleProps = (props: MaybeRef<Record<string, unknown>>) => {
+type Props = Record<string, unknown>;
+type StyleProps = Props & {
+  hover?: Props;
+  focus?: Props;
+  focusVisible?: Props;
+};
+export const useStyleProps = (props: MaybeRef<StyleProps>) => {
   const theme = useTheme();
 
   const normalizedProps = computed<any>(() => {
     const _props = unref(props);
 
-    return {
-      ..._props,
+    const normalize = (obj: Record<string, any>) => ({
+      ...obj,
       ...Object.fromEntries(
         Object.entries(customAliases).map(([alias, property]) => [
           property,
-          _props[property] ?? _props[alias]
+          obj[property] ?? obj[alias]
         ])
       )
+    });
+
+    return {
+      ...normalize(_props),
+      hover: normalize(_props.hover ?? {}),
+      focus: normalize(_props.focus ?? {}),
+      focusVisible: normalize(_props.focusVisible ?? {})
     };
   });
 

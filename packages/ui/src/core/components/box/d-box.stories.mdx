@@ -1,0 +1,84 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import DBox from './d-box.vue';
+
+<Meta title="Core/Box" component={DBox} />
+
+# D-box
+
+The most basic Daria UI component. It will render a single HTML element and its content in a slot. It uses <a href="https://styled-system.com/" target="_blank">Styled System</a> and <a href="https://emotion.sh" target="_blank">Emotion</a> under the hood to generate a unique class name.
+All other Daria UI components will compose the D-box, thus allowing you to customize their style through props.
+
+export const Template = args => ({
+  components: { DBox },
+  template: `
+    <DBox>D-Box</DBox>`
+});
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+You can pass raw CSS values or references to your theme in the different styleProps
+
+export const StyledTemplate = args => ({
+  components: { DBox },
+  template: `
+    <DBox 
+      bg="red.1" 
+      p="4" 
+      h="150px"
+    >
+     I have a red background and padding from theme, and a raw CSS height of 150px.
+    </DBox>`
+});
+
+<Canvas>
+  <Story name="Styled">{StyledTemplate.bind({})}</Story>
+</Canvas>
+
+export const ResponsiveTemplate = args => ({
+  components: { DBox },
+  template: `
+    <DBox :bg="['blue.1', 'red.1', 'green.1']">
+      Resize the viewport to see my color change.
+    </DBox>`
+});
+
+You can use the array notation to pass responsive values. The correct value from the array will be selected depending on the current viewport size
+
+<Canvas>
+  <Story name="Responsive">{ResponsiveTemplate.bind({})}</Story>
+</Canvas>
+
+Using the `is` prop, you can define which HTML tag is rendered. A div is rendered by default.
+
+export const CustomTagTemplate = args => ({
+  components: { DBox },
+  template: `
+    <DBox is="button" color="blue.5" bg="yellow.1">
+      I am a button
+    </DBox>`
+});
+
+<Canvas>
+  <Story name="CustomTag">{CustomTagTemplate.bind({})}</Story>
+</Canvas>
+
+You can apply styled on hover, focus, and focus-visible styled by using their respective proprs and passing a style object similaire to the other D-Box props
+
+export const PseudoTemplate = args => ({
+  components: { DBox },
+  template: `
+    <DBox 
+      is="button" 
+      bg="blue.1" 
+      :hover="{bg: 'blue.3'}" 
+      :focus="{bg: 'blue.5'}"
+    >
+      I have hover and focus styles
+    </DBox>`
+});
+
+<Canvas>
+  <Story name="Pseudo">{PseudoTemplate.bind({})}</Story>
+</Canvas>

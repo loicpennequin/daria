@@ -1,7 +1,3 @@
-<script lang="ts">
-export default { inheritAttrs: false };
-</script>
-
 <script setup lang="ts">
 import { DBox } from '@/index';
 </script>

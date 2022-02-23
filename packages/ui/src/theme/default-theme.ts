@@ -129,6 +129,7 @@ export const defaultTheme = {
     circle: '50%',
     pill: '9999px'
   },
+  borders: ['none', 'solid 1px', 'solid 2px', 'solid 4px', 'solid 8px'],
   transitions: {
     0: '0',
     1: '0.2s',
