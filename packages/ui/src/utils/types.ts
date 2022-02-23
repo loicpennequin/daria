@@ -16,67 +16,13 @@ export type CssVar = `var(--${string})`;
 
 export type ResponsiveProp<T> = T | T[];
 
-export type ColorScheme = {
-  [key: string]: number | string;
-};
+export type ColorScheme = Record<string, number | string>;
 
-export type Swatch = {
-  [key: string | number]: string;
-};
+export type Swatch = Record<string | number, string>;
 
-export type FontVariants = {
-  [key: number]: string;
-};
+export type FontVariants = Record<number, string>;
 
 export type StyleProp = ResponsiveProp<string | number>;
-
-export type Theme = {
-  color: {
-    red: Swatch;
-    orange: Swatch;
-    yellow: Swatch;
-    lime: Swatch;
-    green: Swatch;
-    teal: Swatch;
-    cyan: Swatch;
-    blue: Swatch;
-    indigo: Swatch;
-    purple: Swatch;
-    pink: Swatch;
-    rose: Swatch;
-    grey: Swatch;
-    coldgrey: Swatch;
-    warmgrey: Swatch;
-    [key: string | number]: Swatch | string;
-  };
-  font: {
-    body: FontVariants;
-    heading: FontVariants;
-    [key: string]: FontVariants;
-  };
-  fontSize: string[];
-  spacing: {
-    [key: string | number]: string;
-  };
-  fontWeight: {
-    light: 300;
-    normal: 400;
-    semibold: 500;
-    bold: 700;
-  };
-  shadow: {
-    [key: string | number]: string;
-  };
-  breakpoint: {
-    [key: string | number]: string;
-  };
-  radius: {
-    [key: string | number]: string;
-  };
-  transition: {
-    [key: string | number]: string;
-  };
-};
 
 export type FlexDirection = 'row' | 'column' | 'row-reverse' | 'column-reverse';
 export type FlexJustify =
@@ -88,6 +34,14 @@ export type FlexJustify =
   | 'space-evenly';
 export type FlexAlign = 'flex-start' | 'flex-end' | 'center' | 'stretch';
 export type FlexWrap = 'wrap' | 'nowrap';
+
+export interface BreakpointArray<T = any> extends Array<T> {
+  sm?: T;
+  md?: T;
+  lg?: T;
+  xl?: T;
+  xxl?: T;
+}
 
 export type BaseStyleProps = {
   shadow?: StyleProp;
@@ -129,24 +83,3 @@ export type BaseStyleProps = {
   borderRadius?: StyleProp;
   transition?: ResponsiveProp<number | { [key: string]: number }>;
 };
-
-type StylePropsMapper<Prefix> = {
-  [K in keyof BaseStyleProps as `${string & Prefix}${Capitalize<
-    string & K
-  >}`]: BaseStyleProps[K];
-};
-
-export type HoverShorthandStyleProps = StylePropsMapper<'h'>;
-export type FocusShortHandStyleProps = StylePropsMapper<'f'>;
-export type FocusVisibleShortHandStyleProps = StylePropsMapper<'fv'>;
-export type HoverStyleProps = StylePropsMapper<'hover'>;
-export type FocusStyleProps = StylePropsMapper<'focus'>;
-export type FocusVisibleStyleProps = StylePropsMapper<'focusVisible'>;
-
-export type StyleProps = BaseStyleProps &
-  HoverStyleProps &
-  HoverShorthandStyleProps &
-  FocusStyleProps &
-  FocusShortHandStyleProps &
-  FocusVisibleStyleProps &
-  FocusVisibleShortHandStyleProps;

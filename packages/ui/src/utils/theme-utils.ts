@@ -1,6 +1,8 @@
 import chroma from 'chroma-js';
 import { Swatch } from './types';
 
+export const AA_COMPLIANCE_RATIO = 4.5;
+
 export const createLinearScale = (baseValue: number, count: number): number[] =>
   new Array(count + 1).fill(undefined).map((_, i) => baseValue * i);
 
@@ -35,8 +37,10 @@ export const createExponentialScale = (
 };
 
 const getContrastPassingColor = (): number => {
-  const blackMinLuminance = 4.5 * (chroma('black').luminance() + 0.05);
-  const whiteMinLuminance = (chroma('white').luminance() + 0.05) / 4.5;
+  const blackMinLuminance =
+    AA_COMPLIANCE_RATIO * (chroma('black').luminance() + 0.05);
+  const whiteMinLuminance =
+    (chroma('white').luminance() + 0.05) / AA_COMPLIANCE_RATIO;
 
   return (blackMinLuminance + whiteMinLuminance) / 2 - 0.05;
 };

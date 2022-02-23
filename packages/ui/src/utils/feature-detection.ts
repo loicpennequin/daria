@@ -20,5 +20,6 @@ export const checkFlexGap = () => {
 
   return isFlexboxGapSupported;
 };
+checkFlexGap();
 
 export const isAspectRatioSupported = 'aspectRatio' in document.body.style;

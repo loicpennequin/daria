@@ -1,14 +1,15 @@
 import chroma from 'chroma-js';
-import { AA_COMPLIANCE_RATIO } from '@/constants/a11y';
-import { CSS_VAR_PREFIX } from '@/constants/css';
 import { Maybe, CssVar, Nil } from './types';
 import { isNil } from './assertions';
-import { TRANSPARENT_VALUES } from '@/constants';
+import { CSS_VAR_PREFIX } from '@/theme';
+import { AA_COMPLIANCE_RATIO } from './theme-utils';
 
+const TRANSPARENT_VALUES = ['transparent', 'rgba(0,0,0,0)'];
 export const mapToCssVar = (
   kind: string,
   value: string | number | Nil
-): Maybe<CssVar> => (isNil(value) ? null : `var(--d-${kind}-${value})`);
+): Maybe<CssVar> =>
+  isNil(value) ? null : `var(${CSS_VAR_PREFIX}${kind}-${value})`;
 
 const rootStyle = document.documentElement.style;
 

@@ -9,9 +9,7 @@ module.exports = {
     postcssNested(),
     postcssMediaHover,
     postcssPresetEnv({
-      importFrom: './src/styles/custom-medias.css',
       features: {
-        'custom-media-queries': true,
         'focus-visible-pseudo-class': true
       }
     })

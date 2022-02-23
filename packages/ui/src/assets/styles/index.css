@@ -1,0 +1,63 @@
+@import './reset.css';
+
+body {
+  font-family: var(--d-fonts-body);
+  font-weight: var(--d-font-weights-normal);
+  font-size: var(--d-font-sizes-3);
+  background-color: var(--d-colors-grey-1);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--d-fonts-heading);
+}
+
+h1 {
+  font-size: var(--d-font-sizes-7);
+  margin-top: var(--d-space-1);
+  margin-bottom: var(--d-space-1);
+}
+
+h2 {
+  font-size: var(--d-font-sizes-6);
+  margin-top: var(--d-space-1);
+  margin-bottom: var(--d-space-1);
+}
+
+h3 {
+  font-size: var(--d-font-sizes-5);
+  margin-top: var(--d-space-1);
+  margin-bottom: var(--d-space-1);
+}
+
+h4 {
+  font-size: var(--d-font-sizes-4);
+  margin-top: var(--d-space-1);
+  margin-bottom: var(--d-space-1);
+}
+
+h5 {
+  font-size: var(--d-font-sizes-3);
+  margin-top: var(--d-space-1);
+  margin-bottom: var(--d-space-1);
+}
+
+h6 {
+  font-size: var(--d-font-sizes-2);
+  margin-top: var(--d-space-1);
+  margin-bottom: var(--d-space-1);
+}
+
+:root {
+  --d-breakpoint-mobile: 540px;
+  --d-breakpoint-tablet: 992px;
+  --d-breakpoint-laptop: 1200px;
+}
+
+[data-readable-color] {
+  color: var(--readable-color) !important;
+}

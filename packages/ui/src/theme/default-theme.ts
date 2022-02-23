@@ -1,33 +1,21 @@
 import {
   createColorScale,
   toEms,
-  createFibonacciScale,
+  toRems,
   createExponentialScale,
-  Theme,
-  arrayToObject
+  arrayToObject,
+  BreakpointArray
 } from '../utils';
-import Roboto from '@/assets/fonts/Roboto-Regular.ttf';
-import RobotoSemiBold from '@/assets/fonts/Roboto-Medium.ttf';
-import RobotoBold from '@/assets/fonts/Roboto-Bold.ttf';
-import RobotoLight from '@/assets/fonts/Roboto-Light.ttf';
-import { CSS_VAR_PREFIX } from '@/constants';
 
-export const defaultTheme: Theme = {
-  font: {
-    body: {
-      300: RobotoLight,
-      400: Roboto,
-      500: RobotoSemiBold,
-      700: RobotoBold
-    },
-    heading: {
-      300: RobotoLight,
-      400: Roboto,
-      500: RobotoSemiBold,
-      700: RobotoBold
-    }
-  },
-  color: {
+const breakpoints: BreakpointArray = ['30em', '48em', '62em', '80em', '96em'];
+breakpoints.sm = breakpoints[0];
+breakpoints.md = breakpoints[1];
+breakpoints.lg = breakpoints[2];
+breakpoints.xl = breakpoints[3];
+breakpoints.xxl = breakpoints[4];
+
+export const defaultTheme = {
+  colors: {
     transparent: 'transparent',
     black: 'black',
     white: 'white',
@@ -102,24 +90,26 @@ export const defaultTheme: Theme = {
       baseColor: 'hsl(25,8%,50%)',
       minLightness: 0.1,
       maxLightness: 0.98
-    }),
-    disabled: {
-      background: `var(${CSS_VAR_PREFIX}color-grey-3)`,
-      text: `var(${CSS_VAR_PREFIX}color-grey-7)`
-    }
+    })
   },
-  spacing: {
+  space: {
     auto: 'auto',
-    ...arrayToObject(['0', ...toEms(createFibonacciScale(0.25, 10))])
+    ...arrayToObject([
+      '0',
+      ...toRems(createExponentialScale(1, { from: -3, to: 7, ratio: 2 }))
+    ])
   },
-  fontSize: toEms(createExponentialScale(1, { from: -3, to: 11, ratio: 1.2 })),
-  fontWeight: {
+  fonts: {
+    body: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
+  },
+  fontSizes: toEms(createExponentialScale(1, { from: -3, to: 11, ratio: 1.2 })),
+  fontWeights: {
     light: 300,
     normal: 400,
     semibold: 500,
     bold: 700
   },
-  shadow: {
+  shadows: {
     0: 'none',
     1: '0 2px 4px 0 rgba(0, 0, 0, 0.15)',
     2: '0 2px 6px 1px rgba(0, 0, 0, 0.2)',
@@ -127,15 +117,8 @@ export const defaultTheme: Theme = {
     4: '0 4px 16px 1px rgba(0, 0, 0, 0.25)',
     5: '0 5px 24px 1px rgba(0, 0, 0, 0.28)'
   },
-  breakpoint: {
-    xs: '15em',
-    sm: '30em',
-    md: '48em',
-    lg: '62em',
-    xl: '80em',
-    xxl: '96em'
-  },
-  radius: {
+  breakpoints: ['30em', '48em', '62em', '80em', '96em'],
+  radii: {
     0: '0',
     1: '0.125rem',
     2: '0.25rem',
@@ -146,7 +129,7 @@ export const defaultTheme: Theme = {
     circle: '50%',
     pill: '9999px'
   },
-  transition: {
+  transitions: {
     0: '0',
     1: '0.2s',
     2: '0.3s',

@@ -18,8 +18,8 @@
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.vue",
-    "demo/**/*.ts",
-    "demo/**/*.d.ts",
-    "demo/**/*.vue"
+    "examples/**/*.ts",
+    "examples/**/*.d.ts",
+    "examples/**/*.vue"
   ]
 }
