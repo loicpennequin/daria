@@ -1,0 +1,18 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import DButton from './d-button.vue';
+
+<Meta title="Components/Button" component={DButton} />
+
+# D-button
+
+TODO
+
+export const Template = args => ({
+  components: { DButton },
+  template: `
+  <DButton left-icon="bars">click</DButton>`
+});
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>

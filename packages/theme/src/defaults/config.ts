@@ -1,5 +1,8 @@
 export const defaultConfig = {
+  DSurface: { bg: 'white', color: 'black' },
+
   DButton: {
+    borderRadius: 0,
     colorScheme: 'grey'
   },
 

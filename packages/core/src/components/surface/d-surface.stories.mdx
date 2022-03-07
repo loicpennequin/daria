@@ -1,0 +1,24 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import DSurface from './d-surface.vue';
+import { DBox } from '../box';
+
+<Meta title="Components/Surface" component={DSurface} />
+
+# D-surface
+
+A D-surface is a basic component used to contain any type of content. It renders a white div with some padding.
+
+D-surface composes the D-box component and thus can be styled with the same style props
+
+export const Template = args => ({
+  components: { DSurface, DBox },
+  template: `
+  <DBox bg="grey.1" p="4">
+      <DSurface mb="4">I am a surface</DSurface>
+      <DSurface>I am another surface</DSurface>
+  </DBox>`
+});
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>

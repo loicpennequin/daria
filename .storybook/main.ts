@@ -1,5 +1,6 @@
 const path = require('path');
 const svgLoader = require('vite-svg-loader');
+const getPackageAliases = require('../scripts/getPackageAliases');
 
 module.exports = {
   stories: ['../packages/**/src/**/*.stories.@(ts|tsx|mdx)'],
@@ -10,6 +11,7 @@ module.exports = {
   },
   async viteFinal(config, { configType }) {
     config.plugins.push(svgLoader());
+    Object.assign(config.resolve.alias, getPackageAliases());
     return config;
   }
 };

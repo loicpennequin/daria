@@ -59,12 +59,12 @@ export class ThemeService {
   private normalizeTheme(obj: object, prefix = '') {
     Object.entries(obj).forEach(([key, value]) => {
       if (typeof value === 'object') {
-        this.normalizeTheme(value, camelToKebabCase(`${prefix}${key}.`));
+        this.normalizeTheme(value, `${prefix}${key}.`);
         return;
       }
 
       const path = `${prefix}${key}`;
-      const variableName = path.split('.').join('-');
+      const variableName = camelToKebabCase(path.split('.').join('-'));
       set(this.theme, path, `var(${CSS_VAR_PREFIX}${variableName})`);
     });
   }

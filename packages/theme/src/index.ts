@@ -1,3 +1,4 @@
 export * from './theme.service';
-export * from './use-theme';
+export * from './composables';
 export * from './theme.plugin';
+export * from './types';

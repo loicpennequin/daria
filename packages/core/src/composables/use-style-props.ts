@@ -23,7 +23,12 @@ const customAliases = {
   maxH: 'maxHeight',
   minW: 'minWidth',
   maxW: 'maxWidth',
-  shadow: 'boxShadow'
+  shadow: 'boxShadow',
+  bdr: 'borderRadius',
+  bdrTopLeft: 'borderTopLeftRadius',
+  bdrTopRight: 'borderTopRightRadius',
+  bdrBottomLeft: 'borderBottomLeftRadius',
+  bdrBottomRight: 'borderBottomRightRadius'
 };
 
 const gap = system({
