@@ -15,11 +15,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "preview": "vite preview"
   },
   "dependencies": {
+    "@daria/utils": "*",
+    "@daria/theme": "*",
+    "@daria/core": "*",
     "@emotion/css": "^11.7.1",
     "@styled-system-ts/css": "^0.3.1",
     "chroma-js": "^2.1.2",

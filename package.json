@@ -9,5 +9,21 @@
       "packages/*"
     ]
   },
-  "scripts": {}
+  "scripts": {
+    "gen:tsconfig": "node scripts/generateTsConfig.js",
+    "postinstall": "yarn gen:tsconfig",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "ui": "yarn workspace @daria/ui"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@storybook/addon-actions": "^6.4.19",
+    "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-links": "^6.4.19",
+    "@storybook/vue3": "^6.4.19"
+  }
 }
