@@ -1,6 +1,7 @@
 import { ref } from 'vue';
 import { Meta, Story, Canvas } from '@storybook/addon-docs';
 import DButton from './d-button.vue';
+import { DFlex } from '@daria/core';
 
 <Meta title="Components/Button" component={DButton} />
 
@@ -9,9 +10,13 @@ import DButton from './d-button.vue';
 TODO
 
 export const Template = args => ({
-  components: { DButton },
+  components: { DFlex, DButton },
   template: `
-  <DButton>Click</DButton>`
+  <DFlex gap="4">
+    <DButton color-scheme="blue">Click</DButton>
+    <DButton color-scheme="red" variant="outlined">Click</DButton>
+    <DButton color-scheme="green">Click</DButton>
+  </DFlex>`
 });
 
 <Canvas>

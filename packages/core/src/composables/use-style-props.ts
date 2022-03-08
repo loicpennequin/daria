@@ -11,10 +11,11 @@ import {
   position,
   shadow,
   compose,
-  system
+  system,
+  variant
 } from 'styled-system';
 import { useTheme } from '@daria/theme';
-import { MaybeRef } from '@daria/utils';
+import { mapObject, MaybeRef } from '@daria/utils';
 import { omitBy } from 'lodash-es';
 import { isNil, isString } from '@daria/utils';
 
@@ -48,36 +49,57 @@ type StyleProps = Props & {
   focusVisible?: Props;
 };
 
+const normalize = (obj: Record<string, any>) =>
+  omitBy(
+    {
+      ...obj,
+      ...Object.fromEntries(
+        Object.entries(customAliases).map(([alias, property]) => [
+          property,
+          obj[property] ?? obj[alias]
+        ])
+      )
+    },
+    isNil
+  );
+
 export const useStyleProps = (props: MaybeRef<StyleProps>) => {
   const theme = useTheme();
 
   const normalizedProps = computed<any>(() => {
     const _props = unref(props);
 
-    const normalize = (obj: Record<string, any>) =>
-      omitBy(
-        {
-          ...obj,
-          ...Object.fromEntries(
-            Object.entries(customAliases).map(([alias, property]) => [
-              property,
-              obj[property] ?? obj[alias]
-            ])
-          )
-        },
-        isNil
-      );
-
     return {
       ...normalize(_props),
-      hover: normalize(_props.hover ?? {}),
-      focus: normalize(_props.focus ?? {}),
-      focusVisible: normalize(_props.focusVisible ?? {})
+      hover: Object.assign(normalize(_props.hover ?? {}), {
+        variant: _props.variant
+      }),
+      focus: Object.assign(normalize(_props.focus ?? {}), {
+        variant: _props.variant
+      }),
+      focusVisible: Object.assign(normalize(_props.focusVisible ?? {}), {
+        variant: _props.variant
+      })
     };
   });
 
-  const getStyleObject = (props: Record<string, any>) => {
+  const normalizedVariants = computed(() => {
+    const _props = unref<any>(props);
+
+    const extract = (key: string) =>
+      mapObject(_props.variants, value => value[key]);
+
+    return {
+      ...normalize(_props.variants),
+      hover: normalize(extract('hover')),
+      focus: normalize(extract('focus')),
+      focusVisible: normalize(extract('focusVisible'))
+    };
+  });
+
+  const getStyleObject = (props: Record<string, any>, variants = {}) => {
     const styleObject = compose(
+      variant({ variants }),
       space,
       color,
       typography,
@@ -99,19 +121,27 @@ export const useStyleProps = (props: MaybeRef<StyleProps>) => {
         styleObject[key] = value.replace('-var', 'calc(-1 * var') + ')';
       }
     });
+
     return Object.keys(styleObject).length === 0 ? null : styleObject;
   };
 
   return computed(() =>
     omitBy(
       {
-        ...getStyleObject(normalizedProps.value),
+        ...getStyleObject(normalizedProps.value, normalizedVariants.value),
         '@media(hover: hover)': {
-          '&:hover': getStyleObject(normalizedProps.value.hover)
+          '&:hover': getStyleObject(
+            normalizedProps.value.hover,
+            normalizedVariants.value.hover
+          )
         },
-        '&:focus': getStyleObject(normalizedProps.value.focus),
+        '&:focus': getStyleObject(
+          normalizedProps.value.focus,
+          normalizedVariants.value.focus
+        ),
         '&:focus-visible, &.focus-visible': getStyleObject(
-          normalizedProps.value.focusVisible
+          normalizedProps.value.focusVisible,
+          normalizedVariants.value.focusVisible
         )
       },
       isNil

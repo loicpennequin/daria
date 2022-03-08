@@ -1,16 +1,14 @@
 <script setup lang="ts">
+import { StyleProp } from '@daria/theme';
 import { DBox } from '../box';
-import { StyleProp, useDefaultProp, StylePropDefault } from '@daria/theme';
+import config from './d-surface.config';
 
 interface Props {
-  bg?: StyleProp;
-  color?: StyleProp;
+  bg: StyleProp;
+  color: StyleProp;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  bg: useDefaultProp<StylePropDefault>('DSurface.bg'),
-  color: useDefaultProp<StylePropDefault>('DSurface.color')
-});
+const props = withDefaults(defineProps<Props>(), { ...config.defaultProps });
 </script>
 
 <template>

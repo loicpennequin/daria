@@ -2,6 +2,7 @@ import chroma from 'chroma-js';
 import { Swatch } from './types';
 
 export const AA_COMPLIANCE_RATIO = 4.5;
+export const stylePropType = [String, Number, Array];
 
 export const createLinearScale = (baseValue: number, count: number): number[] =>
   new Array(count + 1).fill(undefined).map((_, i) => baseValue * i);

@@ -7,6 +7,8 @@ import { STYLE_PROP_TYPES } from '../../constants/prop-types';
 const props = defineProps({
   ...STYLE_PROP_TYPES,
   is: { type: String, default: 'div' },
+  variants: { type: Object, default: () => ({}) },
+  variant: { type: String, default: null },
   hover: { type: Object, default: () => {} },
   focus: { type: Object, default: () => {} },
   focusVisible: { type: Object, default: () => {} },
