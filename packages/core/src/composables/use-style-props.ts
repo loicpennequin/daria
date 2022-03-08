@@ -15,6 +15,8 @@ import {
 } from 'styled-system';
 import { useTheme } from '@daria/theme';
 import { MaybeRef } from '@daria/utils';
+import { omitBy } from 'lodash-es';
+import { isNil, isString } from '@daria/utils';
 
 const customAliases = {
   h: 'height',
@@ -51,15 +53,19 @@ export const useStyleProps = (props: MaybeRef<StyleProps>) => {
   const normalizedProps = computed<any>(() => {
     const _props = unref(props);
 
-    const normalize = (obj: Record<string, any>) => ({
-      ...obj,
-      ...Object.fromEntries(
-        Object.entries(customAliases).map(([alias, property]) => [
-          property,
-          obj[property] ?? obj[alias]
-        ])
-      )
-    });
+    const normalize = (obj: Record<string, any>) =>
+      omitBy(
+        {
+          ...obj,
+          ...Object.fromEntries(
+            Object.entries(customAliases).map(([alias, property]) => [
+              property,
+              obj[property] ?? obj[alias]
+            ])
+          )
+        },
+        isNil
+      );
 
     return {
       ...normalize(_props),
@@ -69,8 +75,8 @@ export const useStyleProps = (props: MaybeRef<StyleProps>) => {
     };
   });
 
-  const getStyleObject = (props: Record<string, any>) =>
-    compose(
+  const getStyleObject = (props: Record<string, any>) => {
+    const styleObject = compose(
       space,
       color,
       typography,
@@ -84,12 +90,31 @@ export const useStyleProps = (props: MaybeRef<StyleProps>) => {
       gap
     )({ ...props, theme });
 
-  return computed(() => ({
-    ...getStyleObject(normalizedProps.value),
-    '&:hover': getStyleObject(normalizedProps.value.hover),
-    '&:focus': getStyleObject(normalizedProps.value.focus),
-    '&:focus-visible, &.focus-visible': getStyleObject(
-      normalizedProps.value.focusVisible
+    // handle negative style props values mapping to a css variable
+    Object.entries(styleObject).forEach(([key, value]) => {
+      if (!isString(value)) return;
+
+      if (value.startsWith('-var(')) {
+        styleObject[key] = value.replace('-var', 'calc(-1 * var') + ')';
+      }
+    });
+
+    return Object.keys(styleObject).length === 0 ? null : styleObject;
+  };
+
+  return computed(() =>
+    omitBy(
+      {
+        ...getStyleObject(normalizedProps.value),
+        '@media(hover: hover)': {
+          '&:hover': getStyleObject(normalizedProps.value.hover)
+        },
+        '&:focus': getStyleObject(normalizedProps.value.focus),
+        '&:focus-visible, &.focus-visible': getStyleObject(
+          normalizedProps.value.focusVisible
+        )
+      },
+      isNil
     )
-  }));
+  );
 };

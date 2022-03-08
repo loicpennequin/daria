@@ -13,7 +13,6 @@ const props = defineProps({
 });
 
 const styles = useStyleProps(props);
-console.log(styles.value);
 const className = computed(() => css(styles.value));
 </script>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useSlots } from 'vue';
+import { useSlots, computed } from 'vue';
 import { StyleProp, useDefaultProp } from '@daria/theme';
 
 import { DBox, DFlex, vReadableColor } from '@daria/core';
@@ -18,19 +18,24 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const slots = useSlots();
+
+const styleProps = computed(() => ({
+  px: 4,
+  py: 3,
+  align: 'center',
+  justify: 'center',
+  fontWeight: 'semibold',
+  bdr: props.borderRadius,
+  border: 'solid 1px'
+}));
 </script>
 
 <template>
   <DFlex
     is="button"
     class="d-button"
-    :bdr="props.borderRadius"
-    px="3"
-    py="1"
-    align="center"
-    justify="center"
-    font-weight="semibold"
-    is-inline
+    :is-inline="!props.isFullwidth"
+    v-bind="styleProps"
   >
     <DBox mr="2" :ml="-1" v-if="props.leftIcon || slots.left">
       <slot name="left">
@@ -53,9 +58,10 @@ const slots = useSlots();
   cursor: pointer;
   user-select: none;
   text-decoration: none;
-}
+  white-space: nowrap;
 
-.d-button--is-uppercase {
-  text-transform: uppercase;
+  &[disabled] {
+    background: #888;
+  }
 }
 </style>
