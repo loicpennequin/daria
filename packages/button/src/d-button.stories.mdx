@@ -1,3 +1,4 @@
+import { ref } from 'vue';
 import { Meta, Story, Canvas } from '@storybook/addon-docs';
 import DButton from './d-button.vue';
 
@@ -10,9 +11,28 @@ TODO
 export const Template = args => ({
   components: { DButton },
   template: `
-  <DButton left-icon="bars">click</DButton>`
+  <DButton>Click</DButton>`
 });
 
 <Canvas>
   <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+export const FullWidthTemplate = args => ({
+  components: { DButton },
+  template: `<DButton is-fullwidth>Click</DButton>`
+});
+
+<Canvas>
+  <Story name="Full Width">{FullWidthTemplate.bind({})}</Story>
+</Canvas>
+
+export const WithIconTemplate = args => ({
+  components: { DButton },
+  template: `
+  <DButton left-icon="close">Click</DButton>`
+});
+
+<Canvas>
+  <Story name="With Icon">{WithIconTemplate.bind({})}</Story>
 </Canvas>

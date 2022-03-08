@@ -9,7 +9,8 @@ const props = defineProps({
   is: { type: String, default: 'div' },
   hover: { type: Object, default: () => {} },
   focus: { type: Object, default: () => {} },
-  focusVisible: { type: Object, default: () => {} }
+  focusVisible: { type: Object, default: () => {} },
+  forwardRef: { type: null, default: null }
 });
 
 const styles = useStyleProps(props);
@@ -17,7 +18,7 @@ const className = computed(() => css(styles.value));
 </script>
 
 <template>
-  <component :is="props.is" :class="className">
+  <component :is="props.is" :class="className" :ref="forwardRef">
     <slot />
   </component>
 </template>

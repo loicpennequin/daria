@@ -26,7 +26,9 @@ const styleProps = computed(() => ({
   justify: 'center',
   fontWeight: 'semibold',
   bdr: props.borderRadius,
-  border: 'solid 1px'
+  border: 'solid 1px',
+  bg: 'transparent',
+  w: props.isFullwidth ? '100%' : null
 }));
 </script>
 

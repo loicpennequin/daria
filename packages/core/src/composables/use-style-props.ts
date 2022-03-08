@@ -4,7 +4,7 @@ import {
   color,
   typography,
   layout,
-  flex,
+  flexbox,
   grid,
   background,
   border,
@@ -47,6 +47,7 @@ type StyleProps = Props & {
   focus?: Props;
   focusVisible?: Props;
 };
+
 export const useStyleProps = (props: MaybeRef<StyleProps>) => {
   const theme = useTheme();
 
@@ -81,7 +82,7 @@ export const useStyleProps = (props: MaybeRef<StyleProps>) => {
       color,
       typography,
       layout,
-      flex,
+      flexbox,
       grid,
       background,
       border,
@@ -98,7 +99,6 @@ export const useStyleProps = (props: MaybeRef<StyleProps>) => {
         styleObject[key] = value.replace('-var', 'calc(-1 * var') + ')';
       }
     });
-
     return Object.keys(styleObject).length === 0 ? null : styleObject;
   };
 
