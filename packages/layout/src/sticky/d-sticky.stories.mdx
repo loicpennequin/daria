@@ -1,0 +1,26 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import DSticky from './d-sticky.vue';
+import { DSurface } from '@daria/core';
+
+<Meta title="Components/Sticky" component={DSticky} />
+
+# D-sticky
+
+TODO
+
+export const Template = args => ({
+  components: { DSticky, DSurface },
+  template: `
+  <div style="height:1500px">
+    <DSticky v-slot="{isSticking}">
+      <DSurface :color="isSticking ? 'red.4' : 'blue.4'">
+        I am {{ isSticking ? '' : 'not'}} sticking !
+      </DSurface>
+    </DSticky>
+  </div>
+  `
+});
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
