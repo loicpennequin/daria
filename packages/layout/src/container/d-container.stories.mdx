@@ -1,0 +1,27 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import DContainer from './d-container.vue';
+import { DSurface } from '@daria/core';
+
+<Meta title="Components/Container" component={DContainer} />
+
+# D-container
+
+TODO
+
+export const Template = args => ({
+  components: { DContainer, DSurface },
+  template: `
+    <DContainer is-small my="5">
+      <DSurface>Small Container</DSurface>
+    </DContainer>
+    <DContainer my="5">
+      <DSurface>Medium Container</DSurface>
+    </DContainer>
+    <DContainer is-large my="5">
+      <DSurface>Large Container</DSurface>
+    </DContainer>`
+});
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>

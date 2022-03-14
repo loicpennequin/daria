@@ -1,17 +1,11 @@
 import { app } from '@storybook/vue3';
-import { createDariaUi } from '../packages/ui/src/plugin';
+import * as daria from '../packages/ui/src';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
-  controls: {
-    matchers: {
-      color: /(background|color)$/i,
-      date: /Date$/
-    }
-  }
+  controls: {}
 };
-
-app.use(createDariaUi());
+app.use(daria.createDariaUi());
 
 export const decorators = [
   story => ({

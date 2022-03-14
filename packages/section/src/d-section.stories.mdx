@@ -1,0 +1,32 @@
+import { ref } from 'vue';
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import DSection from './d-section.vue';
+import DSectionHeading from './d-section-heading.vue';
+
+<Meta title="Components/Section" component={DSection} />
+
+# D-section
+
+The `d-section` component enables you to define different hierarchical zones in your applications, which can then be namd using the `d-section-heading` which will render the corresponding html tag (h1, h2, h3)
+A use case for this component would be a piece of UI that is used in multiple places, where you can't know where it is relative to the hierarchy of your application.
+
+export const Template = args => ({
+  components: { DSection, DSectionHeading },
+  template: `
+  <DSection>
+    <DSectionHeading>I am an h1</DSectionHeading>
+    <DSection>
+      <DSectionHeading>I am an h2</DSectionHeading>
+      <DSection>
+        <DSectionHeading>I am an h3</DSectionHeading>
+      </DSection>
+    </DSection>
+    <DSection>
+      <DSectionHeading>I am an h2</DSectionHeading>
+    </DSection>
+  </DSection>`
+});
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>

@@ -10,4 +10,4 @@ export const isFunction = (x: unknown): x is Function =>
 export const isNumber = (x: unknown): x is number => typeof x === 'number';
 export const isObject = (x: unknown): x is object =>
   typeof x === 'object' && x !== null;
-export const isArray = (x: unknown): x is Array<any> => Array.isArray(x);
+export const isArray = <T = any>(x: unknown): x is Array<T> => Array.isArray(x);

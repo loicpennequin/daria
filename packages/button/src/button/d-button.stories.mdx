@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import { Meta, Story, Canvas } from '@storybook/addon-docs';
 import DButton from './d-button.vue';
-import { DFlex } from '@daria/core';
+import { DFlex } from '@daria/layout';
 
 <Meta title="Components/Button" component={DButton} />
 
@@ -21,15 +21,6 @@ export const Template = args => ({
 
 <Canvas>
   <Story name="Default">{Template.bind({})}</Story>
-</Canvas>
-
-export const FullWidthTemplate = args => ({
-  components: { DButton },
-  template: `<DButton is-fullwidth>Click</DButton>`
-});
-
-<Canvas>
-  <Story name="Full Width">{FullWidthTemplate.bind({})}</Story>
 </Canvas>
 
 export const WithIconTemplate = args => ({

@@ -1,0 +1,52 @@
+import { ref } from 'vue';
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import DButtonGroup from './d-button-group.vue';
+import { DButton } from '../button';
+
+<Meta title="Components/ButtonGroup" component={DButtonGroup} />
+
+# D-button-group
+
+TODO
+
+export const Template = args => ({
+  components: { DButtonGroup, DButton },
+  template: `
+  <DButtonGroup gap="4">
+    <DButton color-scheme="blue">Click</DButton>
+    <DButton color-scheme="blue">Click</DButton>
+    <DButton color-scheme="blue">Click</DButton>
+  </DButtonGroup>`
+});
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+export const AttachedTemplate = args => ({
+  components: { DButtonGroup, DButton },
+  template: `
+  <DButtonGroup is-attached>
+    <DButton color-scheme="blue" variant="outlined">Click</DButton>
+    <DButton color-scheme="blue" variant="outlined">Click</DButton>
+    <DButton color-scheme="blue" variant="outlined">Click</DButton>
+  </DButtonGroup>`
+});
+
+<Canvas>
+  <Story name="Attached">{AttachedTemplate.bind({})}</Story>
+</Canvas>
+
+export const RoundedTemplate = args => ({
+  components: { DButtonGroup, DButton },
+  template: `
+  <DButtonGroup is-attached is-rounded>
+    <DButton color-scheme="blue">Click</DButton>
+    <DButton color-scheme="blue">Click</DButton>
+    <DButton color-scheme="blue">Click</DButton>
+  </DButtonGroup>`
+});
+
+<Canvas>
+  <Story name="Rounded">{RoundedTemplate.bind({})}</Story>
+</Canvas>

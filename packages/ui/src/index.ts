@@ -2,4 +2,4 @@ export * from './plugin';
 export * from '@daria/core';
 export * from '@daria/theme';
 export * from '@daria/utils';
-export * from '@daria/icons';
+export * from '@daria/icon';

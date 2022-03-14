@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DBox } from '../box';
+import { DBox } from '@daria/core';
 import { StyleProp } from '@daria/theme';
 
 interface Props {

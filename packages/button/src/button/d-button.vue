@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { merge } from 'lodash-es';
 import { useSlots, computed } from 'vue';
 import { StyleProp } from '@daria/theme';
 import config from './d-button.config';
-import { DBox, DFlex, vReadableColor } from '@daria/core';
+import { DBox, vReadableColor } from '@daria/core';
 import { DIcon } from '@daria/icon';
-import { merge } from 'lodash-es';
+import { DFlex } from '@daria/layout';
 
 interface Props {
   colorScheme?: string;
@@ -32,7 +33,7 @@ const styleProps = computed(() =>
       justify: 'center',
       fontWeight: 'semibold',
       bdr: props.borderRadius,
-      border: 'solid 1px',
+      border: 'solid 2px',
       variant: props.variant,
       w: props.isFullwidth ? '100%' : null
     },
@@ -73,8 +74,10 @@ const styleProps = computed(() =>
   white-space: nowrap;
   vertical-align: middle;
 
-  &[disabled] {
-    background: #888;
+  &:disabled {
+    opacity: 0.5;
+    filter: grayscale(0.25);
+    cursor: not-allowed;
   }
 }
 </style>

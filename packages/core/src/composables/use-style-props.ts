@@ -130,7 +130,7 @@ export const useStyleProps = (props: MaybeRef<StyleProps>) => {
       {
         ...getStyleObject(normalizedProps.value, normalizedVariants.value),
         '@media(hover: hover)': {
-          '&:hover': getStyleObject(
+          '&:hover:not(:disabled)': getStyleObject(
             normalizedProps.value.hover,
             normalizedVariants.value.hover
           )
