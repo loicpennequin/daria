@@ -128,4 +128,6 @@ export type StylePropKey =
   | 'right'
   | 'textShadow'
   | 'boxShadow'
-  | 'shadow';
+  | 'shadow'
+  | 'transform'
+  | 'transition';

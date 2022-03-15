@@ -1,0 +1,92 @@
+import { ref } from 'vue';
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import { DButton } from '@daria/button';
+import { DAccordion } from './accordion';
+import { DAccordionItem } from './accordion-item';
+import { DAccordionToggle } from './accordion-toggle';
+
+<Meta title="Components/Accordion" component={DAccordion} />
+
+# D-accordion
+
+TODO
+
+export const Template = args => ({
+  components: { DAccordion, DAccordionItem },
+  setup() {
+    const openedIndex = ref(null);
+    return { openedIndex };
+  },
+  template: `
+  <DAccordion v-model:opened-index="openedIndex">
+    <DAccordionItem label="Item 1">lorem ipsum</DAccordionItem>
+    <DAccordionItem label="Item 2">lorem ipsum</DAccordionItem>
+  </DAccordion>
+  `
+});
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+export const WithStyledToggleTemplate = args => ({
+  components: { DAccordion, DAccordionItem, DAccordionToggle },
+  setup() {
+    const openedIndex = ref(0);
+    return { openedIndex };
+  },
+  template: `
+  <DAccordion v-model:opened-index="openedIndex">
+    <DAccordionItem>
+      <template #toggle="{isOpened}">
+        <DAccordionToggle 
+          :bg="isOpened.value ? 'blue.2' : 'red.2'" 
+          transition="2"
+          label="Item 1" 
+        />
+      </template>
+      lorem ipsum
+    </DAccordionItem>
+    <DAccordionItem>
+      <template #toggle="{isOpened}">
+        <DAccordionToggle 
+          :bg="isOpened.value ? 'blue.2' : 'red.2'" 
+          transition="2"
+          label="Item 2" 
+        />
+      </template>
+      lorem ipsum
+    </DAccordionItem>
+  </DAccordion>`
+});
+
+<Canvas>
+  <Story name="Styled toggle">{WithStyledToggleTemplate.bind({})}</Story>
+</Canvas>
+
+export const WithCustomToggleTemplate = args => ({
+  components: { DAccordion, DAccordionItem, DButton },
+  setup() {
+    const openedIndex = ref(null);
+    return { openedIndex };
+  },
+  template: `
+  <DAccordion v-model:opened-index="openedIndex">
+    <DAccordionItem border-bottom="npne">
+      <template #toggle="{ toggle }">
+        <DButton @click="toggle">Item 1</DButton>
+      </template>
+      lorem ipsum
+    </DAccordionItem>
+    <DAccordionItem border-bottom="npne">
+      <template #toggle="{ toggle }">
+        <DButton @click="toggle">Item 2</DButton>
+      </template>
+      lorem ipsum
+    </DAccordionItem>
+  </DAccordion>`
+});
+
+<Canvas>
+  <Story name="Custom toggle">{WithCustomToggleTemplate.bind({})}</Story>
+</Canvas>

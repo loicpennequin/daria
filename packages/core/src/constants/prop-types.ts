@@ -139,14 +139,17 @@ export const stylePropKeys: string[] = [
   'right',
   'textShadow',
   'boxShadow',
-  'shadow'
+  'shadow',
+
+  'transform',
+  'transition'
 ];
 
 export const STYLE_PROP_TYPES = Object.freeze(
   Object.fromEntries(
     stylePropKeys.map(key => [
       key,
-      { type: [Array, String, Number], default: null }
+      { type: [Array, String, Number, Object], default: null }
     ])
   )
 );

@@ -25,6 +25,8 @@
     "@daria/layout": "*",
     "@daria/button": "*",
     "@daria/section": "*",
+    "@daria/accordion": "*",
+    "@daria/transitions": "*",
     "@emotion/css": "^11.7.1",
     "@styled-system-ts/css": "^0.3.1",
     "chroma-js": "^2.1.2",

@@ -11,13 +11,13 @@ import {
   position,
   shadow,
   compose,
-  system,
   variant
 } from 'styled-system';
 import { useTheme } from '@daria/theme';
 import { mapObject, MaybeRef } from '@daria/utils';
 import { omitBy } from 'lodash-es';
 import { isNil, isString } from '@daria/utils';
+import { styledSystem } from '../constants/styled-system';
 
 const customAliases = {
   h: 'height',
@@ -33,14 +33,6 @@ const customAliases = {
   bdrBottomLeft: 'borderBottomLeftRadius',
   bdrBottomRight: 'borderBottomRightRadius'
 };
-
-const gap = system({
-  gap: {
-    property: 'gap',
-    scale: 'space',
-    defaultScale: [4, 8, 16, 32, 64, 128, 256, 512]
-  }
-});
 
 type Props = Record<string, unknown>;
 type StyleProps = Props & {
@@ -110,7 +102,7 @@ export const useStyleProps = (props: MaybeRef<StyleProps>) => {
       border,
       position,
       shadow,
-      gap
+      styledSystem
     )({ ...props, theme });
 
     // handle negative style props values mapping to a css variable
@@ -121,7 +113,6 @@ export const useStyleProps = (props: MaybeRef<StyleProps>) => {
         styleObject[key] = value.replace('-var', 'calc(-1 * var') + ')';
       }
     });
-
     return Object.keys(styleObject).length === 0 ? null : styleObject;
   };
 

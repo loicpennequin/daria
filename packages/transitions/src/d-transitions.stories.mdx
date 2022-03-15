@@ -1,0 +1,63 @@
+import { ref } from 'vue';
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import DFade from './d-fade.vue';
+import DSlide from './d-slide.vue';
+import DSlideFade from './d-slide-fade.vue';
+import { DButton } from '@daria/button';
+
+<Meta title="Components/Transitions" />
+
+# Transitions
+
+TODO
+
+export const DFadeTemplate = args => ({
+  components: { DFade, DButton },
+  setup() {
+    const isVisible = ref(false);
+    return { isVisible };
+  },
+  template: `
+  <DButton @click="isVisible = !isVisible">Toggle</DButton>
+  <DFade :is-visible="isVisible">
+    I am the content
+  </DFade>`
+});
+
+<Canvas>
+  <Story name="Fade">{DFadeTemplate.bind({})}</Story>
+</Canvas>
+
+export const DSlideTemplate = args => ({
+  components: { DSlide, DButton },
+  setup() {
+    const isVisible = ref(false);
+    return { isVisible };
+  },
+  template: `
+  <DButton @click="isVisible = !isVisible">Toggle</DButton>
+  <DSlide :is-visible="isVisible" :distance="100" invert-on-out>
+    I am the content
+  </DSlide>`
+});
+
+<Canvas>
+  <Story name="Slide">{DSlideTemplate.bind({})}</Story>
+</Canvas>
+
+export const DSlideFadeTemplate = args => ({
+  components: { DSlideFade, DButton },
+  setup() {
+    const isVisible = ref(false);
+    return { isVisible };
+  },
+  template: `
+  <DButton @click="isVisible = !isVisible">Toggle</DButton>
+  <DSlideFade :is-visible="isVisible" :distance="-100" invert-on-out>
+    I am the content
+  </DSlideFade>`
+});
+
+<Canvas>
+  <Story name="SlideFade">{DSlideFadeTemplate.bind({})}</Story>
+</Canvas>

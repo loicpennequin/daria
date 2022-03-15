@@ -26,6 +26,19 @@ const outlinedVariant = (props: any) => {
   };
 };
 
+const ghostVariant = (props: any) => {
+  const { colorScheme: c } = props;
+
+  return {
+    bg: 'transparent',
+    borderColor: `transparent`,
+    color: `${c}.8`,
+    hover: {
+      color: `${c}.5`
+    }
+  };
+};
+
 export default useComponentConfig(
   'DButton',
   {
@@ -36,7 +49,8 @@ export default useComponentConfig(
     return {
       variants: {
         full: fullVariant(props),
-        outlined: outlinedVariant(props)
+        outlined: outlinedVariant(props),
+        ghost: ghostVariant(props)
       }
     };
   }
