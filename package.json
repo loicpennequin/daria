@@ -11,13 +11,19 @@
   },
   "scripts": {
     "gen:tsconfig": "node scripts/generateTsConfig.js",
+    "gen:package": "node scripts/generatePackage.js",
+    "postgen:package": "yarn",
     "postinstall": "yarn gen:tsconfig",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "ui": "yarn workspace @daria/ui"
   },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "fs-extra": "^10.0.1",
+    "generate-template-files": "^3.2.0",
+    "insert-line": "^1.1.0",
+    "lodash": "^4.17.21",
+    "yargs": "^17.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",

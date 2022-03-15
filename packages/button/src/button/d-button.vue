@@ -33,7 +33,8 @@ const styleProps = computed(() =>
       justify: 'center',
       fontWeight: 'semibold',
       bdr: props.borderRadius,
-      border: 'solid 2px',
+      borderWidth: '2px',
+      borderStyle: 'solid',
       variant: props.variant,
       w: props.isFullwidth ? '100%' : null
     },

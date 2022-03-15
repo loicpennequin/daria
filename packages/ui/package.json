@@ -35,7 +35,8 @@
     "lodash-es": "^4.17.21",
     "nanoid": "^3.2.0",
     "styled-system": "^5.1.5",
-    "vue": "^3.2.25"
+    "vue": "^3.2.25",
+    "@daria/modal": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",

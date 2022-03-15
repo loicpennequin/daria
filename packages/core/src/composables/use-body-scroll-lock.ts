@@ -1,23 +1,29 @@
-import { MaybeRef } from '@daria/utils';
-import { onUnmounted, watchEffect, unref } from 'vue';
+import { MaybeRef, useSafeInject } from '@daria/utils';
+import { onUnmounted, watchEffect, unref, inject } from 'vue';
 import { useBreakpoints } from './use-breakpoints';
+import { DARIA_UI_INJECTION_KEY } from '@daria/ui';
 
 export const useBodyScrollLock = (isLocked: MaybeRef<boolean> = true) => {
   const breakpoints = useBreakpoints();
+  const { getAppRootElement } = useSafeInject(DARIA_UI_INJECTION_KEY);
 
   const unset = () => {
-    document.getElementById('app')?.removeAttribute('inert');
+    const root = getAppRootElement();
+    if (!root) return;
+
+    root?.removeAttribute('inert');
     document.body.style.removeProperty('overflow');
     document.body.style.removeProperty('width');
   };
 
   watchEffect(onInvalidate => {
-    const appElement = document.getElementById('app') as HTMLElement;
+    const root = getAppRootElement();
 
-    const scrollbarWidth = appElement.offsetWidth - appElement.clientWidth;
+    if (!root) return;
+    const scrollbarWidth = root.offsetWidth - root.clientWidth;
 
     if (unref(isLocked)) {
-      appElement.setAttribute('inert', 'true');
+      root.setAttribute('inert', 'true');
       document.body.style.overflow = 'hidden';
       if (!breakpoints.sm) return;
 

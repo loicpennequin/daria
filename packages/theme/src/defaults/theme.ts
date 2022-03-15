@@ -2,7 +2,8 @@ import {
   createColorScale,
   toEms,
   toRems,
-  createExponentialScale
+  createExponentialScale,
+  createLinearScale
 } from '../utils';
 import { arrayToObject, ArrayWithProps } from '@daria/utils';
 
@@ -104,6 +105,10 @@ export const defaultTheme = {
       ...toRems(createExponentialScale(1, { from: -3, to: 7, ratio: 2 }))
     ])
   },
+  sizes: {
+    ...arrayToObject([...toRems(createLinearScale(0.5, 25))]),
+    container: { ...arrayToObject(['15em', ...breakpoints]) }
+  },
   fonts: {
     body: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
   },
@@ -122,7 +127,7 @@ export const defaultTheme = {
     4: '0 4px 16px 1px rgba(0, 0, 0, 0.25)',
     5: '0 5px 24px 1px rgba(0, 0, 0, 0.28)'
   },
-  breakpoints: ['30em', '48em', '62em', '80em', '96em'],
+  breakpoints,
   radii: {
     0: '0',
     1: '0.125rem',

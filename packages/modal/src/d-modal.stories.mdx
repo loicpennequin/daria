@@ -1,0 +1,38 @@
+import { ref } from 'vue';
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import { DModal, DModalOverlay, DModalContent, DModalFooter } from '.';
+import { DButton } from '@daria/button';
+
+<Meta title="Components/Modal" />
+
+# D-modal
+
+TODO
+
+export const Template = args => ({
+  components: { DModal, DModalOverlay, DModalContent, DModalFooter, DButton },
+  setup() {
+    const isOpened = ref(false);
+    return { isOpened };
+  },
+  template: `
+    <DButton @click="isOpened = !isOpened">Open Modal</DButton>
+    <DModal v-model:is-opened="isOpened">
+      <DModalOverlay />
+      <DModalContent title="My Awesome Modal">
+        Sit nulla est ex deserunt exercitation anim occaecat. 
+        Nostrud ullamco deserunt aute id consequat veniam incididunt duis in sint irure nisi. 
+        Mollit officia cillum Lorem ullamco minim nostrud elit officia tempor esse quis.
+        <template #footer="{close}">
+          <DModalFooter>
+            <DButton variant="outlined" color-scheme="red" @click="close">Cancel</DButton>
+            <DButton color-scheme="green" @click="close">Confirm</DButton>
+          </DModalFooter>
+        </template>
+      </DModalContent>
+    </DModal>`
+});
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>

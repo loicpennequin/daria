@@ -11,7 +11,7 @@ import {
   position,
   shadow,
   compose,
-  variant
+  variant as styledVariant
 } from 'styled-system';
 import { useTheme } from '@daria/theme';
 import { mapObject, MaybeRef } from '@daria/utils';
@@ -89,9 +89,16 @@ export const useStyleProps = (props: MaybeRef<StyleProps>) => {
     };
   });
 
-  const getStyleObject = (props: Record<string, any>, variants = {}) => {
+  const getStyleObject = (
+    { variant, ...props }: Record<string, any>,
+    variants = {}
+  ) => {
+    // internally, styled-system will create the style object by looping through the props in their order
+    // we want to apply the variant first so it can be overriden with other props
+    const allProps = { variant, ...props, theme };
+
     const styleObject = compose(
-      variant({ variants }),
+      styledVariant({ variants }),
       space,
       color,
       typography,
@@ -103,7 +110,7 @@ export const useStyleProps = (props: MaybeRef<StyleProps>) => {
       position,
       shadow,
       styledSystem
-    )({ ...props, theme });
+    )(allProps);
 
     // handle negative style props values mapping to a css variable
     Object.entries(styleObject).forEach(([key, value]) => {

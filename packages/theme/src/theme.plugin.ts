@@ -5,7 +5,6 @@ import { DeepPartial } from '@daria/utils';
 import { merge } from 'lodash-es';
 import { ThemeService } from './theme.service';
 import { defaultTheme } from './defaults/theme';
-
 import * as dariaIcons from './assets/icons';
 
 type PluginOptions = {

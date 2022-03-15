@@ -6,7 +6,10 @@ const fullVariant = (props: any) => {
     bg: `${c}.${c === 'grey' ? 2 : 5}`,
     borderColor: 'transparent',
     hover: {
-      bg: `${c}.7`
+      bg: `${c}.${c === 'grey' ? 4 : 7}`
+    },
+    focus: {
+      bg: `${c}.${c === 'grey' ? 3 : 6}`
     }
   };
 };

@@ -7,5 +7,6 @@
     "packages/**/src/**/*.ts",
     "packages/**/src/**/*.d.ts",
     "packages/**/**/*.vue"
-  ]
+  ],
+  "exclude": ["templates/**/*"]
 }

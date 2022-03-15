@@ -6,3 +6,5 @@ export * from './vue-utils';
 export * from './string-helpers';
 export * from './function-helpers';
 export * from './feature-detection';
+export * from './dom-helpers';
+export * from './keyboard';

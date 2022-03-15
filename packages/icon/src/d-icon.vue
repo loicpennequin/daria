@@ -22,7 +22,7 @@ const iconComponent = computed(() => icons?.[props.icon] ?? null);
 
 <style lang="postcss" scoped>
 .d-icon > * {
-  width: 1em;
-  height: 1em;
+  width: 100%;
+  height: 100%;
 }
 </style>

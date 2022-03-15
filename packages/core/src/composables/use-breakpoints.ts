@@ -30,7 +30,7 @@ window.addEventListener('resize', checkCurrentDevice);
 
 export function useBreakpoints() {
   const theme = useTheme();
-  breakpointKeys = Object.keys(theme.breakpoint);
+  breakpointKeys = Object.keys(theme.breakpoints);
 
   checkCurrentDevice();
   return state;
