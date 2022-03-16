@@ -4,17 +4,16 @@ import { getFocusableChildren, KEYBOARD, Maybe } from '@daria/utils';
 import { vClickOutside, DBox, DSurface, useEventListener } from '@daria/core';
 import { DSlideFade } from '@daria/transitions';
 import { DFlex } from '@daria/layout';
-import { DSection, DSectionHeading } from '@daria/section';
-import { useModal } from './use-modal';
+import { DSection } from '@daria/section';
+import { useModal } from '../use-modal';
 import DModalHeader from './d-modal-header.vue';
 
 interface Props {
   size?: number;
-  title?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), { size: 1 });
-const { isOpened, close, open, toggle } = useModal();
+const { isOpened, title, close, open, toggle } = useModal();
 
 useEventListener('keydown', (e: KeyboardEvent) => {
   switch (e.key) {
@@ -54,6 +53,7 @@ const contentForwardRef = (el: HTMLElement) => {
 
 const slotProps = {
   isOpened,
+  title,
   open,
   close,
   toggle,
@@ -63,17 +63,12 @@ const slotProps = {
 };
 
 const styleProps = {
-  wrapper: {
+  content: {
     position: 'fixed',
     top: 0,
-    bottom: 0,
     left: 0,
     right: 0,
-    zIndex: 20,
-    overflow: 'hidden',
-    h: '100vh'
-  },
-  content: {
+    zIndex: 30,
     mt: 6,
     mx: 'auto',
     p: 0,
@@ -82,9 +77,10 @@ const styleProps = {
   },
   body: {
     px: 4,
-    py: 1,
+    py: 3,
     overflow: 'auto',
-    flexGrow: 1
+    flexGrow: 1,
+    lineHeight: 1.4
   }
 };
 </script>
@@ -94,19 +90,15 @@ const styleProps = {
     :is-visible="isOpened"
     :distance="-200"
     direction="vertical"
-    v-bind="styleProps.wrapper"
+    v-bind="styleProps.content"
     :forward-ref="contentForwardRef"
     appear
   >
-    <DSurface v-bind="styleProps.content" v-click-outside="close">
+    <DSurface v-click-outside="close" p="0">
       <DSection>
         <DFlex direction="column">
-          <slot name="header" v-bind="slotProps">
-            <DModalHeader>
-              <DSectionHeading>
-                {{ props.title }}
-              </DSectionHeading>
-            </DModalHeader>
+          <slot name="header" v-bind="slotProps" v-if="$slots.header || title">
+            <DModalHeader />
           </slot>
 
           <DBox v-bind="styleProps.body">

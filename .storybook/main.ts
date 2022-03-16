@@ -4,7 +4,15 @@ const getPackageAliases = require('../scripts/getPackageAliases');
 
 module.exports = {
   stories: ['../packages/**/src/**/*.stories.@(ts|tsx|mdx)'],
-  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
+  addons: [
+    '@storybook/addon-links',
+    {
+      name: '@storybook/addon-essentials',
+      options: {
+        controls: false
+      }
+    }
+  ],
   framework: '@storybook/vue3',
   core: {
     builder: 'storybook-builder-vite'

@@ -32,7 +32,7 @@ export const Template = args => ({
 export const WithStyledToggleTemplate = args => ({
   components: { DAccordion, DAccordionItem, DAccordionToggle },
   setup() {
-    const openedIndex = ref(0);
+    const openedIndex = ref(null);
     return { openedIndex };
   },
   template: `

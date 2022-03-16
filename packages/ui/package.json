@@ -36,7 +36,8 @@
     "nanoid": "^3.2.0",
     "styled-system": "^5.1.5",
     "vue": "^3.2.25",
-    "@daria/modal": "*"
+    "@daria/modal": "*",
+    "@daria/drawer": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",

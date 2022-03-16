@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useModal } from './use-modal';
+import { useModal } from '../use-modal';
 import { DButton } from '@daria/button';
 import { DIcon } from '@daria/icon';
 

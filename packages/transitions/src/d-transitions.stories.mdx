@@ -1,9 +1,10 @@
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import { Meta, Story, Canvas } from '@storybook/addon-docs';
 import DFade from './d-fade.vue';
 import DSlide from './d-slide.vue';
 import DSlideFade from './d-slide-fade.vue';
 import { DButton } from '@daria/button';
+import { DFlex } from '@daria/layout';
 
 <Meta title="Components/Transitions" />
 
@@ -29,14 +30,20 @@ export const DFadeTemplate = args => ({
 </Canvas>
 
 export const DSlideTemplate = args => ({
-  components: { DSlide, DButton },
+  components: { DSlide, DFlex, DButton },
   setup() {
-    const isVisible = ref(false);
-    return { isVisible };
+    const state = reactive({ isVisible: false, invertOnOut: false });
+    return { state };
   },
   template: `
-  <DButton @click="isVisible = !isVisible">Toggle</DButton>
-  <DSlide :is-visible="isVisible" :distance="100" invert-on-out>
+  <DFlex gap="3" align="center">
+    <DButton @click="state.isVisible = !state.isVisible">Toggle</DButton>
+    <label>
+      <input type="checkbox" v-model="state.invertOnOut" />
+      Invert on out
+    </label>
+  </DFlex>
+  <DSlide :is-visible="state.isVisible" :distance="100" :invert-on-out="state.invertOnOut">
     I am the content
   </DSlide>`
 });
@@ -46,14 +53,20 @@ export const DSlideTemplate = args => ({
 </Canvas>
 
 export const DSlideFadeTemplate = args => ({
-  components: { DSlideFade, DButton },
+  components: { DSlideFade, DFlex, DButton },
   setup() {
-    const isVisible = ref(false);
-    return { isVisible };
+    const state = reactive({ isVisible: false, invertOnOut: false });
+    return { state };
   },
   template: `
-  <DButton @click="isVisible = !isVisible">Toggle</DButton>
-  <DSlideFade :is-visible="isVisible" :distance="-100" invert-on-out>
+  <DFlex gap="3" align="center">
+    <DButton @click="state.isVisible = !state.isVisible">Toggle</DButton>
+    <label>
+      <input type="checkbox" v-model="state.invertOnOut" />
+      Invert on out
+    </label>
+  </DFlex>
+  <DSlideFade :is-visible="state.isVisible" :distance="100" :invert-on-out="state.invertOnOut">
     I am the content
   </DSlideFade>`
 });

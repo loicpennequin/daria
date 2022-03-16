@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import { DBox } from '@daria/core';
 import { DFade } from '@daria/transitions';
-import { useModal } from './use-modal';
+import { useModal } from '../use-modal';
 import DModalCloseButton from './d-modal-close-button.vue';
 
 const { isOpened, close } = useModal();

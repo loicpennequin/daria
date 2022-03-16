@@ -4,7 +4,7 @@ import { CSS_VAR_PREFIX } from '@daria/theme';
 
 const AA_COMPLIANCE_RATIO = 4.5;
 
-const TRANSPARENT_VALUES = ['transparent', 'rgba(0,0,0,0)'];
+const TRANSPARENT_VALUES = ['transparent', 'rgba(0, 0, 0, 0)'];
 export const mapToCssVar = (
   kind: string,
   value: string | number | Nil

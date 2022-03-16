@@ -1,15 +1,20 @@
 <script lang="ts" setup>
 import { createTeleportHost } from '@daria/utils';
-import { provide, toRef } from 'vue';
+import { provide, toRef, Ref } from 'vue';
 import { useBodyScrollLock, useEventListener } from '@daria/core';
-import { MODAL_INJECTION_KEY, MODAL_TELEPORT_HOST } from './constants';
-import { ModalContext } from './d-modal.types';
+import { MODAL_INJECTION_KEY, MODAL_TELEPORT_HOST } from '../constants';
+import { ModalContext } from '../types';
+import config from './d-modal.config';
 
 interface Props {
   isOpened: boolean;
+  colorScheme?: string;
+  title?: string;
 }
 
-const props = withDefaults(defineProps<Props>(), {});
+const props = withDefaults(defineProps<Props>(), {
+  ...config.defaultProps
+});
 const emit =
   defineEmits<{
     (e: 'update:isOpened', value: boolean): void;
@@ -20,6 +25,8 @@ createTeleportHost(MODAL_TELEPORT_HOST);
 useBodyScrollLock(toRef(props, 'isOpened'));
 
 const modal: ModalContext = {
+  colorScheme: toRef(props, 'colorScheme') as Ref<string>,
+  title: toRef(props, 'title'),
   isOpened: toRef(props, 'isOpened'),
   close: () => emit('update:isOpened', false),
   toggle: () => emit('update:isOpened', !props.isOpened),

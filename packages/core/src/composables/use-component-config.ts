@@ -6,7 +6,7 @@ type ComponentConfig = Record<string, any>;
 type StyleObject = Partial<Record<StylePropKey, any>>;
 type DerivedStyleProps =
   | StyleObject
-  | ((props: Record<string, any>) => StyleObject);
+  | ((props: Record<string, any>) => Record<string, any>);
 
 export const useComponentConfig = (
   name: string,

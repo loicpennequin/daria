@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useModal } from './use-modal';
+import { useModal } from '../use-modal';
 import { DFlex } from '@daria/layout';
 
 interface Props {
