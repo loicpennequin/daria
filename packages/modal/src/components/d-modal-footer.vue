@@ -6,7 +6,7 @@ interface Props {
   size: number;
 }
 
-const { isOpened, close, open, toggle } = useModal();
+const { isOpened, colorScheme, close, open, toggle } = useModal();
 
 const styleProps = {
   p: 4,
@@ -16,6 +16,7 @@ const styleProps = {
 
 const slotProps = {
   isOpened,
+  colorScheme,
   open,
   close,
   toggle

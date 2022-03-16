@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, watch, nextTick } from 'vue';
+import { ref, watch, nextTick, computed } from 'vue';
 import { getFocusableChildren, KEYBOARD, Maybe } from '@daria/utils';
 import { vClickOutside, DBox, DSurface, useEventListener } from '@daria/core';
 import { DSlideFade } from '@daria/transitions';
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), { size: 1 });
-const { isOpened, title, close, open, toggle } = useModal();
+const { isOpened, colorScheme, title, close, open, toggle } = useModal();
 
 useEventListener('keydown', (e: KeyboardEvent) => {
   switch (e.key) {
@@ -51,16 +51,17 @@ const contentForwardRef = (el: HTMLElement) => {
   contentRef.value = el;
 };
 
-const slotProps = {
-  isOpened,
-  title,
+const slotProps = computed(() => ({
+  isOpened: isOpened.value,
+  title: title.value,
+  colorScheme: colorScheme.value,
   open,
   close,
   toggle,
   focusRef: (el: HTMLElement) => {
     focusRef.value = el;
   }
-};
+}));
 
 const styleProps = {
   content: {

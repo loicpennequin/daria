@@ -23,10 +23,10 @@ export const Template = args => ({
         Sit nulla est ex deserunt exercitation anim occaecat. 
         Nostrud ullamco deserunt aute id consequat veniam incididunt duis in sint irure nisi. 
         Mollit officia cillum Lorem ullamco minim nostrud elit officia tempor esse quis.
-        <template #footer="{close}">
+        <template #footer="{close, colorScheme}">
           <DModalFooter>
             <DButton variant="outlined" color-scheme="red" @click="close">Cancel</DButton>
-            <DButton color-scheme="green" @click="close">Confirm</DButton>
+            <DButton :color-scheme="colorScheme" @click="close">Confirm</DButton>
           </DModalFooter>
         </template>
       </DModalContent>
