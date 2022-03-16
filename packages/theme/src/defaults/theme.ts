@@ -107,7 +107,7 @@ export const defaultTheme = {
   },
   sizes: {
     ...arrayToObject([...toRems(createLinearScale(0.5, 25))]),
-    container: { ...arrayToObject(['15em', ...breakpoints]) }
+    container: { ...arrayToObject(['15em', ...breakpoints]), full: '100%' }
   },
   fonts: {
     body: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'

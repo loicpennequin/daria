@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { Meta, Story, Canvas } from '@storybook/addon-docs';
-import { DDrawer, DDrawerOverlay, DDrawerContent } from '.';
+import { DDrawer, DDrawerOverlay, DDrawerContent, DDrawerFooter } from '.';
 import { DButton } from '@daria/button';
 
 <Meta title="Components/Drawer" />
@@ -10,29 +10,32 @@ import { DButton } from '@daria/button';
 TODO
 
 export const Template = args => ({
-  components: { DDrawer, DDrawerOverlay, DDrawerContent, DButton },
+  components: {
+    DDrawer,
+    DDrawerOverlay,
+    DDrawerContent,
+    DDrawerFooter,
+    DButton
+  },
   setup() {
     const isOpened = ref(false);
     return { isOpened };
   },
   template: `
     <DButton @click="isOpened = !isOpened">Open Drawer</DButton>
-    <DDrawer v-model:is-opened="isOpened">
+    <DDrawer v-model:is-opened="isOpened" title="My Awesome Drawer" position="bottom">
       <DDrawerOverlay />
-      <DDrawerContent>
-        <template #header>
-          My awesome drawer
-        </template>
-        <div style="font-size: 30px">
+      <DDrawerContent>  
           Sit nulla est ex deserunt exercitation anim occaecat. 
           Nostrud ullamco deserunt aute id consequat veniam incididunt duis in sint irure nisi. 
           Mollit officia cillum Lorem ullamco minim nostrud elit officia tempor esse quis.
           Sit nulla est ex deserunt exercitation anim occaecat. 
           Nostrud ullamco deserunt aute id consequat veniam incididunt duis in sint irure nisi. 
           Mollit officia cillum Lorem ullamco minim nostrud elit officia tempor esse quis.
-        </div>
         <template #footer>
-          <DButton variant="outlined" color-scheme="red" @click="close">Cancel</DButton>
+          <DDrawerFooter>
+            <DButton variant="outlined" color-scheme="red" @click="close">Cancel</DButton>
+          </DDrawerFooter>
         </template>
       </DDrawerContent>
     </DDrawer>`

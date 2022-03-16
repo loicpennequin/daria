@@ -9,11 +9,12 @@ import { useModal } from '../use-modal';
 import DModalHeader from './d-modal-header.vue';
 
 interface Props {
-  size?: number;
+  size?: number | string;
 }
 
 const props = withDefaults(defineProps<Props>(), { size: 1 });
-const { isOpened, colorScheme, title, close, open, toggle } = useModal();
+const { isOpened, colorScheme, title, isScrollInside, close, open, toggle } =
+  useModal();
 
 useEventListener('keydown', (e: KeyboardEvent) => {
   switch (e.key) {
@@ -63,7 +64,7 @@ const slotProps = computed(() => ({
   }
 }));
 
-const styleProps = {
+const styleProps = computed(() => ({
   content: {
     position: 'fixed',
     top: 0,
@@ -74,41 +75,43 @@ const styleProps = {
     mx: 'auto',
     p: 0,
     w: `container.${props.size}`,
-    maxW: '100%'
+    maxW: '100%',
+    maxH: isScrollInside && `calc(100vh - 2 * var(--d-space-6))`,
+    bg: 'white',
+    display: 'flex',
+    flexDirection: 'column'
   },
   body: {
     px: 4,
     py: 3,
-    overflow: 'auto',
+    overflow: isScrollInside.value && 'auto',
     flexGrow: 1,
     lineHeight: 1.4
   }
-};
+}));
 </script>
 
 <template>
   <DSlideFade
+    appear
+    direction="vertical"
+    is="section"
     :is-visible="isOpened"
     :distance="-200"
-    direction="vertical"
-    v-bind="styleProps.content"
     :forward-ref="contentForwardRef"
-    appear
+    v-click-outside="close"
+    v-bind="styleProps.content"
   >
-    <DSurface v-click-outside="close" p="0">
-      <DSection>
-        <DFlex direction="column">
-          <slot name="header" v-bind="slotProps" v-if="$slots.header || title">
-            <DModalHeader />
-          </slot>
+    <DSection>
+      <slot name="header" v-bind="slotProps" v-if="$slots.header || title">
+        <DModalHeader />
+      </slot>
 
-          <DBox v-bind="styleProps.body">
-            <slot v-bind="slotProps" />
-          </DBox>
+      <DBox v-bind="styleProps.body">
+        <slot v-bind="slotProps" />
+      </DBox>
 
-          <slot name="footer" v-bind="slotProps" />
-        </DFlex>
-      </DSection>
-    </DSurface>
+      <slot name="footer" v-bind="slotProps" />
+    </DSection>
   </DSlideFade>
 </template>

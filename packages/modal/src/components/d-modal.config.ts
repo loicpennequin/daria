@@ -2,7 +2,7 @@ import { useComponentConfig } from '@daria/core';
 
 const headerStyle = (c: string) => {
   if (c === 'white') {
-    return { bg: 'white ' };
+    return { bg: 'white' };
   }
 
   if (c === 'yellow') {

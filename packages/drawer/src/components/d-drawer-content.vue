@@ -1,60 +1,53 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { useDrawer } from '../use-drawer';
-import { vClickOutside, DBox, DSurface } from '@daria/core';
+import { DModalContent } from '@daria/modal';
 
-import { DSlide } from '@daria/transitions';
+interface Props {
+  size?: number | string;
+}
 
-const { isOpened, position, close } = useDrawer();
+const props = withDefaults(defineProps<Props>(), { size: 0 });
 
-const distance = computed(() => (position.value === 'left' ? '-100%' : '100%'));
+const { position } = useDrawer();
+
+const isVertical = computed(() => ['top', 'bottom'].includes(position.value));
+
+const distance = computed(() =>
+  ['left', 'top'].includes(position.value) ? '-100%' : '100%'
+);
+const size = computed(() => (isVertical.value ? 'full' : props.size));
+const direction = computed(() =>
+  isVertical.value ? 'vertical' : 'horizontal'
+);
+
+const styleProps = computed(() => ({
+  left: position.value !== 'right' && 0,
+  right: position.value !== 'left' && 0,
+  top: position.value !== 'bottom' && 0,
+  bottom: position.value === 'bottom' && 0,
+  mx: 0,
+  mt: 0,
+  h: ['left', 'right'].includes(position.value) && '100vh',
+  maxH: '100vh'
+}));
 </script>
 
 <template>
-  <DSlide
-    :is-visible="!!isOpened"
+  <DModalContent
+    :direction="direction"
+    :size="size"
     :distance="distance"
-    class="d-drawer-content"
-    v-click-outside="close"
-    :w="['100%', 'container.0']"
-    bg="white"
-    appear
+    v-bind="styleProps"
   >
-    <DBox is="header" px="3" v-if="$slots.header">
+    <template #header>
       <slot name="header" />
-    </DBox>
-
-    <DBox class="d-drawer-content__body" px="3">
-      <slot />
-    </DBox>
-
-    <DBox is="footer" v-if="$slots.footer">
+    </template>
+    <slot />
+    <template #footer>
       <slot name="footer" />
-    </DBox>
-  </DSlide>
+    </template>
+  </DModalContent>
 </template>
 
-<style lang="postcss" scoped>
-.d-drawer-content {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 20;
-  min-width: var(--d-breakpoint-xs);
-  height: 100vh;
-  max-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  gap: var(--d-spacing-2);
-  overflow: hidden;
-
-  > header {
-    border-bottom: solid 1px var(--d-color-grey-1);
-  }
-}
-
-.d-drawer-content__body {
-  overflow: auto;
-  flex-grow: 1;
-}
-</style>
+<style lang="postcss" scoped></style>

@@ -26,7 +26,7 @@ const slotProps = {
 <template>
   <DBox is="header" v-bind="styleProps" v-readable-color="true">
     <slot v-bind="slotProps">
-      <DSectionHeading mt="0">
+      <DSectionHeading mt="0" font-size="4">
         {{ title }}
       </DSectionHeading>
     </slot>
