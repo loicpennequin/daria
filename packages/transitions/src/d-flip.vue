@@ -6,28 +6,27 @@ import { DBox } from '@daria/core';
 interface Props {
   isVisible: boolean;
   duration?: number;
+  direction?: 'horizontal' | 'vertical';
   angle?: number | string;
   appear?: boolean;
-  perspective?: number | string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   duration: 2,
-  angle: '180deg',
-  appear: false,
-  perspective: 0
+  direction: 'horizontal',
+  angle: '90deg',
+  appear: false
 });
 
 const style = computed(() => ({
-  angle: isNumber(props.angle) ? `${props.angle}deg` : props.angle,
-  perspective: isNumber(props.perspective)
-    ? `${props.perspective}deg`
-    : props.perspective
+  angle: isNumber(props.angle) ? `${props.angle}deg` : props.angle
 }));
+
+const transitionName = computed(() => `d-flip-${props.direction}`);
 </script>
 
 <template>
-  <transition name="d-flip" :appear="props.appear" :duration="props.duration">
+  <transition :name="transitionName" :appear="props.appear">
     <DBox
       v-if="props.isVisible"
       class="d-flip-transition"
@@ -41,7 +40,7 @@ const style = computed(() => ({
 
 <style lang="postcss" scoped>
 .d-flip-transition {
-  perspective: v-bind('style.perspective');
+  transform-style: preserve-3d;
 }
 
 .d-flip-horizontal-enter-from,

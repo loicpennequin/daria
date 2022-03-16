@@ -10,7 +10,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   appear: false,
   duration: 2,
-  scale: 0.5
+  scale: 0
 });
 </script>
 
@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<Props>(), {
   </transition>
 </template>
 
-<style lang="scss">
+<style scoped>
 .d-scale-enter-from,
 .d-scale-leave-to {
   transform: scale(v-bind('scale'));

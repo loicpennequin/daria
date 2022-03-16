@@ -6,6 +6,7 @@ import { DBox } from '@daria/core';
 interface Props {
   isVisible: boolean;
   duration?: number;
+  direction: 'horizontal' | 'vertical';
   angle?: number | string;
   appear?: boolean;
   perspective?: number | string;
@@ -13,25 +14,21 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   duration: 2,
+  direction: 'horizontal',
   angle: '180deg',
   appear: false,
   perspective: 0
 });
 
 const style = computed(() => ({
-  angle: isNumber(props.angle) ? `${props.angle}deg` : props.angle,
-  perspective: isNumber(props.perspective)
-    ? `${props.perspective}px`
-    : props.perspective
+  angle: isNumber(props.angle) ? `${props.angle}deg` : props.angle
 }));
+
+const transitionName = computed(() => `d-flip-${props.direction}`);
 </script>
 
 <template>
-  <transition
-    name="d-flip-fade"
-    :appear="props.appear"
-    :duration="props.duration"
-  >
+  <transition :name="transitionName" :appear="props.appear">
     <DBox
       v-if="props.isVisible"
       class="d-flip-fade-transition"
@@ -44,18 +41,18 @@ const style = computed(() => ({
 </template>
 
 <style lang="postcss" scoped>
-.d-flip-fade-transition {
-  perspective: v-bind('style.perspective');
+.d-flip-transition {
+  transform-style: preserve-3d;
 }
 
-.d-flip-fade-horizontal-enter-from,
-.d-flip-fade-horizontal-leave-to {
+.d-flip-horizontal-enter-from,
+.d-flip-horizontal-leave-to {
   transform: rotateX(v-bind('style.angle'));
   opacity: 0;
 }
 
-.d-flip-fade-vertical-enter-from,
-.d-flip-fade-vertical-leave-to {
+.d-flip-vertical-enter-from,
+.d-flip-vertical-leave-to {
   transform: rotateY(v-bind('style.angle'));
   opacity: 0;
 }

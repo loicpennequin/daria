@@ -1,8 +1,14 @@
-import { ref, reactive } from 'vue';
+import { ref } from 'vue';
 import { Meta, Story, Canvas } from '@storybook/addon-docs';
-import DFade from './d-fade.vue';
-import DSlide from './d-slide.vue';
-import DSlideFade from './d-slide-fade.vue';
+import {
+  DFade,
+  DSlide,
+  DSlideFade,
+  DScale,
+  DScaleFade,
+  DFlip,
+  DFlipFade
+} from '.';
 import { DButton } from '@daria/button';
 import { DFlex } from '@daria/layout';
 
@@ -12,14 +18,35 @@ import { DFlex } from '@daria/layout';
 
 TODO
 
+export const Toggle = {
+  components: { DSlide, DFlex, DButton },
+  emits: ['toggle', 'update:modelValue'],
+  props: {
+    modelValue: { type: null },
+    canInvert: { type: Boolean, default: false }
+  },
+  template: `
+  <DFlex gap="3" align="center">
+    <DButton @click="$emit('toggle')">Toggle</DButton>
+    <label v-if="canInvert">
+      <input 
+        type="checkbox" 
+        :value="modelValue" 
+        @change="$emit('update:modelValue', !!$event.target.value)" 
+      />
+      Invert on out
+    </label>
+  </DFlex>`
+};
+
 export const DFadeTemplate = args => ({
-  components: { DFade, DButton },
+  components: { DFade, Toggle },
   setup() {
     const isVisible = ref(false);
     return { isVisible };
   },
   template: `
-  <DButton @click="isVisible = !isVisible">Toggle</DButton>
+  <Toggle @toggle="isVisible = !isVisible"/>
   <DFade :is-visible="isVisible">
     I am the content
   </DFade>`
@@ -30,20 +57,15 @@ export const DFadeTemplate = args => ({
 </Canvas>
 
 export const DSlideTemplate = args => ({
-  components: { DSlide, DFlex, DButton },
+  components: { DSlide, Toggle },
   setup() {
-    const state = reactive({ isVisible: false, invertOnOut: false });
-    return { state };
+    const isVisible = ref(false);
+    const invertOnOut = ref(false);
+    return { isVisible, invertOnOut };
   },
   template: `
-  <DFlex gap="3" align="center">
-    <DButton @click="state.isVisible = !state.isVisible">Toggle</DButton>
-    <label>
-      <input type="checkbox" v-model="state.invertOnOut" />
-      Invert on out
-    </label>
-  </DFlex>
-  <DSlide :is-visible="state.isVisible" :distance="100" :invert-on-out="state.invertOnOut">
+  <Toggle @toggle="isVisible = !isVisible" v-model="invertOnOut" can-invert />
+  <DSlide :is-visible="isVisible" :distance="100" :invert-on-out="invertOnOut">
     I am the content
   </DSlide>`
 });
@@ -53,24 +75,109 @@ export const DSlideTemplate = args => ({
 </Canvas>
 
 export const DSlideFadeTemplate = args => ({
-  components: { DSlideFade, DFlex, DButton },
+  components: { DSlideFade, Toggle },
   setup() {
-    const state = reactive({ isVisible: false, invertOnOut: false });
-    return { state };
+    const isVisible = ref(false);
+    const invertOnOut = ref(false);
+    return { isVisible, invertOnOut };
   },
   template: `
-  <DFlex gap="3" align="center">
-    <DButton @click="state.isVisible = !state.isVisible">Toggle</DButton>
-    <label>
-      <input type="checkbox" v-model="state.invertOnOut" />
-      Invert on out
-    </label>
-  </DFlex>
-  <DSlideFade :is-visible="state.isVisible" :distance="100" :invert-on-out="state.invertOnOut">
+  <Toggle @toggle="isVisible = !isVisible" v-model="invertOnOut" can-invert />
+  <DSlideFade :is-visible="isVisible" :distance="100" :invert-on-out="invertOnOut">
     I am the content
   </DSlideFade>`
 });
 
 <Canvas>
   <Story name="SlideFade">{DSlideFadeTemplate.bind({})}</Story>
+</Canvas>
+
+export const DScaleTemplate = args => ({
+  components: { DScale, Toggle },
+  setup() {
+    const isVisible = ref(false);
+    return { isVisible };
+  },
+  template: `
+  <Toggle @toggle="isVisible = !isVisible" />
+  <DScale 
+    :is-visible="isVisible" 
+    :distance="100" 
+    bg="red.1" 
+    w="200px" 
+  >
+    I am the content
+  </DScale>`
+});
+
+<Canvas>
+  <Story name="Scale">{DScaleTemplate.bind({})}</Story>
+</Canvas>
+
+export const DScaleFadeTemplate = args => ({
+  components: { DScaleFade, Toggle },
+  setup() {
+    const isVisible = ref(false);
+    return { isVisible };
+  },
+  template: `
+  <Toggle @toggle="isVisible = !isVisible" />
+  <DScaleFade
+    :is-visible="isVisible" 
+    :distance="100" 
+    bg="red.1" 
+    w="200px" 
+  >
+    I am the content
+  </DScaleFade>`
+});
+
+<Canvas>
+  <Story name="ScaleFade">{DScaleFadeTemplate.bind({})}</Story>
+</Canvas>
+
+export const DFlipTemplate = args => ({
+  components: { DFlip, Toggle },
+  setup() {
+    const isVisible = ref(false);
+    return { isVisible };
+  },
+  template: `
+  <Toggle @toggle="isVisible = !isVisible" />
+  <div style="perspective: 300px; perspective-origin: center; width: 200px">
+    <DFlip
+      :is-visible="isVisible" 
+      bg="red.1" 
+      h="100px"
+    >
+      I am the content
+    </DFlip>
+  </div>`
+});
+
+<Canvas>
+  <Story name="Flip">{DFlipTemplate.bind({})}</Story>
+</Canvas>
+
+export const DFlipFadeTemplate = args => ({
+  components: { DFlipFade, Toggle },
+  setup() {
+    const isVisible = ref(false);
+    return { isVisible };
+  },
+  template: `
+  <Toggle @toggle="isVisible = !isVisible" />
+  <div style="perspective: 300px; perspective-origin: center; width: 200px">
+    <DFlipFade
+      :is-visible="isVisible" 
+      bg="red.1" 
+      h="100px"
+    >
+      I am the content
+    </DFlipFade>
+  </div>`
+});
+
+<Canvas>
+  <Story name="FlipFade">{DFlipFadeTemplate.bind({})}</Story>
 </Canvas>

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed } from 'vue';
 import { DBox } from '@daria/core';
 
 interface Props {
@@ -25,7 +24,7 @@ const props = withDefaults(defineProps<Props>(), {
   </transition>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .d-fade-enter-from,
 .d-fade-leave-to {
   opacity: 0;
