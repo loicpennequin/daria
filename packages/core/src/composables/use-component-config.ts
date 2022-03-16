@@ -4,20 +4,20 @@ import { StylePropKey } from '../types';
 
 type ComponentConfig = Record<string, any>;
 type StyleObject = Partial<Record<StylePropKey, any>>;
-type DerivedStyleProps =
+type DerivedStyleProps<T = Record<string, any>> =
   | StyleObject
-  | ((props: Record<string, any>) => Record<string, any>);
+  | ((props: T) => Record<string, any>);
 
-export const useComponentConfig = (
+export const useComponentConfig = <T = any>(
   name: string,
   schema: ComponentConfig,
-  derivedStyleProps?: DerivedStyleProps
+  derivedStyleProps?: DerivedStyleProps<T>
 ) => {
   return {
     defaultProps: mapObject(schema, (value, key) =>
       useDefaultProp(`${name}.${key}`, value)
     ),
-    getDerivedStyleProps(props: any) {
+    getDerivedStyleProps(props: T) {
       return runIfFn(derivedStyleProps, props);
     }
   };

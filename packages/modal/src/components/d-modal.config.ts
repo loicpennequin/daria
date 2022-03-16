@@ -5,6 +5,10 @@ const headerStyle = (c: string) => {
     return { bg: 'white ' };
   }
 
+  if (c === 'yellow') {
+    return { bg: 'yellow.3' };
+  }
+
   return {
     bg: `${c}.5`
   };

@@ -1,0 +1,43 @@
+import { ref } from 'vue';
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import { DDrawer, DDrawerOverlay, DDrawerContent } from '.';
+import { DButton } from '@daria/button';
+
+<Meta title="Components/Drawer" />
+
+# D-drawer
+
+TODO
+
+export const Template = args => ({
+  components: { DDrawer, DDrawerOverlay, DDrawerContent, DButton },
+  setup() {
+    const isOpened = ref(false);
+    return { isOpened };
+  },
+  template: `
+    <DButton @click="isOpened = !isOpened">Open Drawer</DButton>
+    <DDrawer v-model:is-opened="isOpened">
+      <DDrawerOverlay />
+      <DDrawerContent>
+        <template #header>
+          My awesome drawer
+        </template>
+        <div style="font-size: 30px">
+          Sit nulla est ex deserunt exercitation anim occaecat. 
+          Nostrud ullamco deserunt aute id consequat veniam incididunt duis in sint irure nisi. 
+          Mollit officia cillum Lorem ullamco minim nostrud elit officia tempor esse quis.
+          Sit nulla est ex deserunt exercitation anim occaecat. 
+          Nostrud ullamco deserunt aute id consequat veniam incididunt duis in sint irure nisi. 
+          Mollit officia cillum Lorem ullamco minim nostrud elit officia tempor esse quis.
+        </div>
+        <template #footer>
+          <DButton variant="outlined" color-scheme="red" @click="close">Cancel</DButton>
+        </template>
+      </DDrawerContent>
+    </DDrawer>`
+});
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
