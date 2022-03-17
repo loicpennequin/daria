@@ -37,7 +37,8 @@
     "styled-system": "^5.1.5",
     "vue": "^3.2.25",
     "@daria/modal": "*",
-    "@daria/drawer": "*"
+    "@daria/drawer": "*",
+    "@daria/input": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",

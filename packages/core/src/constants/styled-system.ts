@@ -12,6 +12,27 @@ export const styledSystem = system({
     property: 'transform'
   },
 
+  outline: {
+    property: 'outline'
+  },
+
+  outlineStyle: {
+    property: 'outlineStyle'
+  },
+
+  outlineWidth: {
+    property: 'outlineWidth'
+  },
+
+  outlineColor: {
+    property: 'outlineColor',
+    scale: 'colors'
+  },
+
+  outlineOffset: {
+    property: 'outlineOffset'
+  },
+
   transition: {
     property: 'transition',
     scale: 'transitions',

@@ -39,6 +39,7 @@ type StyleProps = Props & {
   hover?: Props;
   focus?: Props;
   focusVisible?: Props;
+  focusWithin?: Props;
 };
 
 const normalize = (obj: Record<string, any>) =>
@@ -71,6 +72,9 @@ export const useStyleProps = (props: MaybeRef<StyleProps>) => {
       }),
       focusVisible: Object.assign(normalize(_props.focusVisible ?? {}), {
         variant: _props.variant
+      }),
+      focusWithin: Object.assign(normalize(_props.focusWithin ?? {}), {
+        variant: _props.variant
       })
     };
   });
@@ -85,7 +89,8 @@ export const useStyleProps = (props: MaybeRef<StyleProps>) => {
       ...normalize(_props.variants),
       hover: normalize(extract('hover')),
       focus: normalize(extract('focus')),
-      focusVisible: normalize(extract('focusVisible'))
+      focusVisible: normalize(extract('focusVisible')),
+      focusWithin: normalize(extract('focusWithin'))
     };
   });
 
@@ -136,6 +141,10 @@ export const useStyleProps = (props: MaybeRef<StyleProps>) => {
         '&:focus': getStyleObject(
           normalizedProps.value.focus,
           normalizedVariants.value.focus
+        ),
+        '&:focus-within': getStyleObject(
+          normalizedProps.value.focusWithin,
+          normalizedVariants.value.focusWithin
         ),
         '&:focus-visible, &.focus-visible': getStyleObject(
           normalizedProps.value.focusVisible,

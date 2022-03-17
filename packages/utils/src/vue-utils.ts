@@ -1,4 +1,5 @@
 import { inject } from 'vue';
+import { nanoid } from 'nanoid';
 
 export const createTeleportHost = (id: string) => {
   const host = document.getElementById(id);
@@ -20,3 +21,5 @@ export const useSafeInject = <T>(injectionKey: Symbol): T => {
 
   return context;
 };
+
+export const randomIdProp = () => (() => nanoid()) as unknown as string;

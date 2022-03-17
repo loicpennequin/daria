@@ -131,6 +131,12 @@ export const stylePropKeys: string[] = [
   'borderX',
   'borderY',
 
+  'outline',
+  'outlineStyle',
+  'outlineWidth',
+  'outlineColor',
+  'outlineOffset',
+
   'position',
   'zIndex',
   'top',

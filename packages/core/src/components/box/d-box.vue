@@ -12,6 +12,7 @@ const props = defineProps({
   hover: { type: Object, default: () => {} },
   focus: { type: Object, default: () => {} },
   focusVisible: { type: Object, default: () => {} },
+  focusWithin: { type: Object, default: () => {} },
   forwardRef: { type: null, default: null }
 });
 
