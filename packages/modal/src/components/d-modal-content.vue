@@ -76,7 +76,8 @@ const styleProps = computed(() => ({
     p: 0,
     w: `container.${props.size}`,
     maxW: '100%',
-    maxH: isScrollInside && `calc(100vh - 2 * var(--d-space-6))`,
+    maxH: `calc(100vh - 2 * var(--d-space-6))`,
+    overflow: !isScrollInside.value && 'auto',
     bg: 'white',
     display: 'flex',
     flexDirection: 'column'

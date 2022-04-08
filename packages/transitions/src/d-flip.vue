@@ -9,18 +9,23 @@ interface Props {
   direction?: 'horizontal' | 'vertical';
   angle?: number | string;
   appear?: boolean;
+  invertOnOut?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   duration: 2,
   direction: 'horizontal',
   angle: '90deg',
-  appear: false
+  appear: false,
+  invertOnOut: false
 });
 
-const style = computed(() => ({
-  angle: isNumber(props.angle) ? `${props.angle}deg` : props.angle
-}));
+const computedAngle = computed(() =>
+  isNumber(props.angle) ? `${props.angle}deg` : props.angle
+);
+const outAngle = computed(() =>
+  props.invertOnOut ? `calc(-1 * ${computedAngle.value}` : computedAngle.value
+);
 
 const transitionName = computed(() => `d-flip-${props.direction}`);
 </script>
@@ -43,13 +48,17 @@ const transitionName = computed(() => `d-flip-${props.direction}`);
   transform-style: preserve-3d;
 }
 
-.d-flip-horizontal-enter-from,
+.d-flip-horizontal-enter-from {
+  transform: rotateX(v-bind('computedAngle'));
+}
 .d-flip-horizontal-leave-to {
-  transform: rotateX(v-bind('style.angle'));
+  transform: rotateX(v-bind('outAngle'));
 }
 
-.d-flip-vertical-enter-from,
+.d-flip-vertical-enter-from {
+  transform: rotateY(v-bind('computedAngle'));
+}
 .d-flip-vertical-leave-to {
-  transform: rotateY(v-bind('style.angle'));
+  transform: rotateY(v-bind('outAngle'));
 }
 </style>

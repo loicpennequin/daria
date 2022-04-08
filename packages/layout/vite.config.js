@@ -4,7 +4,7 @@ import { merge } from 'lodash';
 export default merge(baseViteConfig, {
   build: {
     lib: {
-      name: 'DariaUIIcon'
+      name: 'DariaUILayout'
     }
   }
 });

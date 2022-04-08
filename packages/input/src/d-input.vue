@@ -10,7 +10,7 @@ import { randomIdProp } from '@daria/utils';
 import config from './d-input.config';
 
 interface Props {
-  forwardRef: any;
+  forwardRef?: any;
   colorScheme?: string;
   modelValue: string;
   leftIcon?: string;
@@ -45,7 +45,7 @@ const styleProps = computed(() => ({
     borderStyle: 'solid',
     borderColor: props.isInvalid ? 'red.5' : 'grey.3',
     outline: 'solid 1px transparent',
-    bg: props.disabled ? 'grey-1' : 'white',
+    bg: props.disabled ? 'grey.1' : 'white',
     color: props.disabled ? 'grey.5' : 'black',
     align: 'center',
     transition: { outlineColor: 1, borderColor: 1 },
@@ -56,20 +56,21 @@ const styleProps = computed(() => ({
     bg: 'inherit',
     p: 3,
     border: 'none',
-    flexGrow: 1
+    flexGrow: 1,
+    focus: { outline: 'none' }
   }
 }));
-console.log(styleProps.value);
 </script>
 
 <template>
-  <DFlex gap="0" class="d-input" v-bind="styleProps.wrapper">
+  <DFlex gap="0" class="d-input" is-inline v-bind="styleProps.wrapper">
     <slot name="left">
       <DBox v-if="props.leftIcon" p="1">
         <DIcon :icon="props.leftIcon" />
       </DBox>
     </slot>
     <DBox
+      :model-value="props.modelValue"
       v-model="vModel"
       is="input"
       :forward-ref="props.forwardRef"
@@ -91,10 +92,6 @@ console.log(styleProps.value);
   input {
     &::placeholder {
       font-style: italic;
-    }
-
-    &:focus {
-      outline: none;
     }
   }
 }

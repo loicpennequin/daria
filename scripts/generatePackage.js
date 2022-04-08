@@ -5,9 +5,6 @@ const { generateTemplateFilesBatch } = require('generate-template-files');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
 
-const snakeToCamelCase = str => {
-  return str.replace(/(_\w)/g, match => match[1].toUpperCase());
-};
 const camelToSnakeCase = str =>
   str.replace(/([a-z0-9])([A-Z])/g, '$1_$2').toLowerCase();
 const upperCaseFirstLetter = str =>

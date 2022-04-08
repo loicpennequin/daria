@@ -61,7 +61,7 @@ export const stylePropKeys: string[] = [
   'verticalAlign',
   'overflow',
   'overflowX',
-  'overflowX',
+  'overflowY',
 
   'alignItems',
   'alignContent',

@@ -1,0 +1,29 @@
+import { ref } from 'vue';
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import { DCheckbox } from '.';
+
+<Meta title="Components/Checkbox" />
+
+# D-input
+
+TODO
+
+export const Template = args => ({
+  components: {
+    DCheckbox
+  },
+  setup() {
+    const value = ref([]);
+    return { value };
+  },
+  template: `
+    <DCheckbox v-model="value" value="Apple">Apple</DCheckbox>
+    <DCheckbox v-model="value" value="Orange">Orange</DCheckbox>
+    <DCheckbox v-model="value" value="Banana">Banana</DCheckbox>
+    <pre>value: {{value}}</pre>
+    `
+});
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>

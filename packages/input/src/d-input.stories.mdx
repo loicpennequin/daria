@@ -17,7 +17,8 @@ export const Template = args => ({
     return { value };
   },
   template: `
-    <DInput v-model="value" placeholder="Enter your value" right-icon="chevronRight" />`
+    <DInput v-model="value" placeholder="Enter your value" right-icon="chevronRight" />
+    <pre>value: {{value}}</pre>`
 });
 
 <Canvas>

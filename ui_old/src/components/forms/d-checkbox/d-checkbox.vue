@@ -18,9 +18,10 @@ const props = withDefaults(defineProps<Props>(), {
   colorScheme: getDefaultProp<string>('DCheckbox.colorScheme')
 });
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: any): void;
-}>();
+const emit =
+  defineEmits<{
+    (e: 'update:modelValue', value: any): void;
+  }>();
 
 const classes = computed(() => [props.disabled && 'd-checkbox--disabled']);
 const scheme = useColorScheme(
@@ -49,7 +50,7 @@ const vModel = computed({
         type="checkbox"
         v-bind="$attrs"
       />
-      <d-icon icon="checkbox" size="md" class="d-checkbox__check" />
+      <DIcon icon="checkbox" size="md" class="d-checkbox__check" />
     </div>
     <label v-if="$slots.default" :for="id" class="d-checkbox__label">
       <slot />

@@ -24,7 +24,7 @@ const getCssVarValue = (cssVar: CssVar): string => {
 };
 
 export const getReadableColor = (color: string) => {
-  const dark: CssVar = `var(${CSS_VAR_PREFIX}-colors-black)`;
+  const dark: CssVar = `var(${CSS_VAR_PREFIX}colors-black)`;
   const light: CssVar = `var(${CSS_VAR_PREFIX}colors-white)`;
   const bg = isCssVar(color) ? getCssVarValue(color) : color;
 

@@ -14,7 +14,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  isScrollInside: false,
+  isScrollInside: true,
   ...config.defaultProps
 });
 const emit =

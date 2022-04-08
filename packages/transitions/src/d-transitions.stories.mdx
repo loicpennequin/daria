@@ -16,8 +16,6 @@ import { DFlex } from '@daria/layout';
 
 # Transitions
 
-TODO
-
 export const Toggle = {
   components: { DSlide, DFlex, DButton },
   emits: ['toggle', 'update:modelValue'],
@@ -39,6 +37,8 @@ export const Toggle = {
   </DFlex>`
 };
 
+## Fade
+
 export const DFadeTemplate = args => ({
   components: { DFade, Toggle },
   setup() {
@@ -55,6 +55,8 @@ export const DFadeTemplate = args => ({
 <Canvas>
   <Story name="Fade">{DFadeTemplate.bind({})}</Story>
 </Canvas>
+
+## Slide
 
 export const DSlideTemplate = args => ({
   components: { DSlide, Toggle },
@@ -74,6 +76,8 @@ export const DSlideTemplate = args => ({
   <Story name="Slide">{DSlideTemplate.bind({})}</Story>
 </Canvas>
 
+## Slide-Fade
+
 export const DSlideFadeTemplate = args => ({
   components: { DSlideFade, Toggle },
   setup() {
@@ -91,6 +95,8 @@ export const DSlideFadeTemplate = args => ({
 <Canvas>
   <Story name="SlideFade">{DSlideFadeTemplate.bind({})}</Story>
 </Canvas>
+
+## Scale
 
 export const DScaleTemplate = args => ({
   components: { DScale, Toggle },
@@ -114,6 +120,8 @@ export const DScaleTemplate = args => ({
   <Story name="Scale">{DScaleTemplate.bind({})}</Story>
 </Canvas>
 
+## Scale-Fade
+
 export const DScaleFadeTemplate = args => ({
   components: { DScaleFade, Toggle },
   setup() {
@@ -136,19 +144,23 @@ export const DScaleFadeTemplate = args => ({
   <Story name="ScaleFade">{DScaleFadeTemplate.bind({})}</Story>
 </Canvas>
 
+## Flip
+
 export const DFlipTemplate = args => ({
   components: { DFlip, Toggle },
   setup() {
     const isVisible = ref(false);
-    return { isVisible };
+    const invertOnOut = ref(false);
+    return { isVisible, invertOnOut };
   },
   template: `
-  <Toggle @toggle="isVisible = !isVisible" />
+  <Toggle @toggle="isVisible = !isVisible"  v-model="invertOnOut" can-invert />
   <div style="perspective: 300px; perspective-origin: center; width: 200px">
     <DFlip
       :is-visible="isVisible" 
       bg="red.1" 
       h="100px"
+      :invert-on-out="invertOnOut"
     >
       I am the content
     </DFlip>
@@ -159,19 +171,23 @@ export const DFlipTemplate = args => ({
   <Story name="Flip">{DFlipTemplate.bind({})}</Story>
 </Canvas>
 
+## Flip-Fade
+
 export const DFlipFadeTemplate = args => ({
   components: { DFlipFade, Toggle },
   setup() {
     const isVisible = ref(false);
-    return { isVisible };
+    const invertOnOut = ref(false);
+    return { isVisible, invertOnOut };
   },
   template: `
-  <Toggle @toggle="isVisible = !isVisible" />
+  <Toggle @toggle="isVisible = !isVisible"  v-model="invertOnOut" can-invert />
   <div style="perspective: 300px; perspective-origin: center; width: 200px">
     <DFlipFade
       :is-visible="isVisible" 
       bg="red.1" 
       h="100px"
+      :invert-on-out="invertOnOut"
     >
       I am the content
     </DFlipFade>

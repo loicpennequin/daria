@@ -28,8 +28,7 @@ const styleProps = computed(() => ({
   bottom: position.value === 'bottom' && 0,
   mx: 0,
   mt: 0,
-  h: ['left', 'right'].includes(position.value) && '100vh',
-  maxH: '100vh'
+  minH: ['left', 'right'].includes(position.value) && '100vh'
 }));
 </script>
 

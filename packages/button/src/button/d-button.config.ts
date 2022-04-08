@@ -1,7 +1,8 @@
 import { useComponentConfig } from '@daria/core';
+
 interface ButtonProps {
   colorScheme: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 const fullVariant = (props: ButtonProps) => {
@@ -12,7 +13,6 @@ const fullVariant = (props: ButtonProps) => {
     yellow: { normal: 3, hover: 4, focus: 5 }
   };
 
-  console.log(c, customColors[c]);
   return {
     bg: `${c}.${customColors[c]?.normal || 5}`,
     borderColor: 'transparent',

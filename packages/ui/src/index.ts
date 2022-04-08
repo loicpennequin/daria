@@ -10,3 +10,4 @@ export * from '@daria/accordion';
 export * from '@daria/modal';
 export * from '@daria/drawer';
 export * from '@daria/input';
+export * from '@daria/checkbox';

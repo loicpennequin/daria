@@ -38,7 +38,8 @@
     "vue": "^3.2.25",
     "@daria/modal": "*",
     "@daria/drawer": "*",
-    "@daria/input": "*"
+    "@daria/input": "*",
+    "@daria/checkbox": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",

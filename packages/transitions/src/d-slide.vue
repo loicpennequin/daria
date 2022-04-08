@@ -20,13 +20,15 @@ const props = withDefaults(defineProps<Props>(), {
   invertOnOut: false
 });
 
-const distance = computed(() => {
+const computedDistance = computed(() => {
   const { distance } = props;
-  return isNumber(distance) ? `${distance}px` : props.distance;
+  return isNumber(distance) ? `${distance}px` : distance;
 });
 
 const outDistance = computed(() => {
-  return props.invertOnOut ? `calc(-1 * ${distance.value})` : distance.value;
+  return props.invertOnOut
+    ? `calc(-1 * ${computedDistance.value})`
+    : computedDistance.value;
 });
 
 const transitionName = computed(() => `d-slide-${props.direction}`);
@@ -46,14 +48,14 @@ const transitionName = computed(() => `d-slide-${props.direction}`);
 
 <style lang="postcss" scoped>
 .d-slide-horizontal-enter-from {
-  transform: translateX(v-bind('distance'));
+  transform: translateX(v-bind('computedDistance'));
 }
 .d-slide-horizontal-leave-to {
   transform: translateX(v-bind('outDistance'));
 }
 
 .d-slide-vertical-enter-from {
-  transform: translateY(v-bind('distance'));
+  transform: translateY(v-bind('computedDistance'));
 }
 .d-slide-vertical-leave-to {
   transform: translateY(v-bind('outDistance'));

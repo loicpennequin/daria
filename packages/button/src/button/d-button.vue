@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { merge } from 'lodash-es';
-import { useSlots, computed } from 'vue';
+import { useSlots, computed, useAttrs } from 'vue';
 import { StyleProp } from '@daria/theme';
 import config from './d-button.config';
 import { DBox, vReadableColor } from '@daria/core';
@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<Props>(), {
   isFullwidth: false,
   variant: 'full'
 });
-
+const attrs = useAttrs();
 const slots = useSlots();
 
 const styleProps = computed(() =>
@@ -41,11 +41,18 @@ const styleProps = computed(() =>
     config.getDerivedStyleProps(props)
   )
 );
+
+const is = computed(() => {
+  if (attrs.href) return 'a';
+  if (attrs.to) return 'router-link';
+
+  return 'button';
+});
 </script>
 
 <template>
   <DFlex
-    is="button"
+    :is="is"
     class="d-button"
     :is-inline="!props.isFullwidth"
     v-bind="styleProps"
