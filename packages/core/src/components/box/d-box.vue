@@ -40,7 +40,6 @@ const update = (event: any) => {
     :ref="forwardRef"
     :value="modelValue"
     @input="update"
-    @change="update"
   >
     <slot />
   </component>

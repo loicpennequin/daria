@@ -38,6 +38,7 @@ const styleProps = computed(() =>
       variant: props.variant,
       w: props.isFullwidth ? '100%' : null
     },
+    // @ts-ignore
     config.getDerivedStyleProps(props)
   )
 );

@@ -1,0 +1,30 @@
+import { ref } from 'vue';
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import { DRadio } from '.';
+
+<Meta title="Components/Radio" />
+
+# D-radio
+
+TODO
+
+export const Template = args => ({
+  components: {
+    DRadio
+  },
+  setup() {
+    const value = ref('apple');
+    return { value };
+  },
+  template: `
+    <DRadio v-model="value" value="apple" :is-inline="false">Apple</DRadio>
+    <DRadio v-model="value" value="orange" :is-inline="false">Orange</DRadio>
+    <DRadio v-model="value" value="banana" :is-inline="false">Banana</DRadio>
+    <DRadio v-model="value" value="strawberry" :is-inline="false" disabled>Strawberry</DRadio>
+    <pre>value: {{value}}</pre>
+    `
+});
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>

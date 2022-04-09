@@ -11,3 +11,4 @@ export * from '@daria/modal';
 export * from '@daria/drawer';
 export * from '@daria/input';
 export * from '@daria/checkbox';
+export * from '@daria/radio';

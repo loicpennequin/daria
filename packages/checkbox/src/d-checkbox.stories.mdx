@@ -4,7 +4,7 @@ import { DCheckbox } from '.';
 
 <Meta title="Components/Checkbox" />
 
-# D-input
+# D-checkbox
 
 TODO
 
@@ -17,9 +17,10 @@ export const Template = args => ({
     return { value };
   },
   template: `
-    <DCheckbox v-model="value" value="Apple">Apple</DCheckbox>
-    <DCheckbox v-model="value" value="Orange">Orange</DCheckbox>
-    <DCheckbox v-model="value" value="Banana">Banana</DCheckbox>
+    <DCheckbox v-model="value" value="apple">Apple</DCheckbox>
+    <DCheckbox v-model="value" value="orange">Orange</DCheckbox>
+    <DCheckbox v-model="value" value="banana">Banana</DCheckbox>
+    <DCheckbox v-model="value" value="strawberry" disabled>Strawberry</DCheckbox>
     <pre>value: {{value}}</pre>
     `
 });

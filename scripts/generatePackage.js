@@ -12,6 +12,8 @@ const upperCaseFirstLetter = str =>
 
 const argv = yargs(hideBin(process.argv)).argv;
 const resourceName = argv._[0];
+if (!resourceName)
+  throw new Error('Please provide a ressource name in the cli command.');
 
 generateTemplateFilesBatch([
   {

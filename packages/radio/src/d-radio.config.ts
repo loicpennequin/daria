@@ -1,7 +1,7 @@
 import { useComponentConfig } from '@daria/core';
 
 export default useComponentConfig(
-  'DCheckbox',
+  'DRadio',
   {
     colorScheme: 'blue'
   },
@@ -10,6 +10,10 @@ export default useComponentConfig(
 
     return {
       wrapper: {
+        opacity: props.disabled ? 0.5 : 1
+      },
+
+      checkWrapper: {
         color: `${c}.4`,
         focusWithin: {
           color: `${c}.6`
