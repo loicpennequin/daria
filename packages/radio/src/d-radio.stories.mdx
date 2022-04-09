@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { Meta, Story, Canvas } from '@storybook/addon-docs';
-import { DRadio } from '.';
+import { DRadio, DRadioGroup } from '.';
 
 <Meta title="Components/Radio" />
 
@@ -27,4 +27,30 @@ export const Template = args => ({
 
 <Canvas>
   <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+## Using D-radio-group
+
+export const RadioGroupTemplate = args => ({
+  components: {
+    DRadioGroup
+  },
+  setup() {
+    const value = ref('apple');
+    const values = [
+      { label: 'Apple', value: 'apple' },
+      { label: 'Orange', value: 'orange' },
+      { label: 'Banana', value: 'banana' },
+      { label: 'Strawberry', value: 'strawberry', disabled: true }
+    ];
+    return { values, value };
+  },
+  template: `
+    <DRadioGroup v-model="value" :values="values"  />
+    <pre>value: {{value}}</pre>
+    `
+});
+
+<Canvas>
+  <Story name="RadioGroup">{RadioGroupTemplate.bind({})}</Story>
 </Canvas>

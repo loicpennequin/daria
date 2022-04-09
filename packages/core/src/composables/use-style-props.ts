@@ -18,21 +18,7 @@ import { mapObject, MaybeRef } from '@daria/utils';
 import { omitBy } from 'lodash-es';
 import { isNil, isString } from '@daria/utils';
 import { styledSystem } from '../constants/styled-system';
-
-const customAliases = {
-  h: 'height',
-  w: 'width',
-  minH: 'minHeight',
-  maxH: 'maxHeight',
-  minW: 'minWidth',
-  maxW: 'maxWidth',
-  shadow: 'boxShadow',
-  bdr: 'borderRadius',
-  bdrTopLeft: 'borderTopLeftRadius',
-  bdrTopRight: 'borderTopRightRadius',
-  bdrBottomLeft: 'borderBottomLeftRadius',
-  bdrBottomRight: 'borderBottomRightRadius'
-};
+import { customAliases } from '../constants/custom-aliases';
 
 type Props = Record<string, unknown>;
 type StyleProps = Props & {
@@ -42,20 +28,18 @@ type StyleProps = Props & {
   focusWithin?: Props;
 };
 
-const normalize = (obj: Record<string, any> = {}) => {
-  return omitBy(
+const normalize = (obj: Record<string, unknown> = {}) =>
+  omitBy(
     {
       ...obj,
-      ...Object.fromEntries(
-        Object.entries(customAliases).map(([alias, property]) => [
-          property,
-          obj[property] ?? obj[alias]
-        ])
+      ...mapObject(
+        customAliases,
+        (v, k) => obj[v] ?? obj[k],
+        (_, v) => v
       )
     },
     isNil
   );
-};
 
 export const useStyleProps = (props: MaybeRef<StyleProps>) => {
   const theme = useTheme();

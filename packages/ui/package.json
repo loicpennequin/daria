@@ -40,7 +40,8 @@
     "@daria/drawer": "*",
     "@daria/input": "*",
     "@daria/checkbox": "*",
-    "@daria/radio": "*"
+    "@daria/radio": "*",
+    "@daria/form-control": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",

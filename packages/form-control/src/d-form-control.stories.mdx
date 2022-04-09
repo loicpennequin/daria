@@ -1,0 +1,65 @@
+import { ref } from 'vue';
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import {
+  DFormControl,
+  DFormControlLabel,
+  DFormControlError,
+  DFormControlHint
+} from '.';
+import { DInput } from '@daria/input';
+import { DRadioGroup } from '@daria/radio';
+
+<Meta title="Components/FormControl" />
+
+# D-form-control
+
+TODO
+
+export const Template = args => ({
+  components: {
+    DFormControl,
+    DFormControlLabel,
+    DFormControlError,
+    DFormControlHint,
+    DInput,
+    DRadioGroup
+  },
+  setup() {
+    const value = ref('');
+    const gender = ref('M');
+    const genders = [
+      { label: 'Male', value: 'M' },
+      { label: 'Female', value: 'F' },
+      { label: 'Other', value: 'NB' }
+    ];
+    return { value, gender, genders };
+  },
+  template: `
+    <DFormControl v-slot="formControlProps" :is-invalid="value === 'Ride'" mb="4">
+      <DFormControlLabel>What is your favorite shoegaze band ?</DFormControlLabel>
+      <DInput v-bind="formControlProps" v-model="value" />
+      <DFormControlHint>Ride is just britpop with reverb</DFormControlHint>
+      <DFormControlError>No britpop !</DFormControlError>
+    </DFormControl>
+    <DFormControl
+      is="fieldset"
+      required
+      v-slot="formControlProps"
+      :is-invalid="gender === 'NB'"
+    >
+      <DFormControlLabel is="legend">Gender</DFormControlLabel>
+      <DRadioGroup
+        v-model="gender"
+        v-bind="formControlProps"
+        :values="genders"
+      />
+      <DFormControlError>
+        There are only two genders.
+      </DFormControlError>
+    </DFormControl>
+    `
+});
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>

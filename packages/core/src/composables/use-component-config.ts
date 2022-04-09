@@ -8,13 +8,13 @@ type DerivedStyleProps<T = Record<string, any>> =
   | StyleObject
   | ((props: T) => Record<string, any>);
 
-export const useComponentConfig = <T = any>(
+export const useComponentConfig = <T = any, D = any>(
   name: string,
   schema: ComponentConfig,
   derivedStyleProps?: DerivedStyleProps<T>
 ) => {
   return {
-    defaultProps: mapObject(schema, (value, key) =>
+    defaultProps: mapObject<D>(schema, (value, key) =>
       useDefaultProp(`${name}.${key}`, value)
     ),
     getDerivedStyleProps(props: T) {
