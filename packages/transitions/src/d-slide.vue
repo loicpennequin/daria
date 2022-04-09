@@ -1,14 +1,12 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { isNumber } from '@daria/utils';
-import { DBox } from '@daria/core';
+import { useTransition } from './use-transition';
 
 interface Props {
-  isVisible: boolean;
   direction?: 'horizontal' | 'vertical';
   duration?: number;
   distance?: number | string;
-  appear?: boolean;
   invertOnOut?: boolean;
 }
 
@@ -16,48 +14,45 @@ const props = withDefaults(defineProps<Props>(), {
   duration: 2,
   distance: '100%',
   direction: 'horizontal',
-  appear: false,
   invertOnOut: false
 });
 
-const computedDistance = computed(() => {
-  const { distance } = props;
-  return isNumber(distance) ? `${distance}px` : distance;
+const { value, outValue, is, name, styles } = useTransition(props, {
+  baseName: 'd-slide',
+  transitions: ['opacity', 'transform'],
+  value: computed(() => {
+    const { distance } = props;
+    return isNumber(distance) ? `${distance}px` : props.distance;
+  })
 });
-
-const outDistance = computed(() => {
-  return props.invertOnOut
-    ? `calc(-1 * ${computedDistance.value})`
-    : computedDistance.value;
-});
-
-const transitionName = computed(() => `d-slide-${props.direction}`);
 </script>
 
 <template>
-  <transition :name="transitionName" :appear="props.appear">
-    <DBox
-      v-if="props.isVisible"
-      :transition="{ transform: props.duration }"
-      v-bind="$attrs"
-    >
-      <slot />
-    </DBox>
-  </transition>
+  <component :is="is" :name="name">
+    <slot />
+  </component>
 </template>
 
 <style lang="postcss" scoped>
+.d-slide-horizontal-enter-active,
+.d-slide-horizontal-leave-active,
+.d-slide-vertical-enter-active,
+.d-slide-vertical-leave-active {
+  transform-style: preserve-3d;
+  transition: v-bind('styles.transition');
+}
+
 .d-slide-horizontal-enter-from {
-  transform: translateX(v-bind('computedDistance'));
+  transform: translateX(v-bind('value'));
 }
 .d-slide-horizontal-leave-to {
-  transform: translateX(v-bind('outDistance'));
+  transform: translateX(v-bind('outValue'));
 }
 
 .d-slide-vertical-enter-from {
-  transform: translateY(v-bind('computedDistance'));
+  transform: translateY(v-bind('value'));
 }
 .d-slide-vertical-leave-to {
-  transform: translateY(v-bind('outDistance'));
+  transform: translateY(v-bind('outValue'));
 }
 </style>

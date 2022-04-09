@@ -2,6 +2,7 @@ import { ref } from 'vue';
 import { Meta, Story, Canvas } from '@storybook/addon-docs';
 import { DDrawer, DDrawerOverlay, DDrawerContent, DDrawerFooter } from '.';
 import { DButton } from '@daria/button';
+import { DFlex } from '@daria/layout';
 
 <Meta title="Components/Drawer" />
 
@@ -15,15 +16,17 @@ export const Template = args => ({
     DDrawerOverlay,
     DDrawerContent,
     DDrawerFooter,
+    DFlex,
     DButton
   },
   setup() {
     const isOpened = ref(false);
     const position = ref('left');
-    return { isOpened, position };
+    const size = ref(0);
+    return { isOpened, position, size };
   },
   template: `
-    <DFlex gap="3">
+    <DFlex gap="5">
       <DButton @click="isOpened = !isOpened">Open Drawer</DButton>
       <fieldset>
         <legend>Position</legend>
@@ -31,11 +34,20 @@ export const Template = args => ({
         <label><input type="radio" v-model="position" value="right"/> Right</label>
         <label><input type="radio" v-model="position" value="top"/> Top</label>
         <label><input type="radio" v-model="position" value="bottom"/> Bottom</label>
-       </fieldset>
+      </fieldset>
+      <fieldset>
+        <legend>Size</legend>
+        <label   
+          v-for="i in 5" 
+          :key="i"
+        >
+          <input v-model="size" type="radio" :value="i-1" /> {{i - 1}}    
+        </label>
+      </fieldset>
     </DFlex>
     <DDrawer v-model:is-opened="isOpened" title="My Awesome Drawer" :position="position">
       <DDrawerOverlay />
-      <DDrawerContent>  
+      <DDrawerContent :size="size">  
           Sit nulla est ex deserunt exercitation anim occaecat. 
           Nostrud ullamco deserunt aute id consequat veniam incididunt duis in sint irure nisi. 
           Mollit officia cillum Lorem ullamco minim nostrud elit officia tempor esse quis.
@@ -48,7 +60,7 @@ export const Template = args => ({
           Sit nulla est ex deserunt exercitation anim occaecat. 
           Nostrud ullamco deserunt aute id consequat veniam incididunt duis in sint irure nisi. 
           Mollit officia cillum Lorem ullamco minim nostrud elit officia tempor esse quis.
-        <template #footer>
+        <template #footer={close}>
           <DDrawerFooter>
             <DButton variant="outlined" color-scheme="red" @click="close">Cancel</DButton>
           </DDrawerFooter>

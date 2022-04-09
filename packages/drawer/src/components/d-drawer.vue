@@ -7,7 +7,7 @@ import config from './d-drawer.config';
 
 interface Props {
   isOpened: boolean;
-  isScrollInside: boolean;
+  isScrollInside?: boolean;
   colorScheme?: string;
   title?: string;
   position?: DrawerPosition;

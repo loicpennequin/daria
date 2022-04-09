@@ -22,10 +22,10 @@ const direction = computed(() =>
 );
 
 const styleProps = computed(() => ({
-  left: position.value !== 'right' && 0,
-  right: position.value !== 'left' && 0,
-  top: position.value !== 'bottom' && 0,
-  bottom: position.value === 'bottom' && 0,
+  left: position.value !== 'right' ? 0 : 'auto',
+  right: position.value !== 'left' ? 0 : 'auto',
+  top: position.value !== 'bottom' ? 0 : 'auto',
+  bottom: position.value === 'bottom' ? 0 : 'auto',
   mx: 0,
   mt: 0,
   minH: ['left', 'right'].includes(position.value) && '100vh'
@@ -39,12 +39,16 @@ const styleProps = computed(() => ({
     :distance="distance"
     v-bind="styleProps"
   >
-    <template #header>
-      <slot name="header" />
+    <template #header="modalProps">
+      <slot name="header" v-bind="modalProps" />
     </template>
-    <slot />
-    <template #footer>
-      <slot name="footer" />
+
+    <template #default="modalProps">
+      <slot v-bind="modalProps" />
+    </template>
+
+    <template #footer="modalProps">
+      <slot name="footer" v-bind="modalProps" />
     </template>
   </DModalContent>
 </template>

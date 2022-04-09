@@ -37,7 +37,10 @@ export const styledSystem = system({
     property: 'transition',
     scale: 'transitions',
     defaultScale: [0, '0,2s', '0.3s', '0.5s', '0.8s', '1s'],
-    transform(value, scale) {
+    // @ts-ignore
+    transform(_: never, scale: any, props: any) {
+      const value = props.transition;
+
       if (isNil(value)) return null;
       if (!isObject(value)) {
         return `all ${scale?.[value] ?? value}`;

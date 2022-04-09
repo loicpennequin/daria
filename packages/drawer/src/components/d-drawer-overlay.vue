@@ -6,8 +6,8 @@ const { isOpened, close } = useDrawer();
 </script>
 
 <template>
-  <DFade :is-visible="isOpened" appear>
-    <div class="d-drawer-overlay" @click="close" />
+  <DFade appear>
+    <div v-if="isOpened" class="d-drawer-overlay" @click="close" />
   </DFade>
 </template>
 

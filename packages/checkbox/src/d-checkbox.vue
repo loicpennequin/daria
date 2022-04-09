@@ -113,8 +113,9 @@ const styleProps = computed(() =>
         type="checkbox"
         v-bind="{ ...$attrs, ...styleProps.input }"
       />
-      <DScaleFade :is-visible="isChecked">
+      <DScaleFade>
         <DIcon
+          v-if="isChecked"
           icon="checkbox"
           size="2"
           class="d-checkbox__check"

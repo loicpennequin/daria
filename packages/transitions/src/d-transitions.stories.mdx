@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { Meta, Story, Canvas } from '@storybook/addon-docs';
 import {
   DFade,
@@ -9,6 +9,7 @@ import {
   DFlip,
   DFlipFade
 } from '.';
+import { DBox } from '@daria/core';
 import { DButton } from '@daria/button';
 import { DFlex } from '@daria/layout';
 
@@ -23,14 +24,24 @@ export const Toggle = {
     modelValue: { type: null },
     canInvert: { type: Boolean, default: false }
   },
+  setup(props, { emit }) {
+    const vModel = computed({
+      get() {
+        return props.model;
+      },
+      set(val) {
+        emit('update:modelValue', val);
+      }
+    });
+    return { vModel };
+  },
   template: `
   <DFlex gap="3" align="center">
     <DButton @click="$emit('toggle')">Toggle</DButton>
     <label v-if="canInvert">
       <input 
         type="checkbox" 
-        :value="modelValue" 
-        @change="$emit('update:modelValue', !!$event.target.value)" 
+        v-model="vModel"
       />
       Invert on out
     </label>
@@ -40,15 +51,22 @@ export const Toggle = {
 ## Fade
 
 export const DFadeTemplate = args => ({
-  components: { DFade, Toggle },
+  components: { DFade, DBox, Toggle },
   setup() {
     const isVisible = ref(false);
     return { isVisible };
   },
   template: `
   <Toggle @toggle="isVisible = !isVisible"/>
-  <DFade :is-visible="isVisible">
-    I am the content
+  <DFade>
+    <div v-if="isVisible">
+      <DBox 
+        bg="red.1" 
+        h="100px"
+      >
+        I am the content
+      </DBox>
+    </div>
   </DFade>`
 });
 
@@ -59,17 +77,25 @@ export const DFadeTemplate = args => ({
 ## Slide
 
 export const DSlideTemplate = args => ({
-  components: { DSlide, Toggle },
+  components: { DSlide, DBox, Toggle },
   setup() {
     const isVisible = ref(false);
     const invertOnOut = ref(false);
     return { isVisible, invertOnOut };
   },
   template: `
-  <Toggle @toggle="isVisible = !isVisible" v-model="invertOnOut" can-invert />
-  <DSlide :is-visible="isVisible" :distance="100" :invert-on-out="invertOnOut">
-    I am the content
-  </DSlide>`
+  <Toggle @toggle="isVisible = !isVisible"  v-model="invertOnOut" can-invert />
+  <div style="perspective: 300px; perspective-origin: center; width: 200px">
+    <DSlide :invert-on-out="invertOnOut">
+      <DBox 
+        v-if="isVisible"
+        bg="red.1" 
+        h="100px"
+      >
+        I am the content
+      </DBox>
+    </DSlide>
+  </div>`
 });
 
 <Canvas>
@@ -79,17 +105,25 @@ export const DSlideTemplate = args => ({
 ## Slide-Fade
 
 export const DSlideFadeTemplate = args => ({
-  components: { DSlideFade, Toggle },
+  components: { DSlideFade, DBox, Toggle },
   setup() {
     const isVisible = ref(false);
     const invertOnOut = ref(false);
     return { isVisible, invertOnOut };
   },
   template: `
-  <Toggle @toggle="isVisible = !isVisible" v-model="invertOnOut" can-invert />
-  <DSlideFade :is-visible="isVisible" :distance="100" :invert-on-out="invertOnOut">
-    I am the content
-  </DSlideFade>`
+  <Toggle @toggle="isVisible = !isVisible"  v-model="invertOnOut" can-invert />
+  <div style="perspective: 300px; perspective-origin: center; width: 200px">
+    <DSlideFade :invert-on-out="invertOnOut">
+      <DBox 
+        v-if="isVisible"
+        bg="red.1" 
+        h="100px"
+      >
+        I am the content
+      </DBox>
+    </DSlideFade>
+  </div>`
 });
 
 <Canvas>
@@ -99,20 +133,21 @@ export const DSlideFadeTemplate = args => ({
 ## Scale
 
 export const DScaleTemplate = args => ({
-  components: { DScale, Toggle },
+  components: { DScale, DBox, Toggle },
   setup() {
     const isVisible = ref(false);
     return { isVisible };
   },
   template: `
   <Toggle @toggle="isVisible = !isVisible" />
-  <DScale 
-    :is-visible="isVisible" 
-    :distance="100" 
-    bg="red.1" 
-    w="200px" 
-  >
-    I am the content
+  <DScale>
+    <DBox 
+      v-if="isVisible"
+      bg="red.1" 
+      w="200px"
+    >
+      I am the content
+    </Dbox>
   </DScale>`
 });
 
@@ -123,20 +158,21 @@ export const DScaleTemplate = args => ({
 ## Scale-Fade
 
 export const DScaleFadeTemplate = args => ({
-  components: { DScaleFade, Toggle },
+  components: { DScaleFade, DBox, Toggle },
   setup() {
     const isVisible = ref(false);
     return { isVisible };
   },
   template: `
   <Toggle @toggle="isVisible = !isVisible" />
-  <DScaleFade
-    :is-visible="isVisible" 
-    :distance="100" 
-    bg="red.1" 
-    w="200px" 
-  >
-    I am the content
+  <DScaleFade>
+    <DBox 
+      v-if="isVisible"
+      bg="red.1" 
+      w="200px"
+    >
+      I am the content
+    </Dbox>
   </DScaleFade>`
 });
 
@@ -147,7 +183,7 @@ export const DScaleFadeTemplate = args => ({
 ## Flip
 
 export const DFlipTemplate = args => ({
-  components: { DFlip, Toggle },
+  components: { DFlip, DBox, Toggle },
   setup() {
     const isVisible = ref(false);
     const invertOnOut = ref(false);
@@ -156,13 +192,14 @@ export const DFlipTemplate = args => ({
   template: `
   <Toggle @toggle="isVisible = !isVisible"  v-model="invertOnOut" can-invert />
   <div style="perspective: 300px; perspective-origin: center; width: 200px">
-    <DFlip
-      :is-visible="isVisible" 
-      bg="red.1" 
-      h="100px"
-      :invert-on-out="invertOnOut"
-    >
-      I am the content
+    <DFlip :invert-on-out="invertOnOut">
+      <DBox 
+        v-if="isVisible"
+        bg="red.1" 
+        h="100px"
+      >
+        I am the content
+      </DBox>
     </DFlip>
   </div>`
 });
@@ -174,7 +211,7 @@ export const DFlipTemplate = args => ({
 ## Flip-Fade
 
 export const DFlipFadeTemplate = args => ({
-  components: { DFlipFade, Toggle },
+  components: { DFlipFade, DBox, Toggle },
   setup() {
     const isVisible = ref(false);
     const invertOnOut = ref(false);
@@ -183,13 +220,14 @@ export const DFlipFadeTemplate = args => ({
   template: `
   <Toggle @toggle="isVisible = !isVisible"  v-model="invertOnOut" can-invert />
   <div style="perspective: 300px; perspective-origin: center; width: 200px">
-    <DFlipFade
-      :is-visible="isVisible" 
-      bg="red.1" 
-      h="100px"
-      :invert-on-out="invertOnOut"
-    >
-      I am the content
+    <DFlipFade :invert-on-out="invertOnOut">
+      <DBox 
+        v-if="isVisible"
+        bg="red.1" 
+        h="100px"
+      >
+        I am the content
+      </DBox>
     </DFlipFade>
   </div>`
 });

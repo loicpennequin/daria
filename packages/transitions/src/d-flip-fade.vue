@@ -1,68 +1,63 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { isNumber } from '@daria/utils';
-import { DBox } from '@daria/core';
+import { useTransition } from './use-transition';
 
 interface Props {
-  isVisible: boolean;
   duration?: number;
   direction?: 'horizontal' | 'vertical';
   angle?: number | string;
-  appear?: boolean;
   invertOnOut?: boolean;
+  isGroup?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   duration: 2,
   direction: 'horizontal',
   angle: '90deg',
-  appear: false,
-  invertOnOut: false
+  invertOnOut: false,
+  isGroup: false
 });
 
-const computedAngle = computed(() =>
-  isNumber(props.angle) ? `${props.angle}deg` : props.angle
-);
-const outAngle = computed(() =>
-  props.invertOnOut ? `calc(-1 * ${computedAngle.value}` : computedAngle.value
-);
-
-const transitionName = computed(() => `d-flip-fade-${props.direction}`);
+const { value, outValue, is, name, styles } = useTransition(props, {
+  baseName: 'd-flip-fade',
+  transitions: ['opacity', 'transform'],
+  value: computed(() =>
+    isNumber(props.angle) ? `${props.angle}deg` : props.angle
+  )
+});
 </script>
 
 <template>
-  <transition :name="transitionName" :appear="props.appear">
-    <DBox
-      v-if="props.isVisible"
-      class="d-flip-fade-transition"
-      v-bind="$attrs"
-      :transition="{ opacity: props.duration, transform: props.duration }"
-    >
-      <slot />
-    </DBox>
-  </transition>
+  <component :is="is" :name="name">
+    <slot />
+  </component>
 </template>
 
 <style lang="postcss" scoped>
-.d-flip-fade-transition {
+.d-flip-fade-horizontal-enter-active,
+.d-flip-fade-horizontal-leave-active,
+.d-flip-fade-vertical-enter-active,
+.d-flip-fade-vertical-leave-active {
   transform-style: preserve-3d;
+  transition: v-bind('styles.transition');
 }
 
 .d-flip-fade-horizontal-enter-from {
-  transform: rotateX(v-bind('computedAngle'));
+  transform: rotateX(v-bind('value'));
   opacity: 0;
 }
 .d-flip-fade-horizontal-leave-to {
-  transform: rotateX(v-bind('outAngle'));
+  transform: rotateX(v-bind('outValue'));
   opacity: 0;
 }
 
 .d-flip-fade-vertical-enter-from {
-  transform: rotateY(v-bind('computedAngle'));
+  transform: rotateY(v-bind('value'));
   opacity: 0;
 }
 .d-flip-fade-vertical-leave-to {
-  transform: rotateY(v-bind('outAngle'));
+  transform: rotateY(v-bind('outValue'));
   opacity: 0;
 }
 </style>

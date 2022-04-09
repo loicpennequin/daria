@@ -1,34 +1,39 @@
 <script setup lang="ts">
-import { DBox } from '@daria/core';
+import { computed } from 'vue';
+import { useTransition } from './use-transition';
 
 interface Props {
-  isVisible: boolean;
   duration?: number;
-  scale?: number;
-  appear?: boolean;
+  scale?: number | string;
 }
 const props = withDefaults(defineProps<Props>(), {
-  appear: false,
   duration: 2,
   scale: 0
+});
+
+const { value, outValue, is, name, styles } = useTransition(props, {
+  baseName: 'd-scale',
+  transitions: ['transform'],
+  value: computed(() => props.scale)
 });
 </script>
 
 <template>
-  <transition name="d-scale" :appear="props.appear">
-    <DBox
-      v-if="props.isVisible"
-      :transition="{ transform: props.duration }"
-      v-bind="$attrs"
-    >
-      <slot />
-    </DBox>
-  </transition>
+  <component :is="is" :name="name">
+    <slot />
+  </component>
 </template>
 
 <style scoped>
-.d-scale-enter-from,
+.d-scale-enter-active,
+.d-scale-leave-active {
+  transition: v-bind('styles.transition');
+}
+
+.d-scale-enter-from {
+  transform: scale(v-bind('value'));
+}
 .d-scale-leave-to {
-  transform: scale(v-bind('scale'));
+  transform: scale(v-bind('outValue'));
 }
 </style>

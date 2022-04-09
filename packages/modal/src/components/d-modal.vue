@@ -8,7 +8,7 @@ import config from './d-modal.config';
 
 interface Props {
   isOpened: boolean;
-  isScrollInside: boolean;
+  isScrollInside?: boolean;
   colorScheme?: string;
   title?: string;
 }

@@ -1,9 +1,8 @@
 <script lang="ts" setup>
 import { ref, watch, nextTick, computed } from 'vue';
 import { getFocusableChildren, KEYBOARD, Maybe } from '@daria/utils';
-import { vClickOutside, DBox, DSurface, useEventListener } from '@daria/core';
+import { vClickOutside, DBox, useEventListener } from '@daria/core';
 import { DSlideFade } from '@daria/transitions';
-import { DFlex } from '@daria/layout';
 import { DSection } from '@daria/section';
 import { useModal } from '../use-modal';
 import DModalHeader from './d-modal-header.vue';
@@ -77,7 +76,7 @@ const styleProps = computed(() => ({
     w: `container.${props.size}`,
     maxW: '100%',
     maxH: `calc(100vh - 2 * var(--d-space-6))`,
-    overflow: !isScrollInside.value && 'auto',
+    overflow: !isScrollInside.value ? 'auto' : 'initial',
     bg: 'white',
     display: 'flex',
     flexDirection: 'column'
@@ -85,7 +84,7 @@ const styleProps = computed(() => ({
   body: {
     px: 4,
     py: 3,
-    overflow: isScrollInside.value && 'auto',
+    overflow: isScrollInside.value ? 'auto' : 'initial',
     flexGrow: 1,
     lineHeight: 1.4
   }
@@ -93,26 +92,25 @@ const styleProps = computed(() => ({
 </script>
 
 <template>
-  <DSlideFade
-    appear
-    direction="vertical"
-    is="section"
-    :is-visible="isOpened"
-    :distance="-200"
-    :forward-ref="contentForwardRef"
-    v-click-outside="close"
-    v-bind="styleProps.content"
-  >
-    <DSection>
-      <slot name="header" v-bind="slotProps" v-if="$slots.header || title">
-        <DModalHeader />
-      </slot>
+  <DSlideFade appear direction="vertical" :distance="-200">
+    <DBox
+      v-if="isOpened"
+      v-click-outside="close"
+      :forward-ref="contentForwardRef"
+      is="section"
+      v-bind="styleProps.content"
+    >
+      <DSection>
+        <slot name="header" v-bind="slotProps" v-if="$slots.header || title">
+          <DModalHeader />
+        </slot>
 
-      <DBox v-bind="styleProps.body">
-        <slot v-bind="slotProps" />
-      </DBox>
+        <DBox v-bind="styleProps.body">
+          <slot v-bind="slotProps" />
+        </DBox>
 
-      <slot name="footer" v-bind="slotProps" />
-    </DSection>
+        <slot name="footer" v-bind="slotProps" />
+      </DSection>
+    </DBox>
   </DSlideFade>
 </template>

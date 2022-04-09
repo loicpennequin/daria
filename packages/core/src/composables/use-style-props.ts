@@ -42,8 +42,8 @@ type StyleProps = Props & {
   focusWithin?: Props;
 };
 
-const normalize = (obj: Record<string, any>) =>
-  omitBy(
+const normalize = (obj: Record<string, any> = {}) => {
+  return omitBy(
     {
       ...obj,
       ...Object.fromEntries(
@@ -55,6 +55,7 @@ const normalize = (obj: Record<string, any>) =>
     },
     isNil
   );
+};
 
 export const useStyleProps = (props: MaybeRef<StyleProps>) => {
   const theme = useTheme();
@@ -83,7 +84,7 @@ export const useStyleProps = (props: MaybeRef<StyleProps>) => {
     const _props = unref<any>(props);
 
     const extract = (key: string) =>
-      mapObject(_props.variants, value => value[key]);
+      mapObject(_props.variants ?? {}, value => value[key]);
 
     return {
       ...normalize(_props.variants),

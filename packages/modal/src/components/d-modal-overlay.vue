@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { DFade } from '@daria/transitions';
+import { DBox } from '@daria/core';
 import { useModal } from '../use-modal';
 import DModalCloseButton from './d-modal-close-button.vue';
 
@@ -17,7 +18,15 @@ const overlayStyle = {
 </script>
 
 <template>
-  <DFade :is-visible="isOpened" appear v-bind="overlayStyle" @click="close">
-    <DModalCloseButton color="white" position="fixed" top="0" right="0" m="3" />
+  <DFade appear>
+    <DBox v-if="isOpened" v-bind="overlayStyle" @click="close">
+      <DModalCloseButton
+        color="white"
+        position="fixed"
+        top="0"
+        right="0"
+        m="3"
+      />
+    </DBox>
   </DFade>
 </template>
