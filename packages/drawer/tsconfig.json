@@ -1,4 +1,10 @@
 {
   "extends": "../../tsconfig.generated.json",
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "index.ts"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.vue",
+    "index.ts",
+    "env.d.ts"
+  ]
 }

@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 
 const PACKAGES_DIR = path.join(__dirname, '../packages');
-const PACKAGE_ENTRY_POINT = 'src/index';
+const PACKAGE_ENTRY_POINT = 'src';
 
 module.exports = () => {
   const packages = fs

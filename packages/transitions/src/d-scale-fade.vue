@@ -3,12 +3,14 @@ import { computed } from 'vue';
 import { useTransition } from './use-transition';
 
 interface Props {
-  duration?: number;
+  duration?: number | string;
   scale?: number | string;
+  easing?: string;
 }
 const props = withDefaults(defineProps<Props>(), {
   duration: 2,
-  scale: 0
+  scale: 0,
+  easing: 'ease-out'
 });
 
 const { value, outValue, is, name, styles } = useTransition(props, {
@@ -28,6 +30,7 @@ const { value, outValue, is, name, styles } = useTransition(props, {
 .d-scale-fade-enter-active,
 .d-scale-fade-leave-active {
   transition: v-bind('styles.transition');
+  transition-timing-function: v-bind('styles.transitionTimingFunction');
 }
 
 .d-scale-fade-enter-from {

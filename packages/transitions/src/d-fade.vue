@@ -2,12 +2,14 @@
 import { useTransition } from './use-transition';
 
 interface Props {
-  duration?: number;
+  duration?: number | string;
   isGroup?: boolean;
+  easing?: string;
 }
 const props = withDefaults(defineProps<Props>(), {
   isGroup: false,
-  duration: 2
+  duration: 2,
+  easing: 'ease-out'
 });
 
 const { name, is, styles } = useTransition(props, {
@@ -26,6 +28,7 @@ const { name, is, styles } = useTransition(props, {
 .d-fade-enter-active,
 .d-fade-leave-active {
   transition: v-bind('styles.transition');
+  transition-timing-function: v-bind('styles.transitionTimingFunction');
 }
 
 .d-fade-enter-from,

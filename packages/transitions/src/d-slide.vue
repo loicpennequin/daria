@@ -5,16 +5,18 @@ import { useTransition } from './use-transition';
 
 interface Props {
   direction?: 'horizontal' | 'vertical';
-  duration?: number;
+  duration?: number | string;
   distance?: number | string;
   invertOnOut?: boolean;
+  easing?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   duration: 2,
   distance: '100%',
   direction: 'horizontal',
-  invertOnOut: false
+  invertOnOut: false,
+  easing: 'ease-out'
 });
 
 const { value, outValue, is, name, styles } = useTransition(props, {
@@ -40,6 +42,7 @@ const { value, outValue, is, name, styles } = useTransition(props, {
 .d-slide-vertical-leave-active {
   transform-style: preserve-3d;
   transition: v-bind('styles.transition');
+  transition-timing-function: v-bind('styles.transitionTimingFunction');
 }
 
 .d-slide-horizontal-enter-from {

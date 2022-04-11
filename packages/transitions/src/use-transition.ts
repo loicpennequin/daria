@@ -6,6 +6,7 @@ type Props = {
   direction?: 'horizontal' | 'vertical';
   invertOnOut?: boolean;
   duration: string | number;
+  easing: string;
   isGroup?: boolean;
 };
 
@@ -18,11 +19,14 @@ export const useTransition = (props: Props, options: Options) => {
   const rawStyles = computed(() => ({
     transition: Object.fromEntries(
       options.transitions.map(property => [property, props.duration])
-    )
+    ),
+    easing: props.easing
   }));
 
+  const styles = useStyleProps(rawStyles);
+
   return {
-    styles: useStyleProps(rawStyles),
+    styles,
     value: options.value,
     outValue: computed(() =>
       props.invertOnOut

@@ -41,7 +41,8 @@
     "@daria/input": "*",
     "@daria/checkbox": "*",
     "@daria/radio": "*",
-    "@daria/form-control": "*"
+    "@daria/form-control": "*",
+    "@daria/tabs": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",

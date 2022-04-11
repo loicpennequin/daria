@@ -6,7 +6,11 @@
   "include": [
     "packages/**/src/**/*.ts",
     "packages/**/src/**/*.d.ts",
-    "packages/**/**/*.vue"
+    "packages/**/env.d.ts",
+    "packages/**/**/*.vue",
+    "packages/ui/examples/**/*.ts",
+    "packages/ui/examples/**/*.d.ts",
+    "packages/ui/examples/**/*.vue"
   ],
   "exclude": ["templates/**/*"]
 }

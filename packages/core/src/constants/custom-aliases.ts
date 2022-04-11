@@ -10,5 +10,6 @@ export const customAliases = {
   bdrTopLeft: 'borderTopLeftRadius',
   bdrTopRight: 'borderTopRightRadius',
   bdrBottomLeft: 'borderBottomLeftRadius',
-  bdrBottomRight: 'borderBottomRightRadius'
+  bdrBottomRight: 'borderBottomRightRadius',
+  easing: 'transitionTimingFunction'
 };

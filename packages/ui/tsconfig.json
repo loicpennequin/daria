@@ -3,5 +3,13 @@
   "compilerOptions": {
     "paths": { "@/*": ["./src/*"] }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.vue",
+    "examples/**/*.ts",
+    "examples/**/*.d.ts",
+    "examples/**/*.vue",
+    "env.d.ts"
+  ]
 }

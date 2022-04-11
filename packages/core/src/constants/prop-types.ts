@@ -148,7 +148,9 @@ export const stylePropKeys: string[] = [
   'shadow',
 
   'transform',
-  'transition'
+  'transition',
+  'transitionTimingFunction',
+  'easing'
 ];
 
 export const STYLE_PROP_TYPES = Object.freeze(

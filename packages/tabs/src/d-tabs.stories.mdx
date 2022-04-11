@@ -1,0 +1,34 @@
+import { ref } from 'vue';
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import { DTabs, DTab } from '.';
+import { DSurface } from '@daria/core';
+
+<Meta title="Components/Tabs" />
+
+# D-tabs
+
+TODO
+
+export const Template = args => ({
+  components: {
+    DTabs,
+    DTab,
+    DSurface
+  },
+  setup() {
+    return {
+      activeTab: ref('one')
+    };
+  },
+  template: `
+    <DTabs v-model="activeTab">
+      <DTab name="one" label="One">Tab one</DTab>
+      <DTab name="two" label="Two">Tab two</DTab>
+      <DTab name="three" label="Three">Tab three</DTab>
+    </DTabs>
+    `
+});
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>

@@ -4,11 +4,12 @@ import { isNumber } from '@daria/utils';
 import { useTransition } from './use-transition';
 
 interface Props {
-  duration?: number;
+  duration?: number | string;
   direction?: 'horizontal' | 'vertical';
   angle?: number | string;
   invertOnOut?: boolean;
   isGroup?: boolean;
+  easing?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -16,7 +17,8 @@ const props = withDefaults(defineProps<Props>(), {
   direction: 'horizontal',
   angle: '90deg',
   invertOnOut: false,
-  isGroup: false
+  isGroup: false,
+  easing: 'ease-out'
 });
 
 const { value, outValue, is, name, styles } = useTransition(props, {
@@ -41,6 +43,7 @@ const { value, outValue, is, name, styles } = useTransition(props, {
 .d-flip-fade-vertical-leave-active {
   transform-style: preserve-3d;
   transition: v-bind('styles.transition');
+  transition-timing-function: v-bind('styles.transitionTimingFunction');
 }
 
 .d-flip-fade-horizontal-enter-from {

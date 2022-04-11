@@ -12,7 +12,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const { required, disabled, id, colorScheme } = useFormControl();
-const asteriskColor = computed(() => `var(--d-color-${colorScheme.value}-5)`);
+const asteriskColor = computed(() => `var(--d-colors-${colorScheme.value}-5)`);
 </script>
 
 <template>
@@ -22,17 +22,13 @@ const asteriskColor = computed(() => `var(--d-color-${colorScheme.value}-5)`);
     display="block"
     :for="id"
     mb="1"
-    :color="disabled ? 'grey.6' : 'black'"
+    :color="disabled ? 'grey.6' : 'inherit'"
   >
     <slot />
   </DBox>
 </template>
 
-<style lang="postcss" scoped>
-.d-form-control-label {
-  display: block;
-}
-
+<style lang="postcss">
 .d-form-control-label--is-required::after {
   content: ' *';
   color: v-bind(asteriskColor);

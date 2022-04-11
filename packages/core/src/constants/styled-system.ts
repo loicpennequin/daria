@@ -39,6 +39,7 @@ export const styledSystem = system({
     defaultScale: [0, '0,2s', '0.3s', '0.5s', '0.8s', '1s'],
     // @ts-ignore
     transform(_: never, scale: any, props: any) {
+      // We use the props argument otherwise the value gets unwrapped and we get a string instead of the full transitions object
       const value = props.transition;
 
       if (isNil(value)) return null;
@@ -50,5 +51,9 @@ export const styledSystem = system({
         .map(([k, v]) => `${camelToKebabCase(k)} ${scale?.[v] ?? v}`)
         .join(', ');
     }
+  },
+
+  transitionTimingFunction: {
+    property: 'transitionTimingFunction'
   }
 });

@@ -8,6 +8,7 @@ import {
 } from '.';
 import { DInput } from '@daria/input';
 import { DRadioGroup } from '@daria/radio';
+import { DSurface } from '@daria/core';
 
 <Meta title="Components/FormControl" />
 
@@ -22,7 +23,8 @@ export const Template = args => ({
     DFormControlError,
     DFormControlHint,
     DInput,
-    DRadioGroup
+    DRadioGroup,
+    DSurface
   },
   setup() {
     const value = ref('');
@@ -34,7 +36,7 @@ export const Template = args => ({
     ];
     return { value, gender, genders };
   },
-  template: `
+  template: `  
     <DFormControl v-slot="formControlProps" :is-invalid="value === 'Ride'" mb="4">
       <DFormControlLabel>What is your favorite shoegaze band ?</DFormControlLabel>
       <DInput v-bind="formControlProps" v-model="value" />
@@ -53,6 +55,7 @@ export const Template = args => ({
         v-bind="formControlProps"
         :values="genders"
       />
+      <DFormControlHint>You ae not trying to get a gender studies degree</DFormControlHint>
       <DFormControlError>
         There are only two genders.
       </DFormControlError>

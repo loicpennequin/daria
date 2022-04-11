@@ -16,7 +16,8 @@
     "postinstall": "yarn gen:tsconfig",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "ui": "yarn workspace @daria/ui"
+    "ui": "yarn workspace @daria/ui",
+    "examples": "yarn workspace @daria/examples"
   },
   "dependencies": {
     "fs-extra": "^10.0.1",
