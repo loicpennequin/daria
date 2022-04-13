@@ -89,14 +89,7 @@ const styleProps = computed(() =>
 </script>
 
 <template>
-  <DFlex
-    gap="2"
-    wrap="nowrap"
-    is="label"
-    :for="id"
-    v-bind="styleProps.label"
-    v-readable-color="true"
-  >
+  <DFlex gap="2" wrap="nowrap" is="label" :for="id" v-readable-color="true">
     <DBox v-bind="styleProps.wrapper">
       <DVisuallyHidden>
         <input
@@ -107,7 +100,7 @@ const styleProps = computed(() =>
           v-bind="$attrs"
         />
       </DVisuallyHidden>
-      <DScaleFade>
+      <DScaleFade duration="0.15s">
         <DIcon
           v-if="isChecked"
           icon="checkbox"
@@ -117,7 +110,9 @@ const styleProps = computed(() =>
         />
       </DScaleFade>
     </DBox>
-    <slot />
+    <DBox v-bind="styleProps.label">
+      <slot />
+    </DBox>
   </DFlex>
 </template>
 

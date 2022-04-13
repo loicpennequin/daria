@@ -31,7 +31,7 @@ const styleProps = computed(() =>
       py: 3,
       align: 'center',
       justify: 'center',
-      fontWeight: 'semibold',
+      fontWeight: 'bold',
       bdr: props.borderRadius,
       borderWidth: '2px',
       borderStyle: 'solid',

@@ -3,6 +3,7 @@ import { App } from 'vue';
 export * from './components';
 export * from './directives';
 export * from './composables';
+export * from './constants/prop-types';
 
 export function makeComponentPlugin(components: Record<string, any>) {
   return {

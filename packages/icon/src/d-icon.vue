@@ -18,8 +18,8 @@ const iconComponent = computed(() => icons?.[props.icon] ?? null);
 </script>
 
 <template>
-  <DBox class="d-icon" :size="props.size">
-    <component :is="iconComponent" />
+  <DBox class="d-icon" display="inline-block" :size="props.size">
+    <component :is="iconComponent" fill="currentColor" />
   </DBox>
 </template>
 

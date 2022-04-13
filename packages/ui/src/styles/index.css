@@ -4,7 +4,6 @@ body {
   font-family: var(--d-fonts-body);
   font-weight: var(--d-font-weights-normal);
   font-size: var(--d-font-sizes-3);
-  background-color: var(--d-colors-grey-1);
 }
 
 h1,

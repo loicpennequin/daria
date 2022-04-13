@@ -2,7 +2,7 @@
 export default { inheritAttrs: false };
 </script>
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, useAttrs } from 'vue';
 import { DBox } from '@daria/core';
 import { DIcon } from '@daria/icon';
 import { DFlex } from '@daria/layout';
@@ -24,6 +24,8 @@ const props = withDefaults(defineProps<Props>(), {
   id: randomIdProp(),
   ...config.defaultProps
 });
+
+const attrs = useAttrs();
 
 const emit =
   defineEmits<{
@@ -48,6 +50,7 @@ const styleProps = computed(() => ({
     bg: props.disabled ? 'grey.1' : 'white',
     color: props.disabled ? 'grey.5' : 'black',
     align: 'center',
+    overflow: 'hidden',
     transition: { outlineColor: 1, borderColor: 1 },
     ...config.getDerivedStyleProps(props)
   },
@@ -58,14 +61,41 @@ const styleProps = computed(() => ({
     border: 'none',
     flexGrow: 1,
     focus: { outline: 'none' }
-  }
+  },
+  leftIcon: {
+    ml: 3,
+    pl: 2
+  },
+  rightIcon: { pl: 2, mr: 3 }
 }));
+
+const inputAttrs = computed(() =>
+  Object.fromEntries(
+    [
+      'required',
+      'min',
+      'max',
+      'minlength',
+      'maxlength',
+      'name',
+      'pattern',
+      'type',
+      'step',
+      'placeholder',
+      'onFocus',
+      'onBlur',
+      'onChange',
+      'onInput',
+      'onInvalid'
+    ].map(attr => [attr, attrs[attr]])
+  )
+);
 </script>
 
 <template>
-  <DFlex gap="0" class="d-input" is-inline v-bind="styleProps.wrapper">
+  <DFlex gap="0" class="d-input" v-bind="{ ...$attrs, ...styleProps.wrapper }">
     <slot name="left">
-      <DBox v-if="props.leftIcon" p="1">
+      <DBox v-if="props.leftIcon" v-bind="styleProps.leftIcon">
         <DIcon :icon="props.leftIcon" />
       </DBox>
     </slot>
@@ -76,11 +106,11 @@ const styleProps = computed(() => ({
       :forward-ref="props.forwardRef"
       :id="props.id"
       :disabled="disabled"
-      v-bind="{ ...$attrs, ...styleProps.input }"
+      v-bind="{ ...inputAttrs, ...styleProps.input }"
     />
 
     <slot name="right">
-      <DBox v-if="props.rightIcon" p="3">
+      <DBox v-if="props.rightIcon" v-bind="styleProps.rightIcon">
         <DIcon :icon="props.rightIcon" />
       </DBox>
     </slot>
